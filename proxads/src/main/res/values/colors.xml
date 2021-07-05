@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAds">#068abf</color>
+    <color name="colorAdsButton">#2471ff</color>
+
+    <color name="blueDark">#062737</color>
+    <color name="white">#ffffffff</color>
+    <color name="yellow">#eed202 </color>
+</resources>

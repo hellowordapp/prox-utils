@@ -1,0 +1,3 @@
+include ':proxads'
+include ':app'
+rootProject.name = "Prox Lib"
