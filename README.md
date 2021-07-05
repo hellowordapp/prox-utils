@@ -30,6 +30,18 @@ dependencies {
 
 ```
 
+
+### load splash with Adclose call back
+```sh
+        inter.loadSplash(int timeout, new AdClose() {
+            @Override
+            public void onAdClose() {
+		`//TO-DO`
+            }
+        });
+
+```
+
 > ### create native ads
 ```sh
         ProxAdUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
