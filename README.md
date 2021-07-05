@@ -8,14 +8,19 @@ dependencies {
 ```
 
 ## Usage
+
+### create interstitial
 ```sh
-//create interstitial
         ProxInterstitialAd inter = ProxAdUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
+```
 
-//load interstitial
+### load interstitial
+```sh
         inter.load();
+```
 
-//show interstitial with Adclose call back
+### show interstitial with Adclose call back
+```sh
         inter.show(new AdClose() {
             @Override
             public void onAdClose() {
@@ -25,8 +30,8 @@ dependencies {
 
 ```
 
+### create native ads
 ```sh
-//create native ads
         ProxAdUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
                 .load(new NativeAdCallback() {
                     @Override
