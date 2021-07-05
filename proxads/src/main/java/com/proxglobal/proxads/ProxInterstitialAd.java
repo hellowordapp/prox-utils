@@ -17,6 +17,7 @@ public class ProxInterstitialAd {
     private InterstitialAd interstitialAd;
     private Activity activity;
     private String adId;
+    private boolean isDone = false;
 
     public ProxInterstitialAd(Activity activity, String adId) {
         this.activity = activity;
@@ -77,6 +78,7 @@ public class ProxInterstitialAd {
             public void run() {
                 if (interstitialAd == null) {
                     adClose.onAdClose();
+                    isDone = true;
                 }
             }
         };
@@ -86,6 +88,7 @@ public class ProxInterstitialAd {
         InterstitialAd.load(activity, adId, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                if (isDone) return;
                 ProxInterstitialAd.this.interstitialAd = interstitialAd;
                 show(adClose);
                 handler.removeCallbacks(runnable);
