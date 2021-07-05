@@ -9,7 +9,7 @@ dependencies {
 
 ## Usage
 
-### create interstitial
+> ### create interstitial
 ```sh
         ProxInterstitialAd inter = ProxAdUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
 ```
@@ -30,7 +30,7 @@ dependencies {
 
 ```
 
-### create native ads
+> ### create native ads
 ```sh
         ProxAdUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
                 .load(new NativeAdCallback() {
