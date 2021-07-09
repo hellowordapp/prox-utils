@@ -96,6 +96,7 @@ public class ProxUtils {
             dialog.cancel();
 
         });
+        dialog.show();
     }
 
     private void linkToStore(Activity activity, String newPackage) {
