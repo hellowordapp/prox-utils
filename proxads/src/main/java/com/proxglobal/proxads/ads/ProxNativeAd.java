@@ -1,7 +1,6 @@
-package com.proxglobal.proxads;
+package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,7 +18,8 @@ import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
-import com.proxglobal.proxads.callback.NativeAdCallback;
+import com.proxglobal.proxads.R;
+import com.proxglobal.proxads.ads.callback.NativeAdCallback;
 
 public class ProxNativeAd {
     private Activity activity;

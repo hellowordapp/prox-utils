@@ -2,8 +2,13 @@
 <resources>
     <color name="colorAds">#068abf</color>
     <color name="colorAdsButton">#2471ff</color>
+    <color name="color_main">#068abf</color>
+
 
     <color name="blueDark">#062737</color>
     <color name="white">#ffffffff</color>
     <color name="yellow">#eed202 </color>
+    <color name="black">#000000</color>
+
+    <color name="text_des">#B0B0B0</color>
 </resources>

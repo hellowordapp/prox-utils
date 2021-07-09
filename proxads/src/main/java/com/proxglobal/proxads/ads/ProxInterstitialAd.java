@@ -1,4 +1,4 @@
-package com.proxglobal.proxads;
+package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -11,7 +11,7 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.proxglobal.proxads.callback.AdClose;
+import com.proxglobal.proxads.ads.callback.AdClose;
 
 public class ProxInterstitialAd {
     private InterstitialAd interstitialAd;

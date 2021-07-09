@@ -36,7 +36,17 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // Admob
+    implementation platform('com.google.firebase:firebase-bom:28.2.0')
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // g son
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //bottom sheet
+    implementation 'com.afollestad.material-dialogs:bottomsheets:3.2.1'
+
+    // Ad mob
     implementation 'com.google.android.gms:play-services-ads:20.1.0'
     implementation 'com.google.android.play:core:1.10.0'
 }
