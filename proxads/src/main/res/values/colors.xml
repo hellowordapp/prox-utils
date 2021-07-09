@@ -11,4 +11,9 @@
     <color name="black">#000000</color>
 
     <color name="text_des">#B0B0B0</color>
+
+    <color name="rating_title">#415368</color>
+    <color name="rating_button">#ff5582</color>
+    <color name="rating_desc">#cccccc</color>
+    <color name="rating_star">#fed555</color>
 </resources>

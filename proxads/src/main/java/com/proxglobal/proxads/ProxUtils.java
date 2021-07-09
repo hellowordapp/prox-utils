@@ -31,6 +31,7 @@ import java.util.function.Function;
 public class ProxUtils {
     private ProxUtils() {
     }
+
     public static ProxUtils INSTANCE = new ProxUtils();
 
     public static String TAG = "ProxUtils";
