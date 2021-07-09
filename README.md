@@ -53,7 +53,7 @@ dependencies {
                 });
 ```
 
-##Push Rate
+## Push Rate
 
 ```sh
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +83,11 @@ dependencies {
             ProxRateDialog.showIfNeed(supportFragmentManager)
         }
     } 
+```
+
+## Push update 
+```sh
+    ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode);
 ```
 
 
