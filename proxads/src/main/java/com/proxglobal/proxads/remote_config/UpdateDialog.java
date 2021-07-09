@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,12 @@ import androidx.fragment.app.FragmentManager;
 import com.proxglobal.proxads.R;
 
 public class UpdateDialog extends DialogFragment {
+    private int iconAppId;
+
+    public UpdateDialog(int iconAppId) {
+        this.iconAppId = iconAppId;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -24,6 +31,8 @@ public class UpdateDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_update, null);
 
+        view.findViewById(R.id.ud_icon).setBackgroundResource(iconAppId);
+        ((TextView) view.findViewById(R.id.ud_app_title)).setText(getString(R.string.app_name));
 
         builder.setView(view);
         Dialog d = builder.create();
@@ -53,7 +62,7 @@ public class UpdateDialog extends DialogFragment {
     @Override
     public void dismiss() {
         if (isAdded()) {
-            super.dismiss();;
+            super.dismiss();
         }
 
     }

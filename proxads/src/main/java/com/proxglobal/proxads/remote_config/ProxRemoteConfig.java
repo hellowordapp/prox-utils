@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,9 +23,14 @@ import com.proxglobal.proxads.R;
 
 public class ProxRemoteConfig {
     public static final String PREF_RATE = "PREF_RATE";
+    private int iconAppId;
+
+    public ProxRemoteConfig(int iconAppId) {
+        this.iconAppId = iconAppId;
+    }
 
     public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
-        UpdateDialog updateDialog = new UpdateDialog();
+        UpdateDialog updateDialog = new UpdateDialog(iconAppId);
 
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;
@@ -67,6 +73,9 @@ public class ProxRemoteConfig {
         ((TextView) dialog.findViewById(R.id.bru_title)).setText(config.title);
         ((TextView) dialog.findViewById(R.id.bru_version_name)).setText(config.versionName);
         ((TextView) dialog.findViewById(R.id.bru_message)).setText(config.message);
+        ((ImageView) dialog.findViewById(R.id.bru_icon)).setBackgroundResource(iconAppId);
+        ((TextView) dialog.findViewById(R.id.bru_app_title)).setText(activity.getString(R.string.app_name));
+
         ((Button) dialog.findViewById(R.id.bru_update)).setOnClickListener(v ->{
             linkToStore(activity, config.newPackage);
             dialog.cancel();

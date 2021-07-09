@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
-import com.proxglobal.proxads.ProxUtils
+import com.proxglobal.ProxUtils
 import com.proxglobal.proxads.ads.callback.AdClose
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
 

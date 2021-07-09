@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Test</string>
+
+    <string name="rating_title">Did you like the app?</string>
+    <string name="rating_des">Give us a quick rating so we know if you like it?</string>
+    <string name="later">LATER</string>
+    <string name="cancel">CANCEL</string>
+    <string name="submit">SUBMIT</string>
+    <string name="quite_ok">Quite ok</string>
+    <string name="rating_comment_hint">Please write your comment here …</string>
+    <string name="maybe_later">Maybe Later</string>
+</resources>

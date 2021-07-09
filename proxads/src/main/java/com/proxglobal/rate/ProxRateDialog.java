@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -35,20 +36,52 @@ public class ProxRateDialog extends DialogFragment {
     private Context context;
     private static SharedPreferences sp;
     private static ProxRateDialog dialog;
+    private int layoutId;
 
     private ProxRateDialog(Context context, Config config){
         mConfig = config;
         this.context = context;
         sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+        layoutId = R.layout.dialog_rating;
     }
 
+    private ProxRateDialog(Context context, int layoutId) {
+        this.layoutId = layoutId;
+        this.context = context;
+        sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+        mConfig = null;
+    }
+
+    /**
+     * init dialog view with layout id as param
+     * @param context
+     * @param layoutId
+     */
+    private static void init(Context context, int layoutId) {
+        dialog = new ProxRateDialog(context, layoutId);
+    }
+
+    /**
+     * init dialog view with default view and config
+     * @param context
+     * @param config
+     */
     public static void init(Context context, @NonNull Config config){
         dialog = new ProxRateDialog(context, config);
     }
 
+    /**
+     * show by anyway (ignore rated)
+     * @param fm
+     */
     public static void showAlways(FragmentManager fm){
         dialog.show(fm,"prox");
     }
+
+    /**
+     * show if you haven't rate this app yet
+     * @param fm
+     */
     public static void showIfNeed(FragmentManager fm){
         if (!sp.getBoolean("isRated", false)){
             dialog.show(fm, "prox");
@@ -60,7 +93,9 @@ public class ProxRateDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_rating, null);
+        view = inflater.inflate(layoutId, null);
+
+        loadConfig();
 
         RatingBar ratingBar = view.findViewById(R.id.rating_bar);
         TextView tvStar = view.findViewById(R.id.star_des);
@@ -107,6 +142,7 @@ public class ProxRateDialog extends DialogFragment {
             view.findViewById(R.id.submit).setVisibility(View.VISIBLE);
             if (v>0) tvStar.setText(starDes.get((int) v - 1));
             edComment.setVisibility(v < 4 ? View.VISIBLE : View.GONE);
+
             mConfig.listener.onChangeStar((int) v);
             if (v>=4){
                 sp.edit().putBoolean("isRated", true).apply();
@@ -119,6 +155,7 @@ public class ProxRateDialog extends DialogFragment {
                 dismiss();
             }
         });
+
         builder.setView(view);
         Dialog d = builder.create();
         d.setCanceledOnTouchOutside(false);
@@ -127,6 +164,25 @@ public class ProxRateDialog extends DialogFragment {
             d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
         return d;
+    }
+
+    private void loadConfig() {
+        if(mConfig.rateTitle != null)
+            ((TextView) view.findViewById(R.id.tv_rating_title)).setText(mConfig.rateTitle);
+
+        if(mConfig.description != null)
+            ((TextView) view.findViewById(R.id.tv_rating_description)).setText(mConfig.description);
+
+        if(mConfig.icon != null)
+            ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(mConfig.icon);
+
+        if(mConfig.backgroundIcon != null) {
+            ((ImageView) view.findViewById(R.id.icon)).setBackground(mConfig.backgroundIcon);
+        }
+
+        if(mConfig.commentHint != null) {
+            ((EditText) view.findViewById(R.id.comment)).setHint(mConfig.commentHint);
+        }
     }
 
     @Override
@@ -144,17 +200,64 @@ public class ProxRateDialog extends DialogFragment {
         }
     }
 
-
     public static class Config {
-
         private RatingDialogListener listener;
         private Drawable icon;
         private Drawable backgroundIcon;
+        private String rateTitle, description, commentHint;
 
+        /**
+         * set comment hint when edit text is empty<br>
+         * <b>don't call to use default</b>
+         * @param commentHint
+         */
+        public void setCommentHint(String commentHint) {
+            this.commentHint = commentHint;
+        }
 
+        /**
+         * set description for dialog <br>
+         * <b>don't call to use default</b>
+         * @param description
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        /**
+         * set title for dialog<br>
+         * <b>don't call to use default</b>
+         * @param title
+         */
+        public void setTitle(String title) {
+            this.rateTitle = title;
+        }
+
+        /**
+         * set icon for dialog<br>
+         * <b>don't call to use default</b>
+         * @param icon
+         */
+        public void setForegroundIcon(Drawable icon) {
+            this.icon = icon;
+        }
+
+        /**
+         * set background icon for dialog<br>
+         * <b>don't call to use default</b>
+         * @param backgroundIcon
+         */
+        public void setBackgroundIcon(Drawable backgroundIcon) {
+            this.backgroundIcon = backgroundIcon;
+        }
+
+        /**
+         * set listener for rating dialog<br>
+         * <strong>important</strong>
+         * @param listener
+         */
         public void setListener(RatingDialogListener listener) {
             this.listener = listener;
         }
-
     }
 }

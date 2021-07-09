@@ -15,4 +15,10 @@
         <item name="android:minHeight">15.0px</item>
         <item name="android:text">Ad</item>
     </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rating_desc</item>
+        <item name="colorControlActivated">@color/rating_star</item>
+    </style>
+
 </resources>

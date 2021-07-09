@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.proxglobal.proxads.ProxUtils;
+import com.proxglobal.ProxUtils;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
 
 public class MainActivity2 extends AppCompatActivity {
