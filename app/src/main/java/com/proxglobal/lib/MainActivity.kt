@@ -1,14 +1,18 @@
 package com.proxglobal.lib
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
-import com.proxglobal.ProxUtils
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.callback.AdClose
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
+import com.proxglobal.rate.ProxRateDialog
+import com.proxglobal.rate.ProxRateDialog.Config
+import com.proxglobal.rate.RatingDialogListener
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +34,31 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.test_native).setOnClickListener {
             ProxUtils.INSTANCE.createNativeAd(this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big).load(
-                NativeAdCallback {
+                    findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big).load(
+                    NativeAdCallback {
 
-                })
+                    })
         }
 
+        val config = Config()
+
+        config.setListener(object : RatingDialogListener {
+            override fun onSubmitButtonClicked(rate: Int, comment: String?) {
+                Toast.makeText(this@MainActivity, "Submit", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onLaterButtonClicked() {
+                Toast.makeText(this@MainActivity, "Later", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onChangeStar(rate: Int) {
+                Toast.makeText(this@MainActivity, "Star change", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        ProxRateDialog.init(this@MainActivity, config)
+
+        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(supportFragmentManager) }
     }
 
 }

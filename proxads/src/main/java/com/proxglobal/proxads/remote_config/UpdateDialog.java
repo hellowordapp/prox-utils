@@ -19,9 +19,11 @@ import com.proxglobal.proxads.R;
 
 public class UpdateDialog extends DialogFragment {
     private int iconAppId;
+    private String appTitle;
 
-    public UpdateDialog(int iconAppId) {
+    public UpdateDialog(int iconAppId, String appTitle) {
         this.iconAppId = iconAppId;
+        this.appTitle = appTitle;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class UpdateDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_update, null);
 
         view.findViewById(R.id.ud_icon).setBackgroundResource(iconAppId);
-        ((TextView) view.findViewById(R.id.ud_app_title)).setText(getString(R.string.app_name));
+        ((TextView) view.findViewById(R.id.ud_app_title)).setText(appTitle);
 
         builder.setView(view);
         Dialog d = builder.create();

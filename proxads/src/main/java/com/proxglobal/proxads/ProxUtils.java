@@ -1,7 +1,6 @@
-package com.proxglobal;
+package com.proxglobal.proxads;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
 import com.proxglobal.proxads.ads.ProxNativeAd;
 import com.proxglobal.proxads.remote_config.ProxRemoteConfig;
-import com.proxglobal.rate.ProxRateDialog;
 
 public class ProxUtils {
     private ProxUtils() {
