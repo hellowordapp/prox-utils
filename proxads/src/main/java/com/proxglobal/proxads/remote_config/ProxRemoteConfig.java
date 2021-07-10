@@ -30,7 +30,7 @@ public class ProxRemoteConfig {
     }
 
     public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
-        UpdateDialog updateDialog = new UpdateDialog(iconAppId);
+        UpdateDialog updateDialog = new UpdateDialog(iconAppId, activity.getString(R.string.app_name));
 
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;
