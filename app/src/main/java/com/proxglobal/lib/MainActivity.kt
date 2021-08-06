@@ -40,6 +40,22 @@ class MainActivity : AppCompatActivity() {
                     })
         }
 
+        findViewById<Button>(R.id.test_native_shimmer).setOnClickListener {
+            ProxUtils.INSTANCE.createBigNativeAdWithShimmer(this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container)).load(
+                NativeAdCallback {
+
+                })
+        }
+
+        findViewById<Button>(R.id.test_native_medium_shimmer).setOnClickListener {
+            ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container)).load(
+                NativeAdCallback {
+
+                })
+        }
+
         val config = Config()
 
         config.setListener(object : RatingDialogListener {
