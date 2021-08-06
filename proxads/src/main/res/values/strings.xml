@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Test</string>
+    <string name="app_display_name">Test</string>
 
     <string name="rating_title">Did you like the app?</string>
     <string name="rating_des">Give us a quick rating so we know if you like it?</string>

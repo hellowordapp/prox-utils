@@ -75,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         ProxRateDialog.init(this@MainActivity, config)
 
         findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(supportFragmentManager) }
+
+        ProxUtils.INSTANCE.initFirebaseRemoteConfig(this, BuildConfig.VERSION_CODE,
+            R.drawable.ic_launcher_background, getString(R.string.app_display_name))
     }
 
 }

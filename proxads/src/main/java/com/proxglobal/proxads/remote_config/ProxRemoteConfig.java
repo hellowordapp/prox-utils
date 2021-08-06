@@ -24,13 +24,15 @@ import com.proxglobal.proxads.R;
 public class ProxRemoteConfig {
     public static final String PREF_RATE = "PREF_RATE";
     private int iconAppId;
+    private String appName;
 
-    public ProxRemoteConfig(int iconAppId) {
+    public ProxRemoteConfig(int iconAppId, String appName) {
         this.iconAppId = iconAppId;
+        this.appName = appName;
     }
 
     public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
-        UpdateDialog updateDialog = new UpdateDialog(iconAppId, activity.getString(R.string.app_name));
+        UpdateDialog updateDialog = new UpdateDialog(iconAppId, appName);
 
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;

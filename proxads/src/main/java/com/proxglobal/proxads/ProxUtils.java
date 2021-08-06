@@ -39,7 +39,8 @@ public class ProxUtils {
         return nativeAd;
     }
 
-    public void initFirebaseRemoteConfig(AppCompatActivity activity, int appVersionCode, int iconAppId) {
-        new ProxRemoteConfig(iconAppId).showRemoteConfigIfNecessary(activity, appVersionCode);
+    public void initFirebaseRemoteConfig(AppCompatActivity activity, int appVersionCode,
+                                         int iconAppId, String appName) {
+        new ProxRemoteConfig(iconAppId, appName).showRemoteConfigIfNecessary(activity, appVersionCode);
     }
 }
