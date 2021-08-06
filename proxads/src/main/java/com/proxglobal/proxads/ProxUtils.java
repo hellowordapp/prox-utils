@@ -27,7 +27,20 @@ public class ProxUtils {
         return new ProxNativeAd(activity, adId, adContainer, layoutAdId);
     }
 
-    public void initFirebaseRemoteConfig(AppCompatActivity activity, int appVersionCode, int iconAppId) {
-        new ProxRemoteConfig(iconAppId).showRemoteConfigIfNecessary(activity, appVersionCode);
+    public ProxNativeAd createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer) {
+        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, R.layout.ads_native_medium);
+        nativeAd.enableShimmer(R.layout.shimmer_native_medium);
+        return nativeAd;
+    }
+
+    public ProxNativeAd createBigNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer) {
+        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, R.layout.ads_native_big);
+        nativeAd.enableShimmer(R.layout.shimmer_native_big);
+        return nativeAd;
+    }
+
+    public void initFirebaseRemoteConfig(AppCompatActivity activity, int appVersionCode,
+                                         int iconAppId, String appName) {
+        new ProxRemoteConfig(iconAppId, appName).showRemoteConfigIfNecessary(activity, appVersionCode);
     }
 }

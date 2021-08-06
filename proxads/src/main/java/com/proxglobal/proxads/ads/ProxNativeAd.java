@@ -1,7 +1,9 @@
 package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -171,5 +174,23 @@ public class ProxNativeAd {
         // with the media content from this native ad.
         adView.setNativeAd(nativeAd);
 
+    }
+
+    public void enableShimmer(int shimmerLayoutId) {
+        ShimmerFrameLayout shimmer =
+                ((ShimmerFrameLayout) LayoutInflater.from(activity).inflate(shimmerLayoutId, null, false));
+
+        if(shimmerLayoutId == R.layout.shimmer_native_medium) {
+            shimmer.setLayoutParams(
+                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            (int) activity.getResources().getDimension(R.dimen.shimmer_medium_native_height)));
+        } else {
+            shimmer.setLayoutParams(
+                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            (int) activity.getResources().getDimension(R.dimen.shimmer_native_height)));
+        }
+
+        adContainer.removeAllViews();
+        adContainer.addView(shimmer);
     }
 }

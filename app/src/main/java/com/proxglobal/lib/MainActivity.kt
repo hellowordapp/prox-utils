@@ -40,6 +40,22 @@ class MainActivity : AppCompatActivity() {
                     })
         }
 
+        findViewById<Button>(R.id.test_native_shimmer).setOnClickListener {
+            ProxUtils.INSTANCE.createBigNativeAdWithShimmer(this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container)).load(
+                NativeAdCallback {
+
+                })
+        }
+
+        findViewById<Button>(R.id.test_native_medium_shimmer).setOnClickListener {
+            ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container)).load(
+                NativeAdCallback {
+
+                })
+        }
+
         val config = Config()
 
         config.setListener(object : RatingDialogListener {
@@ -59,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         ProxRateDialog.init(this@MainActivity, config)
 
         findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(supportFragmentManager) }
+
+        ProxUtils.INSTANCE.initFirebaseRemoteConfig(this, BuildConfig.VERSION_CODE,
+            R.drawable.ic_launcher_background, getString(R.string.app_display_name))
     }
 
 }

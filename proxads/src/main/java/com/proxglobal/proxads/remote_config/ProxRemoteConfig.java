@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,22 +17,25 @@ import com.afollestad.materialdialogs.LayoutMode;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
 import com.afollestad.materialdialogs.bottomsheets.BuildConfig;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
 import com.proxglobal.proxads.R;
 
 public class ProxRemoteConfig {
+    private static final String TAG = "ProxRemoteConfig";
+
     public static final String PREF_RATE = "PREF_RATE";
     private int iconAppId;
+    private String appName;
 
-    public ProxRemoteConfig(int iconAppId) {
+    public ProxRemoteConfig(int iconAppId, String appName) {
         this.iconAppId = iconAppId;
+        this.appName = appName;
     }
 
     public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
-        UpdateDialog updateDialog = new UpdateDialog(iconAppId, activity.getString(R.string.app_name));
-
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;
         if (BuildConfig.DEBUG) {
@@ -43,7 +47,7 @@ public class ProxRemoteConfig {
 
         config.setConfigSettingsAsync(configSettings);
 
-        config.fetchAndActivate().addOnCompleteListener(task -> {
+        config.fetchAndActivate().addOnCompleteListener(activity, task -> {
             if (!task.isSuccessful()) return;
             String json = config.getString("config_update_version");
 
@@ -52,7 +56,8 @@ public class ProxRemoteConfig {
             if (result.isRequired) {
                 for (int version : result.versionCodeRequired) {
                     if (version == appVersionCode) {
-                        updateDialog.showDialog(activity.getSupportFragmentManager());
+                        UpdateDialog updateDialog = new UpdateDialog(iconAppId, appName);
+                        updateDialog.showDialog(activity.getSupportFragmentManager(), result);
                         break;
                     }
                 }
@@ -61,26 +66,27 @@ public class ProxRemoteConfig {
             else if (result.versionCode > appVersionCode) {
                 showBottomSheetUpdate(activity, result);
             }
-
-
         });
     }
 
     private void showBottomSheetUpdate(Activity activity, ConfigUpdateVersion config) {
-        MaterialDialog dialog = new MaterialDialog(activity, new BottomSheet(LayoutMode.WRAP_CONTENT));
+        BottomSheet bottomSheet = new BottomSheet(LayoutMode.WRAP_CONTENT);
+        MaterialDialog dialog = new MaterialDialog(activity, bottomSheet);
+
         dialog.setContentView(R.layout.bottom_remote_update);
 
         ((TextView) dialog.findViewById(R.id.bru_title)).setText(config.title);
         ((TextView) dialog.findViewById(R.id.bru_version_name)).setText(config.versionName);
         ((TextView) dialog.findViewById(R.id.bru_message)).setText(config.message);
         ((ImageView) dialog.findViewById(R.id.bru_icon)).setBackgroundResource(iconAppId);
-        ((TextView) dialog.findViewById(R.id.bru_app_title)).setText(activity.getString(R.string.app_name));
+        ((TextView) dialog.findViewById(R.id.bru_app_title)).setText(appName);
 
         ((Button) dialog.findViewById(R.id.bru_update)).setOnClickListener(v ->{
             linkToStore(activity, config.newPackage);
             dialog.cancel();
-
         });
+
+        dialog.show();
     }
 
     private void linkToStore(Activity activity, String newPackage) {
