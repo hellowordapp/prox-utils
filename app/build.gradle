@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
-
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -47,6 +48,7 @@ dependencies {
     // Admob
     implementation 'com.google.android.gms:play-services-ads:20.2.0'
 
+//    implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.android.play:core:1.10.0'
     implementation project(":proxads")
 }
