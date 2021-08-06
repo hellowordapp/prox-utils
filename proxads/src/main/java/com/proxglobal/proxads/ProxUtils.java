@@ -27,15 +27,22 @@ public class ProxUtils {
         return new ProxNativeAd(activity, adId, adContainer, layoutAdId);
     }
 
+    public ProxNativeAd createNativeAdWithShimmer (Activity activity, String adId, FrameLayout adContainer,
+                                                   int layoutAdId, int shimmerLayoutId) {
+        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, layoutAdId);
+        nativeAd.enableShimmer(shimmerLayoutId);
+        return nativeAd;
+    }
+
     public ProxNativeAd createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer) {
-        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, R.layout.ads_native_medium);
-        nativeAd.enableShimmer(R.layout.shimmer_native_medium);
+        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, com.proxglobal.proxads.R.layout.ads_native_medium);
+        nativeAd.enableShimmer(com.proxglobal.proxads.R.layout.shimmer_native_medium);
         return nativeAd;
     }
 
     public ProxNativeAd createBigNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer) {
-        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, R.layout.ads_native_big);
-        nativeAd.enableShimmer(R.layout.shimmer_native_big);
+        ProxNativeAd nativeAd = new ProxNativeAd(activity, adId, adContainer, com.proxglobal.proxads.R.layout.ads_native_big);
+        nativeAd.enableShimmer(com.proxglobal.proxads.R.layout.shimmer_native_big);
         return nativeAd;
     }
 

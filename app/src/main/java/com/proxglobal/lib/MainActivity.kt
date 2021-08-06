@@ -2,6 +2,7 @@ package com.proxglobal.lib
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     })
         }
 
-        findViewById<Button>(R.id.test_native_shimmer).setOnClickListener {
+        findViewById<Button>(R.id.test_native_big_shimmer).setOnClickListener {
             ProxUtils.INSTANCE.createBigNativeAdWithShimmer(this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container)).load(
                 NativeAdCallback {

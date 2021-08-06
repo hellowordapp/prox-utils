@@ -1,16 +1,18 @@
 package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.LayoutInflaterCompat;
 
+import com.facebook.shimmer.Shimmer;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -177,18 +179,22 @@ public class ProxNativeAd {
     }
 
     public void enableShimmer(int shimmerLayoutId) {
-        ShimmerFrameLayout shimmer =
-                ((ShimmerFrameLayout) LayoutInflater.from(activity).inflate(shimmerLayoutId, null, false));
+        View view = activity.getLayoutInflater().inflate(shimmerLayoutId, adContainer);
 
-        if(shimmerLayoutId == R.layout.shimmer_native_medium) {
-            shimmer.setLayoutParams(
-                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            (int) activity.getResources().getDimension(R.dimen.shimmer_medium_native_height)));
+        ShimmerFrameLayout shimmer;
+        if(view instanceof ShimmerFrameLayout) {
+            shimmer = (ShimmerFrameLayout) view;
         } else {
+            shimmer = new ShimmerFrameLayout(activity);
+            shimmer.setId(View.generateViewId());
             shimmer.setLayoutParams(
-                    new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            (int) activity.getResources().getDimension(R.dimen.shimmer_native_height)));
+                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT));
+
+            activity.getLayoutInflater().inflate(shimmerLayoutId, shimmer);
         }
+
+        shimmer.startShimmer();
 
         adContainer.removeAllViews();
         adContainer.addView(shimmer);

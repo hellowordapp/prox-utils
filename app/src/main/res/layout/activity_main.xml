@@ -38,11 +38,11 @@
             android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/test_native_shimmer"
+            android:id="@+id/test_native_big_shimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="Test native shimmer"
+            android:text="Test big native shimmer"
             android:textColor="@color/white"/>
 
         <Button
@@ -51,6 +51,14 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="Test native medium shimmer"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/test_native_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Test native shimmer"
             android:textColor="@color/white"/>
 
         <Button

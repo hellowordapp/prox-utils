@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/shimmer_medium_native_height"
     android:background="@drawable/bg_ads"
-    app:shimmer_auto_start="true"
     app:shimmer_base_color="#ccc">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="5dip">
 
         <LinearLayout
@@ -21,7 +20,7 @@
             android:paddingBottom="5.0dip">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dip"
                 android:clickable="false"
@@ -80,7 +79,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:background="@color/lightTransparent"
@@ -88,7 +87,7 @@
                 android:gravity="center" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="5.0dip"
@@ -96,7 +95,7 @@
                 android:paddingRight="10dip">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/lightTransparent"
                     android:clickable="false"
@@ -104,7 +103,7 @@
 
                     <TextView
 
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="false"
                         android:ellipsize="end"
@@ -114,7 +113,7 @@
                         android:textSize="12.0sp" />
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="false"
                         android:ellipsize="end"
