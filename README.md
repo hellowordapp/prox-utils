@@ -3,7 +3,7 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:0.0.7'
+        implementation 'com.github.hellowordapp:prox-utils:0.0.8'
 }
 ```
 
@@ -51,6 +51,7 @@ dependencies {
 		    	`//TO-DO`
                     }
                 });
+
 ```
 
 ## Push Rate
@@ -87,7 +88,7 @@ dependencies {
 
 ## Push update 
 ```sh
-    ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode);
+    ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
 ```
 
 
