@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.LayoutMode;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
 import com.proxglobal.proxads.ProxUtils;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
 

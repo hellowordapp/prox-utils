@@ -22,6 +22,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
 import com.proxglobal.proxads.R;
+import com.proxglobal.proxads.remote_config.callback.RemoteConfigCallback;
 
 public class ProxRemoteConfig {
     private static final String TAG = "ProxRemoteConfig";
@@ -29,6 +30,8 @@ public class ProxRemoteConfig {
     public static final String PREF_RATE = "PREF_RATE";
     private int iconAppId;
     private String appName;
+
+    private RemoteConfigCallback callback;
 
     public ProxRemoteConfig(int iconAppId, String appName) {
         this.iconAppId = iconAppId;
@@ -56,15 +59,29 @@ public class ProxRemoteConfig {
             if (result.isRequired) {
                 for (int version : result.versionCodeRequired) {
                     if (version == appVersionCode) {
-                        UpdateDialog updateDialog = new UpdateDialog(iconAppId, appName);
-                        updateDialog.showDialog(activity.getSupportFragmentManager(), result);
-                        break;
+                        if(callback == null) {
+                            UpdateDialog updateDialog = new UpdateDialog(iconAppId, appName);
+                            updateDialog.showDialog(activity.getSupportFragmentManager(), result);
+                            break;
+                        } else {
+                            callback.onRequireUpdateConfig(result);
+                        }
                     }
                 }
             }
-            else if (!result.status) return;
+            else if (!result.status) {
+                if(callback == null) {
+                    return;
+                } else {
+                    callback.onNull();
+                }
+            }
             else if (result.versionCode > appVersionCode) {
-                showBottomSheetUpdate(activity, result);
+                if(callback == null) {
+                    showBottomSheetUpdate(activity, result);
+                } else {
+                    callback.onOptionsUpdateConfig(result);
+                }
             }
         });
     }
@@ -87,6 +104,11 @@ public class ProxRemoteConfig {
         });
 
         dialog.show();
+    }
+
+    public ProxRemoteConfig setRemoteConfigCallback(RemoteConfigCallback callback) {
+        this.callback = callback;
+        return this;
     }
 
     private void linkToStore(Activity activity, String newPackage) {

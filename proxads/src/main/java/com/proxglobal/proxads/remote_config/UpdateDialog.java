@@ -1,10 +1,16 @@
 package com.proxglobal.proxads.remote_config;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +28,7 @@ import com.proxglobal.proxads.R;
 
 public class UpdateDialog extends DialogFragment {
     private ConfigUpdateVersion configUpdateVersion;
-    private int iconAppId;
+    private int iconAppId = 0;
     private String appTitle;
 
     private TextView versionName;
@@ -30,10 +36,16 @@ public class UpdateDialog extends DialogFragment {
     private TextView message;
 
     private long exitPressTime= 0L;
+    private final int layoutId;
 
     public UpdateDialog(int iconAppId, String appTitle) {
         this.iconAppId = iconAppId;
         this.appTitle = appTitle;
+        this.layoutId = R.layout.dialog_update;
+    }
+
+    public UpdateDialog(int layoutId) {
+        this.layoutId = layoutId;
     }
 
     @NonNull
@@ -41,10 +53,10 @@ public class UpdateDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_update, null);
+        View view = inflater.inflate(layoutId, null);
 
-        view.findViewById(R.id.ud_icon).setBackgroundResource(iconAppId);
-        ((TextView) view.findViewById(R.id.ud_app_title)).setText(appTitle);
+        if(iconAppId != 0) view.findViewById(R.id.ud_icon).setBackgroundResource(iconAppId);
+        if(appTitle != null) ((TextView) view.findViewById(R.id.ud_app_title)).setText(appTitle);
         getView(view);
 
         builder.setView(view);
@@ -84,6 +96,12 @@ public class UpdateDialog extends DialogFragment {
         versionName = parent.findViewById(R.id.ud_version_name);
         title = parent.findViewById(R.id.ud_title);
         message = parent.findViewById(R.id.ud_message);
+
+        parent.findViewById(R.id.ud_update).setOnClickListener((v)->{
+            if(configUpdateVersion != null) {
+                linkToStore(configUpdateVersion.newPackage);
+            }
+        });
     }
 
     @Override
@@ -116,5 +134,39 @@ public class UpdateDialog extends DialogFragment {
             super.dismiss();
         }
 
+    }
+
+    private void linkToStore(String newPackage) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(
+                ProxRemoteConfig.PREF_RATE, Context.MODE_PRIVATE
+        );
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean(ProxRemoteConfig.PREF_RATE, true);
+        editor.apply();
+
+        String appPackageName = "";
+        if (newPackage.equals("")) {
+            appPackageName = requireActivity().getPackageName();
+        } else {
+            appPackageName = newPackage;
+        }
+
+        try {
+            requireActivity().startActivity(
+                    new Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + appPackageName)
+                    )
+            );
+        } catch (ActivityNotFoundException e) {
+            requireActivity().startActivity(
+                    new Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)
+                    )
+            );
+        }
     }
 }
