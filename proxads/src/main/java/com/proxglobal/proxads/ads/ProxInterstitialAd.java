@@ -18,6 +18,7 @@ public class ProxInterstitialAd {
     private Activity activity;
     private String adId;
     private boolean isDone = false;
+    private int countTime = 0;
 
     public ProxInterstitialAd(Activity activity, String adId) {
         this.activity = activity;
@@ -68,6 +69,13 @@ public class ProxInterstitialAd {
         });
         interstitialAd.show(activity);
         interstitialAd = null;
+    }
+
+    public void show(AdClose adClose, int times) {
+        countTime++;
+        if (times % countTime == 0) {
+            show(adClose);
+        }
     }
 
     public ProxInterstitialAd loadSplash(int timeout, AdClose adClose) {

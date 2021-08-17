@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.LayoutMode;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
 import com.afollestad.materialdialogs.bottomsheets.BuildConfig;
+import com.afollestad.materialdialogs.internal.message.DialogContentLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -90,7 +91,7 @@ public class ProxRemoteConfig {
         BottomSheet bottomSheet = new BottomSheet(LayoutMode.WRAP_CONTENT);
         MaterialDialog dialog = new MaterialDialog(activity, bottomSheet);
 
-        dialog.setContentView(R.layout.bottom_remote_update);
+        dialog.getView().contentLayout.addCustomView(R.layout.bottom_remote_update, null, false, false);
 
         ((TextView) dialog.findViewById(R.id.bru_title)).setText(config.title);
         ((TextView) dialog.findViewById(R.id.bru_version_name)).setText(config.versionName);
