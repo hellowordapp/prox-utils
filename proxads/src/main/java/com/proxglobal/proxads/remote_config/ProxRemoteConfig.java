@@ -16,12 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.afollestad.materialdialogs.LayoutMode;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
-import com.afollestad.materialdialogs.bottomsheets.BuildConfig;
-import com.afollestad.materialdialogs.internal.message.DialogContentLayout;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
+import com.proxglobal.proxads.BuildConfig;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.remote_config.callback.RemoteConfigCallback;
 
@@ -39,10 +37,10 @@ public class ProxRemoteConfig {
         this.appName = appName;
     }
 
-    public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
+    public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode, boolean isDebug) {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;
-        if (BuildConfig.DEBUG) {
+        if (isDebug) {
             minFetch = 0;
         }
 
