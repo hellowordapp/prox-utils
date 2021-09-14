@@ -3,7 +3,7 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:0.0.8'
+        implementation 'com.github.hellowordapp:prox-utils:0.0.9'
 }
 ```
 
@@ -11,7 +11,7 @@ dependencies {
 
 > ### create interstitial
 ```sh
-        ProxInterstitialAd inter = ProxAdUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
+        ProxInterstitialAd inter = ProxUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
 ```
 
 ### load interstitial
@@ -30,7 +30,6 @@ dependencies {
 
 ```
 
-
 ### load splash with Adclose call back
 ```sh
         inter.loadSplash(int timeout, new AdClose() {
@@ -44,7 +43,7 @@ dependencies {
 
 > ### create native ads
 ```sh
-        ProxAdUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
+        ProxUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
                 .load(new NativeAdCallback() {
                     @Override
                     public void onNativeAdCallback() {
@@ -52,6 +51,24 @@ dependencies {
                     }
                 });
 
+```
+
+### create native ads with shimmer
+```sh
+        ProxUtils.INSTANCE.createNativeAdWithShimmer(
+                activity, String adId,
+                FrameLayout adContainer, int layoutAdId, int layoutShimmerId).load(
+                NativeAdCallback {
+
+                })
+```
+
+> ### Open App Ads
+```sh
+    class OpenAdsApp: ProxOpenAdsApplication() {
+        override fun getOpenAdsId(): String = "ca-app-pub-3940256099942544/3419835294"
+   
+    }
 ```
 
 ## Push Rate

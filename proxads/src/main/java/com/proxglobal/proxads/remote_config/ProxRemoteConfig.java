@@ -16,11 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.afollestad.materialdialogs.LayoutMode;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
-import com.afollestad.materialdialogs.bottomsheets.BuildConfig;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
+import com.proxglobal.proxads.BuildConfig;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.remote_config.callback.RemoteConfigCallback;
 
@@ -38,10 +37,10 @@ public class ProxRemoteConfig {
         this.appName = appName;
     }
 
-    public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode) {
+    public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode, boolean isDebug) {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         long minFetch = 12 * 60 * 60;
-        if (BuildConfig.DEBUG) {
+        if (isDebug) {
             minFetch = 0;
         }
 
@@ -90,7 +89,7 @@ public class ProxRemoteConfig {
         BottomSheet bottomSheet = new BottomSheet(LayoutMode.WRAP_CONTENT);
         MaterialDialog dialog = new MaterialDialog(activity, bottomSheet);
 
-        dialog.setContentView(R.layout.bottom_remote_update);
+        dialog.getView().contentLayout.addCustomView(R.layout.bottom_remote_update, null, false, false);
 
         ((TextView) dialog.findViewById(R.id.bru_title)).setText(config.title);
         ((TextView) dialog.findViewById(R.id.bru_version_name)).setText(config.versionName);

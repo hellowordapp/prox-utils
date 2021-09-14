@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
         ) }
 
-        ProxUtils.INSTANCE.initFirebaseRemoteConfig(this, BuildConfig.VERSION_CODE,
-            R.drawable.ic_launcher_background, getString(R.string.app_display_name))
+        ProxUtils.INSTANCE.initFirebaseRemoteConfig(this, BuildConfig.VERSION_CODE, BuildConfig.DEBUG,
+                R.drawable.ic_launcher_background, getString(R.string.app_display_name))
     }
 }
