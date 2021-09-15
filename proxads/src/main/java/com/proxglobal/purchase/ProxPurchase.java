@@ -265,7 +265,7 @@ public class ProxPurchase {
     }
 
     //check all id INAP + Subs
-    public boolean isPurchased(Context context) {
+    public boolean isPurchased() {
         if (listINAPId != null) {
             Purchase.PurchasesResult result = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
             if (result.getResponseCode() == BillingClient.BillingResponseCode.OK && result.getPurchasesList() != null) {

@@ -1,6 +1,7 @@
 package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.proxglobal.proxads.ads.callback.AdClose;
+import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxInterstitialAd {
     private InterstitialAd interstitialAd;
@@ -42,7 +44,8 @@ public class ProxInterstitialAd {
     }
 
     public void show (AdClose adClose) {
-        if (interstitialAd == null) {
+
+        if (interstitialAd == null || ProxPurchase.getInstance().isPurchased()) {
             adClose.onAdClose();
             return;
         }
@@ -79,6 +82,11 @@ public class ProxInterstitialAd {
     }
 
     public ProxInterstitialAd loadSplash(int timeout, AdClose adClose) {
+
+        if (ProxPurchase.getInstance().isPurchased()) {
+            adClose.onAdClose();
+            return null;
+        }
 
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {

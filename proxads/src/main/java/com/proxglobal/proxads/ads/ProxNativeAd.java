@@ -25,6 +25,7 @@ import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.ads.callback.NativeAdCallback;
+import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxNativeAd {
     private Activity activity;
@@ -40,6 +41,9 @@ public class ProxNativeAd {
     }
 
     public void load (NativeAdCallback callback) {
+        if (ProxPurchase.getInstance().isPurchased()) {
+            return;
+        }
         AdLoader.Builder builder = new AdLoader.Builder(activity, adId).forNativeAd(nativeAd -> {
             if (activity.isDestroyed()) {
                 nativeAd.destroy();
