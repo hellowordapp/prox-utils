@@ -44,7 +44,6 @@ public class ProxInterstitialAd {
     }
 
     public void show (AdClose adClose) {
-
         if (interstitialAd == null || ProxPurchase.getInstance().isPurchased()) {
             adClose.onAdClose();
             return;
@@ -82,7 +81,6 @@ public class ProxInterstitialAd {
     }
 
     public ProxInterstitialAd loadSplash(int timeout, AdClose adClose) {
-
         if (ProxPurchase.getInstance().isPurchased()) {
             adClose.onAdClose();
             return null;
@@ -113,6 +111,7 @@ public class ProxInterstitialAd {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 adClose.onAdClose();
+                handler.removeCallbacks(runnable);
             }
         });
 
