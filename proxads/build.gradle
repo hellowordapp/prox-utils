@@ -62,4 +62,7 @@ dependencies {
     // Purchase
     implementation("com.android.billingclient:billing-ktx:4.0.0")
 
+    //loading dialog
+    implementation 'com.kaopiz:kprogresshud:1.0.2'
+
 }

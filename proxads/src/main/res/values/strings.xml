@@ -11,4 +11,6 @@
     <string name="quite_ok">Quite ok</string>
     <string name="rating_comment_hint">Please write your comment here …</string>
     <string name="maybe_later">Maybe Later</string>
+
+    <string name="loading_ads">Loading ads</string>
 </resources>

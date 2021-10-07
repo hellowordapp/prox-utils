@@ -12,6 +12,8 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.ads.callback.AdClose;
 import com.proxglobal.purchase.ProxPurchase;
 
@@ -21,10 +23,18 @@ public class ProxInterstitialAd {
     private String adId;
     private boolean isDone = false;
     private int countTime = 0;
+    private KProgressHUD loadingDialog;
 
     public ProxInterstitialAd(Activity activity, String adId) {
         this.activity = activity;
         this.adId = adId;
+        loadingDialog = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(activity.getString(R.string.loading_ads))
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setAutoDismiss(true)
+                .setDimAmount(0.5f);
     }
 
     public ProxInterstitialAd load () {
@@ -44,6 +54,24 @@ public class ProxInterstitialAd {
     }
 
     public void show (AdClose adClose) {
+        if (loadingDialog.isShowing()){
+            return;
+        }
+        loadingDialog.show();
+        new Handler().postDelayed(() -> {
+            loadingDialog.dismiss();
+            showAds(adClose);
+        }, 700);
+    }
+
+    public void show(AdClose adClose, int times) {
+        countTime++;
+        if (times % countTime == 0) {
+            show(adClose);
+        }
+    }
+
+    private void showAds (AdClose adClose) {
         if (interstitialAd == null || ProxPurchase.getInstance().isPurchased()) {
             adClose.onAdClose();
             return;
@@ -71,13 +99,6 @@ public class ProxInterstitialAd {
         });
         interstitialAd.show(activity);
         interstitialAd = null;
-    }
-
-    public void show(AdClose adClose, int times) {
-        countTime++;
-        if (times % countTime == 0) {
-            show(adClose);
-        }
     }
 
     public ProxInterstitialAd loadSplash(int timeout, AdClose adClose) {
