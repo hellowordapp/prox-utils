@@ -3,6 +3,7 @@ package com.proxglobal.proxads.ads;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -67,6 +68,8 @@ public class ProxInterstitialAd {
 
     public void show(AdClose adClose, int times) {
         countTime++;
+        Log.d("ProxInterstitialAd", "countTime x times: " + countTime + " x " + times);
+        Log.d("ProxInterstitialAd", "interstitialAd: " + interstitialAd);
         if (times % countTime == 0) {
             show(adClose);
         } else {
