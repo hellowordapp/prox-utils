@@ -125,7 +125,7 @@ public class ProxInterstitialAd {
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 if (isDone) return;
                 ProxInterstitialAd.this.interstitialAd = interstitialAd;
-                show(adClose);
+                showAds(adClose);
                 handler.removeCallbacks(runnable);
             }
 
