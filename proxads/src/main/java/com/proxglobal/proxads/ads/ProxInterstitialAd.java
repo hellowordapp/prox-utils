@@ -69,6 +69,8 @@ public class ProxInterstitialAd {
         countTime++;
         if (times % countTime == 0) {
             show(adClose);
+        } else {
+            adClose.onAdClose();
         }
     }
 
