@@ -23,7 +23,7 @@ public class ProxInterstitialAd {
     private Activity activity;
     private String adId;
     private boolean isDone = false;
-    private int countTime = 0;
+    private int countTime = -1;
     private KProgressHUD loadingDialog;
 
     public ProxInterstitialAd(Activity activity, String adId) {
@@ -67,10 +67,8 @@ public class ProxInterstitialAd {
     }
 
     public void show(AdClose adClose, int times) {
-        countTime++;
-        Log.d("ProxInterstitialAd", "countTime x times: " + countTime + " x " + times);
-        Log.d("ProxInterstitialAd", "interstitialAd: " + interstitialAd);
-        if (times % countTime == 0) {
+        ++ countTime;
+        if (countTime % times == 0) {
             show(adClose);
         } else {
             adClose.onAdClose();
