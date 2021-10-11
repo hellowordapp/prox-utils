@@ -61,6 +61,7 @@ public class ProxInterstitialAd {
         new Handler().postDelayed(() -> {
             loadingDialog.dismiss();
             showAds(adClose);
+            load();
         }, 700);
     }
 
