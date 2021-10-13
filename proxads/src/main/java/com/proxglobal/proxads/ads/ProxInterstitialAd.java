@@ -25,6 +25,7 @@ public class ProxInterstitialAd {
     private boolean isDone = false;
     private int countTime = -1;
     private KProgressHUD loadingDialog;
+    public static boolean isShowing = false;
 
     public ProxInterstitialAd(Activity activity, String adId) {
         this.activity = activity;
@@ -80,14 +81,17 @@ public class ProxInterstitialAd {
             adClose.onAdClose();
             return;
         }
+        isShowing = true;
         interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override
             public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                isShowing = false;
                 adClose.onAdClose();
             }
 
             @Override
             public void onAdDismissedFullScreenContent() {
+                isShowing = false;
                 adClose.onAdClose();
             }
 
