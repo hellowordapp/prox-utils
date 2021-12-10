@@ -34,7 +34,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
 
-    private final ProxOpenAdsApplication myApplication;
+    private ProxOpenAdsApplication myApplication;
 
     private static boolean isShowingAd = false;
     private long loadTime = 0;
@@ -43,8 +43,27 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     private List<Class> disableOpenAdsList;
 
+    private boolean openAdsEnable = true;
+
+    private static volatile AppOpenManager INSTANCE;
+
+    public static AppOpenManager getInstance() {
+        synchronized (AppOpenManager.class) {
+            if(INSTANCE == null) {
+                synchronized (AppOpenManager.class) {
+                    INSTANCE = new AppOpenManager();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    private AppOpenManager() {
+
+    }
+
     /** Constructor */
-    public AppOpenManager(ProxOpenAdsApplication myApplication, String adsID) {
+    public void init(ProxOpenAdsApplication myApplication, String adsID) {
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
         disableOpenAdsList = new ArrayList<>();
@@ -95,7 +114,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     /** Shows the ad if one isn't already showing. */
     public void showAdIfAvailable() {
-        if(inDisableOpenAdsList()) return;
+        if(inDisableOpenAdsList() || !openAdsEnable) return;
 
         // Only show ad if there is not already an app open ad currently showing
         // and an ad is available.
@@ -128,6 +147,14 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
             Log.d(LOG_TAG, "Can not show ad.");
             fetchAd();
         }
+    }
+
+    public void disableOpenAds() {
+        this.openAdsEnable = false;
+    }
+
+    public void enableOpenAds() {
+        this.openAdsEnable = true;
     }
 
     /** Creates and returns ad request. */

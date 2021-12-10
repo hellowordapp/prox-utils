@@ -11,6 +11,7 @@ import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.ProxInterstitialAd
 import com.proxglobal.proxads.ads.callback.AdClose
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
+import com.proxglobal.proxads.ads.openads.AppOpenManager
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
@@ -73,6 +74,14 @@ class MainActivity : AppCompatActivity() {
                     NativeAdCallback {
 
                     })
+        }
+
+        var a = true;
+        findViewById<Button>(R.id.btn_toggle_open_ads).setOnClickListener {
+            if(a) AppOpenManager.getInstance().disableOpenAds()
+            else AppOpenManager.getInstance().enableOpenAds()
+
+            a = !a;
         }
 
         val config = Config()

@@ -9,8 +9,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.proxglobal.purchase.ProxPurchase;
 
 public abstract class ProxOpenAdsApplication extends Application {
-    private static volatile AppOpenManager appOpenManager;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,16 +20,14 @@ public abstract class ProxOpenAdsApplication extends Application {
                     }
                 });
 
-        if(appOpenManager == null) {
-            appOpenManager = new AppOpenManager(this, getOpenAdsId());
-        }
+        AppOpenManager.getInstance().init(this, getOpenAdsId());
 
         ProxPurchase.getInstance().syncPurchaseState(this);
     }
 
     protected final void disableOpenAdsAt(Class ... clss) {
         for(Class cls : clss) {
-            appOpenManager.registerDisableOpenAdsAt(cls);
+            AppOpenManager.getInstance().registerDisableOpenAdsAt(cls);
         }
     }
 
