@@ -299,6 +299,7 @@ public class ProxPurchase {
         return false;
     }
 
+    // --------------------------- check purchase flow 2 ---------------------------
     public boolean checkPurchased() {
         return isPurchased;
     }
@@ -364,6 +365,8 @@ public class ProxPurchase {
             });
         }
     }
+    // ---------------------------------------------------------------------------------
+
 
     //check  id INAP
     public boolean isPurchased(Context context, String productId) {
