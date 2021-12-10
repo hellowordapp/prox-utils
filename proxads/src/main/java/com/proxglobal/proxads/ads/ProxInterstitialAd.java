@@ -26,6 +26,8 @@ public class ProxInterstitialAd {
     private int countTime = -1;
     private KProgressHUD loadingDialog;
     public static boolean isShowing = false;
+    private boolean autoReload = true;
+
 
     public ProxInterstitialAd(Activity activity, String adId) {
         this.activity = activity;
@@ -63,7 +65,7 @@ public class ProxInterstitialAd {
         new Handler().postDelayed(() -> {
             loadingDialog.dismiss();
             showAds(adClose);
-            load();
+            if(autoReload) load();
         }, 700);
     }
 
@@ -145,5 +147,13 @@ public class ProxInterstitialAd {
         });
 
         return this;
+    }
+
+    public void disableAutoReload() {
+        this.autoReload = false;
+    }
+
+    public void enableAutoReload() {
+        this.autoReload = true;
     }
 }

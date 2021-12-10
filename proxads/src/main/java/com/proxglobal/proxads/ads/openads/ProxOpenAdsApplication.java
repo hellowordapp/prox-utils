@@ -26,5 +26,11 @@ public abstract class ProxOpenAdsApplication extends Application {
         }
     }
 
+    protected final void disableOpenAdsAt(Class ... clss) {
+        for(Class cls : clss) {
+            appOpenManager.registerDisableOpenAdsAt(cls);
+        }
+    }
+
     protected abstract String getOpenAdsId();
 }

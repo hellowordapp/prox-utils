@@ -30,6 +30,19 @@ dependencies {
 
 ```
 
+### show interstitial with Adclose after specific times
+```sh
+> ads will show after times time, if not it's will invoke callback
+
+        inter.show(new AdClose() {
+            @Override
+            public void onAdClose() {
+		`//TO-DO`
+            }
+        }, times);
+
+```
+
 ### load splash with Adclose call back
 ```sh
         inter.loadSplash(int timeout, new AdClose() {
@@ -42,7 +55,11 @@ dependencies {
 ```
 
 > ### create native ads
-```sh
+```sh 
+> Params:
+	- adContainer: where ads will show
+	- layoutAdId: view of ads 're going to show
+
         ProxUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
                 .load(new NativeAdCallback() {
                     @Override
@@ -50,11 +67,14 @@ dependencies {
 		    	`//TO-DO`
                     }
                 });
-
 ```
 
 ### create native ads with shimmer
+#### ads with already shimmer layout before loaded
 ```sh
+> Params: 
+	- layoutShimmerId: layout will be shown with shimmer effect before ads loaded
+	
         ProxUtils.INSTANCE.createNativeAdWithShimmer(
                 activity, String adId,
                 FrameLayout adContainer, int layoutAdId, int layoutShimmerId).load(
@@ -66,9 +86,11 @@ dependencies {
 > ### Open App Ads
 ```sh
     class OpenAdsApp: ProxOpenAdsApplication() {
-        override fun getOpenAdsId(): String = "ca-app-pub-3940256099942544/3419835294"
-   
+        override fun getOpenAdsId(): String = "open-ads-id"
+        
     }
+> don't show ads at specific class
+    disableOpenAdsAt(MainActivity::class.java)
 ```
 
 ## Push Rate

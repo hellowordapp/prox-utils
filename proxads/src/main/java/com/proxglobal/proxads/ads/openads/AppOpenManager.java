@@ -20,7 +20,9 @@ import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
 import com.proxglobal.purchase.ProxPurchase;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /** Prefetches App Open Ads. */
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
@@ -39,10 +41,13 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     private Activity currentActivity;
 
+    private List<Class> disableOpenAdsList;
+
     /** Constructor */
     public AppOpenManager(ProxOpenAdsApplication myApplication, String adsID) {
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
+        disableOpenAdsList = new ArrayList<>();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
         AD_ID = adsID;
@@ -84,11 +89,15 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
     }
 
+    private boolean inDisableOpenAdsList() {
+        return disableOpenAdsList.contains(currentActivity.getClass());
+    }
+
     /** Shows the ad if one isn't already showing. */
     public void showAdIfAvailable() {
         // Only show ad if there is not already an app open ad currently showing
         // and an ad is available.
-        if (!isShowingAd && isAdAvailable()) {
+        if (!isShowingAd && isAdAvailable() && !inDisableOpenAdsList()) {
             Log.d(LOG_TAG, "Will show ad.");
 
             FullScreenContentCallback fullScreenContentCallback =
@@ -144,6 +153,14 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         }
         showAdIfAvailable();
         Log.d(LOG_TAG, "onStart");
+    }
+
+    public void registerDisableOpenAdsAt(Class cls) {
+        disableOpenAdsList.add(cls);
+    }
+
+    public void removeDisableOpenAdsAt(Class cls) {
+        disableOpenAdsList.remove(cls);
     }
 
     // Activity lifecycle
