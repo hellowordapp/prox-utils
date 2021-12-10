@@ -95,9 +95,11 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     /** Shows the ad if one isn't already showing. */
     public void showAdIfAvailable() {
+        if(inDisableOpenAdsList()) return;
+
         // Only show ad if there is not already an app open ad currently showing
         // and an ad is available.
-        if (!isShowingAd && isAdAvailable() && !inDisableOpenAdsList()) {
+        if (!isShowingAd && isAdAvailable()) {
             Log.d(LOG_TAG, "Will show ad.");
 
             FullScreenContentCallback fullScreenContentCallback =

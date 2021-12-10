@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ConsumeParams;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
@@ -66,6 +68,8 @@ public class ProxPurchase {
     private String idPurchaseCurrent = "";
     private int typeIap;
 
+    private boolean isPurchased = false;
+    private boolean isPurchaseSync = false;
 
     public void setPurchaseListioner(PurchaseListioner purchaseListioner) {
         this.purchaseListioner = purchaseListioner;
@@ -239,9 +243,11 @@ public class ProxPurchase {
         billingClient.startConnection(purchaseClientStateListener);
     }
 
-    public void initBilling(final Application application, List<String> listINAPId, List<String> listSubsId) {
-        listSubcriptionId = listSubsId;
-        this.listINAPId = listINAPId;
+    public void initBilling(final Application application,
+                            @Nullable List<String> listINAPId,
+                            @Nullable List<String> listSubsId) {
+        this.listSubcriptionId = (listSubsId == null) ? new ArrayList<>() : listSubsId;
+        this.listINAPId = (listINAPId == null) ? new ArrayList<>() : listINAPId;
 
         billingClient = BillingClient.newBuilder(application)
                 .setListener(purchasesUpdatedListener)
@@ -291,6 +297,72 @@ public class ProxPurchase {
             }
         }
         return false;
+    }
+
+    public boolean checkPurchased() {
+        return isPurchased;
+    }
+
+    public void syncPurchaseState(Context context) {
+        if(!isPurchaseSync) getState(context);
+    }
+
+    private void savePurchaseState(Context context, boolean state) {
+        isPurchased = state;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Purchase", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("is_purchased", state).apply();
+        editor.putLong("time_write", System.currentTimeMillis());
+    }
+
+    private boolean loadPreviousState(Context context) {
+        return context.getSharedPreferences("Purchase", Context.MODE_PRIVATE).getBoolean("is_purchased", false);
+    }
+
+    private void getState(Context context) {
+        if (listINAPId != null) {
+            billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
+                @Override
+                public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                    if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        isPurchaseSync= true;
+                        for (Purchase purchase : list) {
+                            for (String id : listINAPId) {
+                                if (purchase.getSkus().contains(id)) {
+                                    savePurchaseState(context, true);
+                                    return;
+                                }
+                            }
+                        }
+                        savePurchaseState(context, false);
+                    } else {
+                        isPurchased = loadPreviousState(context);
+                    }
+                }
+            });
+        }
+        if (listSubcriptionId != null) {
+            billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, new PurchasesResponseListener() {
+                @Override
+                public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                    if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        isPurchaseSync= true;
+                        for (Purchase purchase : list) {
+                            for (String id : listINAPId) {
+                                if (purchase.getSkus().contains(id)) {
+                                    savePurchaseState(context, true);
+                                    return;
+                                }
+                            }
+                        }
+                        savePurchaseState(context, false);
+                    } else {
+                        isPurchased = loadPreviousState(context);
+                    }
+                }
+            });
+        }
     }
 
     //check  id INAP
