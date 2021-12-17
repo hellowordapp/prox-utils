@@ -41,9 +41,10 @@ public class ProxNativeAd {
     }
 
     public void load (NativeAdCallback callback) {
-        if (ProxPurchase.getInstance().isPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             return;
         }
+
         AdLoader.Builder builder = new AdLoader.Builder(activity, adId).forNativeAd(nativeAd -> {
             if (activity.isDestroyed()) {
                 nativeAd.destroy();

@@ -21,8 +21,6 @@ public abstract class ProxOpenAdsApplication extends Application {
                 });
 
         AppOpenManager.getInstance().init(this, getOpenAdsId());
-
-        ProxPurchase.getInstance().syncPurchaseState(this);
     }
 
     protected final void disableOpenAdsAt(Class ... clss) {

@@ -6,29 +6,34 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.proxglobal.proxads.ProxUtils
-import com.proxglobal.proxads.ads.ProxInterstitialAd
-import com.proxglobal.proxads.ads.callback.AdClose
+import com.proxglobal.proxads.ads.callback.AdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
 import com.proxglobal.proxads.ads.openads.AppOpenManager
+import com.proxglobal.purchase.ProxPurchase
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        ProxPurchase.getInstance().syncPurchaseState()
 
-        ProxInterstitialAd(this, ProxUtils.TEST_INTERSTITIAL_ID).loadSplash(10000) { }
         val inter = ProxUtils.INSTANCE.createInterstitialAd(this, ProxUtils.TEST_INTERSTITIAL_ID)
             .load()
         findViewById<Button>(R.id.test_interstitial).setOnClickListener(View.OnClickListener {
-            inter.show(AdClose {
-                Toast.makeText(this@MainActivity, "Close interstitial ads", Toast.LENGTH_SHORT).show()
-                inter.load()
+            inter.show(object : AdCallback() {
+                override fun onAdClose() {
+                    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onAdShow() {
+                    super.onAdShow()
+                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                }
             })
         })
 
@@ -108,5 +113,11 @@ class MainActivity : AppCompatActivity() {
 
         ProxUtils.INSTANCE.initFirebaseRemoteConfig(this, BuildConfig.VERSION_CODE, BuildConfig.DEBUG,
                 R.drawable.ic_launcher_background, getString(R.string.app_display_name))
+
+
+        // test purchase
+        findViewById<Button>(R.id.btn_test_iap).setOnClickListener {
+            startActivity(Intent(this@MainActivity, MainActivity3::class.java))
+        }
     }
 }

@@ -69,7 +69,8 @@ public class ProxPurchase {
     private int typeIap;
 
     private boolean isPurchased = false;
-    private boolean isPurchaseSync = false;
+
+    private Context mContext = null;
 
     public void setPurchaseListioner(PurchaseListioner purchaseListioner) {
         this.purchaseListioner = purchaseListioner;
@@ -151,6 +152,8 @@ public class ProxPurchase {
             } else {
                 Log.d(TAG, "onPurchasesUpdated:... ");
             }
+
+            if(mContext != null) syncPurchaseState();
         }
     };
 
@@ -233,6 +236,8 @@ public class ProxPurchase {
     }
 
     public void initBilling(final Application application) {
+        mContext = application;
+
         listSubcriptionId = new ArrayList<>();
         listINAPId = new ArrayList<>();
         billingClient = BillingClient.newBuilder(application)
@@ -246,6 +251,8 @@ public class ProxPurchase {
     public void initBilling(final Application application,
                             @Nullable List<String> listINAPId,
                             @Nullable List<String> listSubsId) {
+        mContext = application;
+
         this.listSubcriptionId = (listSubsId == null) ? new ArrayList<>() : listSubsId;
         this.listINAPId = (listINAPId == null) ? new ArrayList<>() : listINAPId;
 
@@ -304,41 +311,43 @@ public class ProxPurchase {
         return isPurchased;
     }
 
-    public void syncPurchaseState(Context context) {
-        if(!isPurchaseSync) getState(context);
+    public void syncPurchaseState() {
+        getState();
     }
 
-    private void savePurchaseState(Context context, boolean state) {
+    private void savePurchaseState(boolean state) {
+        Log.d(TAG, "savePurchaseState: " + state);
         isPurchased = state;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("Purchase", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("Purchase", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("is_purchased", state).apply();
         editor.putLong("time_write", System.currentTimeMillis());
     }
 
-    private boolean loadPreviousState(Context context) {
-        return context.getSharedPreferences("Purchase", Context.MODE_PRIVATE).getBoolean("is_purchased", false);
+    private boolean loadPreviousState() {
+        return mContext.getSharedPreferences("Purchase", Context.MODE_PRIVATE).getBoolean("is_purchased", false);
     }
 
-    private void getState(Context context) {
+    private void getState() {
         if (listINAPId != null) {
             billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
                 @Override
                 public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                    Log.d(TAG, "onQueryPurchasesResponse: " + billingResult.getResponseCode());
+
                     if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        isPurchaseSync= true;
                         for (Purchase purchase : list) {
                             for (String id : listINAPId) {
                                 if (purchase.getSkus().contains(id)) {
-                                    savePurchaseState(context, true);
+                                    savePurchaseState(true);
                                     return;
                                 }
                             }
                         }
-                        savePurchaseState(context, false);
+                        savePurchaseState(false);
                     } else {
-                        isPurchased = loadPreviousState(context);
+                        isPurchased = loadPreviousState();
                     }
                 }
             });
@@ -347,19 +356,20 @@ public class ProxPurchase {
             billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, new PurchasesResponseListener() {
                 @Override
                 public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                    Log.d(TAG, "onQueryPurchasesResponse: 2 " + billingResult.getResponseCode());
+
                     if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        isPurchaseSync= true;
                         for (Purchase purchase : list) {
                             for (String id : listINAPId) {
                                 if (purchase.getSkus().contains(id)) {
-                                    savePurchaseState(context, true);
+                                    savePurchaseState(true);
                                     return;
                                 }
                             }
                         }
-                        savePurchaseState(context, false);
+                        savePurchaseState(false);
                     } else {
-                        isPurchased = loadPreviousState(context);
+                        isPurchased = loadPreviousState();
                     }
                 }
             });
@@ -434,7 +444,7 @@ public class ProxPurchase {
 
             case BillingClient.BillingResponseCode.ITEM_NOT_OWNED:
             case BillingClient.BillingResponseCode.DEVELOPER_ERROR:
-                return "";
+                return "Error";
 
             case BillingClient.BillingResponseCode.ERROR:
                 if (purchaseListioner != null)

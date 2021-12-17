@@ -1,9 +1,7 @@
 package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +13,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.ads.callback.AdClose;
+import com.proxglobal.proxads.ads.callback.AdCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxInterstitialAd {
@@ -42,6 +40,8 @@ public class ProxInterstitialAd {
     }
 
     public ProxInterstitialAd load () {
+        if(ProxPurchase.getInstance().checkPurchased()) return this;
+
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(activity, adId, adRequest, new InterstitialAdLoadCallback() {
             @Override
@@ -57,30 +57,30 @@ public class ProxInterstitialAd {
         return this;
     }
 
-    public void show (AdClose adClose) {
+    public void show (AdCallback adCallback) {
         if (loadingDialog.isShowing()){
             return;
         }
         loadingDialog.show();
         new Handler().postDelayed(() -> {
             loadingDialog.dismiss();
-            showAds(adClose);
+            showAds(adCallback);
             if(autoReload) load();
         }, 700);
     }
 
-    public void show(AdClose adClose, int times) {
+    public void show(AdCallback adCallback, int times) {
         ++ countTime;
         if (countTime % times == 0) {
-            show(adClose);
+            show(adCallback);
         } else {
-            adClose.onAdClose();
+            adCallback.onAdClose();
         }
     }
 
-    private void showAds (AdClose adClose) {
-        if (interstitialAd == null || ProxPurchase.getInstance().isPurchased()) {
-            adClose.onAdClose();
+    private void showAds (AdCallback adCallback) {
+        if (interstitialAd == null) {
+            adCallback.onAdClose();
             return;
         }
         isShowing = true;
@@ -88,32 +88,34 @@ public class ProxInterstitialAd {
             @Override
             public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                 isShowing = false;
-                adClose.onAdClose();
+                adCallback.onAdClose();
             }
 
             @Override
             public void onAdDismissedFullScreenContent() {
                 isShowing = false;
-                adClose.onAdClose();
+                adCallback.onAdClose();
             }
 
             @Override
             public void onAdShowedFullScreenContent() {
                 super.onAdShowedFullScreenContent();
+                adCallback.onAdShow();
             }
 
             @Override
             public void onAdImpression() {
                 super.onAdImpression();
             }
+
         });
         interstitialAd.show(activity);
         interstitialAd = null;
     }
 
-    public ProxInterstitialAd loadSplash(int timeout, AdClose adClose) {
+    public ProxInterstitialAd loadSplash(int timeout, AdCallback adCallback) {
         if (ProxPurchase.getInstance().isPurchased()) {
-            adClose.onAdClose();
+            adCallback.onAdClose();
             return null;
         }
 
@@ -122,7 +124,7 @@ public class ProxInterstitialAd {
             @Override
             public void run() {
                 if (interstitialAd == null) {
-                    adClose.onAdClose();
+                    adCallback.onAdClose();
                     isDone = true;
                 }
             }
@@ -135,13 +137,13 @@ public class ProxInterstitialAd {
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 if (isDone) return;
                 ProxInterstitialAd.this.interstitialAd = interstitialAd;
-                showAds(adClose);
+                showAds(adCallback);
                 handler.removeCallbacks(runnable);
             }
 
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                adClose.onAdClose();
+                adCallback.onAdClose();
                 handler.removeCallbacks(runnable);
             }
         });
