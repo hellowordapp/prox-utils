@@ -154,6 +154,7 @@ public class ProxPurchase {
             }
 
             if(mContext != null) syncPurchaseState();
+            else Log.i(TAG, "Can not sync because mContext is null");
         }
     };
 
@@ -167,12 +168,14 @@ public class ProxPurchase {
         public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
             Log.d(TAG, "onBillingSetupFinished:  " + billingResult.getResponseCode());
 
+            if(mContext != null) syncPurchaseState();
+            else Log.i(TAG, "Can not sync because mContext is null");
+
             if (billingListener != null && !isInitBillingFinish)
                 billingListener.onInitBillingListener(billingResult.getResponseCode());
+
             isInitBillingFinish = true;
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-
-
                 isAvailable = true;
 
                 SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
@@ -330,7 +333,7 @@ public class ProxPurchase {
     }
 
     private void getState() {
-        if (listINAPId != null) {
+        if (listINAPId != null && listINAPId.size() > 0) {
             billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
                 @Override
                 public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
@@ -352,7 +355,7 @@ public class ProxPurchase {
                 }
             });
         }
-        if (listSubcriptionId != null) {
+        if (listSubcriptionId != null && listSubcriptionId.size() > 0) {
             billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, new PurchasesResponseListener() {
                 @Override
                 public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
@@ -360,7 +363,7 @@ public class ProxPurchase {
 
                     if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                         for (Purchase purchase : list) {
-                            for (String id : listINAPId) {
+                            for (String id : listSubcriptionId) {
                                 if (purchase.getSkus().contains(id)) {
                                     savePurchaseState(true);
                                     return;

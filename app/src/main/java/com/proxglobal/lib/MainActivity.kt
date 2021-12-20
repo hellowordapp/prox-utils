@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ProxPurchase.getInstance().syncPurchaseState()
+//        ProxPurchase.getInstance().syncPurchaseState()
 
         val inter = ProxUtils.INSTANCE.createInterstitialAd(this, ProxUtils.TEST_INTERSTITIAL_ID)
             .load()
