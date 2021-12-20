@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.callback.AdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
+import com.proxglobal.proxads.ads.callback.NativeAdCallback2
 import com.proxglobal.proxads.ads.openads.AppOpenManager
 import com.proxglobal.purchase.ProxPurchase
 import com.proxglobal.rate.ProxRateDialog
@@ -47,19 +48,26 @@ class MainActivity : BaseActivity() {
                     this, ProxUtils.TEST_NATIVE_ID,
                     findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big
             ).load(
-                    NativeAdCallback {
-
-                    })
+                NativeAdCallback {
+                    Toast.makeText(this@MainActivity, "Native", Toast.LENGTH_SHORT).show()
+                })
         }
 
         findViewById<Button>(R.id.test_native_big_shimmer).setOnClickListener {
             ProxUtils.INSTANCE.createBigNativeAdWithShimmer(
                     this, ProxUtils.TEST_NATIVE_ID,
                     findViewById<FrameLayout>(R.id.ad_container)
-            ).load(
-                    NativeAdCallback {
+            ).load(object : NativeAdCallback2() {
+                override fun onNativeAdCallback() {
+                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                }
 
-                    })
+                override fun onNativeAdsShowFailed() {
+                    super.onNativeAdsShowFailed()
+                    findViewById<FrameLayout>(R.id.ad_container).removeAllViews()
+                    Toast.makeText(this@MainActivity, "Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         findViewById<Button>(R.id.test_native_medium_shimmer).setOnClickListener {

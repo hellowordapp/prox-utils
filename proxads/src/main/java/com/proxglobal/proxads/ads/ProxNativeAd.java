@@ -25,6 +25,7 @@ import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.ads.callback.NativeAdCallback;
+import com.proxglobal.proxads.ads.callback.NativeAdCallback2;
 import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxNativeAd {
@@ -42,6 +43,9 @@ public class ProxNativeAd {
 
     public void load (NativeAdCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased()) {
+            if(callback instanceof NativeAdCallback2) {
+                ((NativeAdCallback2) callback).onNativeAdsShowFailed();
+            }
             return;
         }
 
@@ -66,7 +70,9 @@ public class ProxNativeAd {
         AdLoader adLoader = builder.withAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                callback.onNativeAdCallback();
+                if(callback instanceof NativeAdCallback2) {
+                    ((NativeAdCallback2) callback).onNativeAdsShowFailed();
+                } else callback.onNativeAdCallback();
             }
         }).build();
 

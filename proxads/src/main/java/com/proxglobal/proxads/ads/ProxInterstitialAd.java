@@ -62,12 +62,18 @@ public class ProxInterstitialAd {
         if (loadingDialog.isShowing()){
             return;
         }
-        loadingDialog.show();
-        new Handler().postDelayed(() -> {
-            loadingDialog.dismiss();
+
+        if(ProxPurchase.getInstance().checkPurchased()) {
             showAds(adCallback);
             if(autoReload) load();
-        }, 700);
+        } else {
+            loadingDialog.show();
+            new Handler().postDelayed(() -> {
+                loadingDialog.dismiss();
+                showAds(adCallback);
+                if(autoReload) load();
+            }, 700);
+        }
     }
 
     public void show(AdClose adCallback, int times) {
