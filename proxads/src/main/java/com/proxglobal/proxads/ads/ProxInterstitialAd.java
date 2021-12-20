@@ -14,6 +14,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.ads.callback.AdCallback;
+import com.proxglobal.proxads.ads.callback.AdClose;
 import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxInterstitialAd {
@@ -57,7 +58,7 @@ public class ProxInterstitialAd {
         return this;
     }
 
-    public void show (AdCallback adCallback) {
+    public void show (AdClose adCallback) {
         if (loadingDialog.isShowing()){
             return;
         }
@@ -69,7 +70,7 @@ public class ProxInterstitialAd {
         }, 700);
     }
 
-    public void show(AdCallback adCallback, int times) {
+    public void show(AdClose adCallback, int times) {
         ++ countTime;
         if (countTime % times == 0) {
             show(adCallback);
@@ -78,8 +79,8 @@ public class ProxInterstitialAd {
         }
     }
 
-    private void showAds (AdCallback adCallback) {
-        if (interstitialAd == null) {
+    private void showAds (AdClose adCallback) {
+        if (interstitialAd == null && ProxPurchase.getInstance().checkPurchased()) {
             adCallback.onAdClose();
             return;
         }
@@ -100,7 +101,9 @@ public class ProxInterstitialAd {
             @Override
             public void onAdShowedFullScreenContent() {
                 super.onAdShowedFullScreenContent();
-                adCallback.onAdShow();
+                if(adCallback instanceof AdCallback) {
+                    ((AdCallback) adCallback).onAdShow();
+                }
             }
 
             @Override
@@ -114,7 +117,7 @@ public class ProxInterstitialAd {
     }
 
     public ProxInterstitialAd loadSplash(int timeout, AdCallback adCallback) {
-        if (ProxPurchase.getInstance().isPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             adCallback.onAdClose();
             return null;
         }

@@ -37,6 +37,7 @@ class MainActivity : BaseActivity() {
             })
         })
 
+
         findViewById<Button>(R.id.test_interstitial_splash).setOnClickListener {
             startActivity(Intent(this, MainActivity2::class.java))
         }
