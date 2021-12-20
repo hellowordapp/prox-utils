@@ -80,7 +80,7 @@ public class ProxInterstitialAd {
     }
 
     private void showAds (AdClose adCallback) {
-        if (interstitialAd == null && ProxPurchase.getInstance().checkPurchased()) {
+        if (interstitialAd == null || ProxPurchase.getInstance().checkPurchased()) {
             adCallback.onAdClose();
             return;
         }
