@@ -116,7 +116,7 @@ public class ProxInterstitialAd {
         interstitialAd = null;
     }
 
-    public ProxInterstitialAd loadSplash(int timeout, AdCallback adCallback) {
+    public ProxInterstitialAd loadSplash(int timeout, AdClose adCallback) {
         if (ProxPurchase.getInstance().checkPurchased()) {
             adCallback.onAdClose();
             return null;
