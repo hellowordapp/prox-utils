@@ -177,7 +177,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     /** LifecycleObserver methods */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
-        if (ProxInterstitialAd.isShowing || ProxPurchase.getInstance().isPurchased()) {
+        if (ProxInterstitialAd.isShowing || ProxPurchase.getInstance().checkPurchased()) {
             return;
         }
         showAdIfAvailable();
