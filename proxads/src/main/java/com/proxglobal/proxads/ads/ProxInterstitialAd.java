@@ -2,6 +2,7 @@ package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -19,7 +20,7 @@ import com.proxglobal.purchase.ProxPurchase;
 
 public class ProxInterstitialAd {
     private InterstitialAd interstitialAd;
-    private Activity activity;
+    private Activity mActivity;
     private String adId;
     private boolean isDone = false;
     private int countTime = -1;
@@ -29,22 +30,16 @@ public class ProxInterstitialAd {
 
 
     public ProxInterstitialAd(Activity activity, String adId) {
-        this.activity = activity;
+        this.mActivity = activity;
         this.adId = adId;
-        loadingDialog = KProgressHUD.create(activity)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel(activity.getString(R.string.loading_ads))
-                .setCancellable(false)
-                .setAnimationSpeed(2)
-                .setAutoDismiss(true)
-                .setDimAmount(0.5f);
+        createKHub(activity);
     }
 
     public ProxInterstitialAd load () {
         if(ProxPurchase.getInstance().checkPurchased()) return this;
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity, adId, adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(mActivity, adId, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 ProxInterstitialAd.this.interstitialAd = interstitialAd;
@@ -58,9 +53,39 @@ public class ProxInterstitialAd {
         return this;
     }
 
-    public void show (AdClose adCallback) {
-        if (loadingDialog.isShowing()){
+    /**
+     * <b>Don't show progress dialog if use static interstitial</b>
+     * @param adCallback
+     */
+    @Deprecated
+    public void show(AdClose adCallback) {
+        boolean isExist = !mActivity.isFinishing();
+
+        if(isExist && loadingDialog.isShowing()) {
             return;
+        }
+
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            showAds(adCallback);
+            if(autoReload) load();
+        } else {
+            if(isExist) loadingDialog.show();
+
+            new Handler().postDelayed(() -> {
+                if(isExist) loadingDialog.dismiss();
+                showAds(adCallback);
+                if(autoReload) load();
+            }, 700);
+        }
+    }
+
+    public void show(Activity activity, AdClose adCallback) {
+        if(mActivity != activity || loadingDialog == null) {
+            createKHub(activity);
+        } else {
+            if (loadingDialog.isShowing()){
+                return;
+            }
         }
 
         if(ProxPurchase.getInstance().checkPurchased()) {
@@ -118,7 +143,7 @@ public class ProxInterstitialAd {
             }
 
         });
-        interstitialAd.show(activity);
+        interstitialAd.show(mActivity);
         interstitialAd = null;
     }
 
@@ -141,7 +166,7 @@ public class ProxInterstitialAd {
         handler.postDelayed(runnable, timeout);
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity, adId, adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(mActivity, adId, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 if (isDone) return;
@@ -166,5 +191,15 @@ public class ProxInterstitialAd {
 
     public void enableAutoReload() {
         this.autoReload = true;
+    }
+
+    private void createKHub(Activity activity) {
+        loadingDialog = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(activity.getString(R.string.loading_ads))
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setAutoDismiss(true)
+                .setDimAmount(0.5f);
     }
 }
