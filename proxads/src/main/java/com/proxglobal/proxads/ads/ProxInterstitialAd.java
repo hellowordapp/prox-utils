@@ -53,31 +53,31 @@ public class ProxInterstitialAd {
         return this;
     }
 
-    /**
-     * <b>Don't show progress dialog if use static interstitial</b>
-     * @param adCallback
-     */
-    @Deprecated
-    public void show(AdClose adCallback) {
-        boolean isExist = !mActivity.isFinishing();
-
-        if(isExist && loadingDialog.isShowing()) {
-            return;
-        }
-
-        if(ProxPurchase.getInstance().checkPurchased()) {
-            showAds(adCallback);
-            if(autoReload) load();
-        } else {
-            if(isExist) loadingDialog.show();
-
-            new Handler().postDelayed(() -> {
-                if(isExist) loadingDialog.dismiss();
-                showAds(adCallback);
-                if(autoReload) load();
-            }, 700);
-        }
-    }
+//    /**
+//     * <b>Don't show progress dialog if use static interstitial</b>
+//     * @param adCallback
+//     */
+//    @Deprecated
+//    public void show(AdClose adCallback) {
+//        boolean isExist = !mActivity.isFinishing();
+//
+//        if(isExist && loadingDialog.isShowing()) {
+//            return;
+//        }
+//
+//        if(ProxPurchase.getInstance().checkPurchased()) {
+//            showAds(adCallback);
+//            if(autoReload) load();
+//        } else {
+//            if(isExist) loadingDialog.show();
+//
+//            new Handler().postDelayed(() -> {
+//                if(isExist) loadingDialog.dismiss();
+//                showAds(adCallback);
+//                if(autoReload) load();
+//            }, 700);
+//        }
+//    }
 
     public void show(Activity activity, AdClose adCallback) {
         if(mActivity != activity || loadingDialog == null) {
@@ -101,10 +101,10 @@ public class ProxInterstitialAd {
         }
     }
 
-    public void show(AdClose adCallback, int times) {
+    public void show(Activity activity, AdClose adCallback, int times) {
         ++ countTime;
         if (countTime % times == 0) {
-            show(adCallback);
+            show(activity, adCallback);
         } else {
             adCallback.onAdClose();
         }
