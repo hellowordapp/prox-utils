@@ -9,14 +9,18 @@ dependencies {
 
 ## Usage
 
-> ### create interstitial
+### create interstitial
 ```sh
         ProxInterstitialAd inter = ProxUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
 ```
 
-### load interstitial
+### load interstitial 
 ```sh
-        inter.load();
+        inter.load(); // this method is auto call after shown/closed ads 
+```
+> #### disable/enable auto reload interstitial ads
+```sh
+        inter.disableAutoReload()/inter.enableAutoReload()
 ```
 
 ### show interstitial with Adclose call back
@@ -29,11 +33,23 @@ dependencies {
         });
 
 ```
-
-### show interstitial with Adclose after specific times
+> #### show interstitial with Adclose extend call back
 ```sh
-> ads will show after times time, if not it's will invoke callback
+        inter.show(object : AdCallback() {
+		override fun onAdClose() {
+		    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+		}
 
+		override fun onAdShow() {
+		    super.onAdShow()
+		    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+		}
+        })
+
+```
+
+### show interstitial with Adclose/AdCallback after specific times
+```sh
         inter.show(new AdClose() {
             @Override
             public void onAdClose() {
@@ -43,7 +59,7 @@ dependencies {
 
 ```
 
-### load splash with Adclose call back
+### load splash with Adclose/AdCallback call back
 ```sh
         inter.loadSplash(int timeout, new AdClose() {
             @Override
@@ -54,12 +70,8 @@ dependencies {
 
 ```
 
-> ### create native ads
+### create native ads
 ```sh 
-> Params:
-	- adContainer: where ads will show
-	- layoutAdId: view of ads 're going to show
-
         ProxUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
                 .load(new NativeAdCallback() {
                     @Override
@@ -69,12 +81,9 @@ dependencies {
                 });
 ```
 
-### create native ads with shimmer
-#### ads with already shimmer layout before loaded
+> #### create native ads with shimmer
+> #### ads with already shimmer layout before loaded
 ```sh
-> Params: 
-	- layoutShimmerId: layout will be shown with shimmer effect before ads loaded
-	
         ProxUtils.INSTANCE.createNativeAdWithShimmer(
                 activity, String adId,
                 FrameLayout adContainer, int layoutAdId, int layoutShimmerId).load(
@@ -82,15 +91,64 @@ dependencies {
 
                 })
 ```
+>#### create native ads with shimmer using default view 
+```sh
+	createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
+	createBigNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
+```
 
-> ### Open App Ads
+> #### native ads call back **NativeAdCallback/NativeAdCallback2**
+1. NativeAdCallback will call *onNativeAdCallback()* after show or failed to load 
+2. NativeAdCallback2 will return callback more specific
+ - *onNativeAdCallback()* only call after native show success
+ - *onNativeAdsShowFailed()* will call after native doesn't show 
+
+### Open App Ads
 ```sh
     class OpenAdsApp: ProxOpenAdsApplication() {
         override fun getOpenAdsId(): String = "open-ads-id"
         
     }
-> don't show ads at specific class
-    disableOpenAdsAt(MainActivity::class.java)
+```
+
+> #### don't show ads at specific class
+	disableOpenAdsAt(MainActivity::class.java)
+> #### disable/enable open ads 
+	AppOpenManager.getInstance().disableOpenAds()/AppOpenManager.getInstance().enableOpenAds()
+
+## In app purchase
+### Init
+put this into application:
+```sh
+	ProxPurchase.getInstance().initBilling(this, listOf(
+			BuildConfig.id_test1_purchase
+		), listOf(
+			BuildConfig.id_test2_subs,
+			BuildConfig.id_test3_subs
+		))
+```
+### Purchase/Subscribe
+```sh
+	ProxPurchase.getInstance().purchase(activity, purchase_id)
+	ProxPurchase.getInstance().subscribe(activity, subscription_id)
+```
+
+### Get price of purchase/sub
+```sh
+	ProxPurchase.getInstance().getPrice(purchase_id) // for purchase
+	ProxPurchase.getInstance().getPriceSub(sub_id) // for sub
+```
+
+### Check app is in purchase
+```sh
+	ProxPurchase.getInstance().checkPurchased() // with cache after call ProxPurchase.getInstance().syncPurchaseState()
+	ProxPurchase.getInstance().isPurchased() // realtime but low performance
+```
+
+### Purchase/Subscribe
+```sh
+	ProxPurchase.getInstance().purchase(activity, purchase_id)
+	ProxPurchase.getInstance().subscribe(activity, subscription_id)
 ```
 
 ## Push Rate
