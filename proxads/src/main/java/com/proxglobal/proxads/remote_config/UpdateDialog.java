@@ -42,6 +42,8 @@ public class UpdateDialog extends DialogFragment {
         this.iconAppId = iconAppId;
         this.appTitle = appTitle;
         this.layoutId = R.layout.dialog_update;
+
+        setRetainInstance(true);
     }
 
     public UpdateDialog(int layoutId) {
@@ -112,6 +114,17 @@ public class UpdateDialog extends DialogFragment {
             title.setText(configUpdateVersion.title);
             message.setText(configUpdateVersion.message);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Dialog dialog = getDialog();
+        if (dialog != null && getRetainInstance()) {
+            dialog.setDismissMessage(null);
+        }
+        super.onDestroyView();
     }
 
     public void showDialog(FragmentManager manager, ConfigUpdateVersion config) {

@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -43,6 +44,8 @@ public class ProxRateDialog extends DialogFragment {
         this.context = context;
         sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
         layoutId = R.layout.dialog_rating;
+
+        setRetainInstance(true);
     }
 
     private ProxRateDialog(Context context, int layoutId) {
@@ -50,6 +53,19 @@ public class ProxRateDialog extends DialogFragment {
         this.context = context;
         sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
         mConfig = null;
+
+        setRetainInstance(true);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Dialog dialog = getDialog();
+        if (dialog != null && getRetainInstance()) {
+            dialog.setDismissMessage(null);
+        }
+        super.onDestroyView();
     }
 
     /**
@@ -91,6 +107,8 @@ public class ProxRateDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Log.d("vanh", "onCreateDialog: ");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(layoutId, null);
