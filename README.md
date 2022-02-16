@@ -91,7 +91,7 @@ dependencies {
 
                 })
 ```
-layoutShimmerId sample: com.proxglobal.proxads.R.layout.shimmer_native_***
+**layoutShimmerId sample from prox library:** com.proxglobal.proxads.R.layout.shimmer_native_***
 >#### create native ads with shimmer using default view 
 ```sh
 	createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
