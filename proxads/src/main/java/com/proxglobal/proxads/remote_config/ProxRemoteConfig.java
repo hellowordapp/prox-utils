@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import com.afollestad.materialdialogs.bottomsheets.BottomSheet;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.Gson;
-import com.proxglobal.proxads.BuildConfig;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.remote_config.callback.RemoteConfigCallback;
 
@@ -31,15 +29,20 @@ public class ProxRemoteConfig {
     private String appName;
 
     private RemoteConfigCallback callback;
+    private long fetchTime = 12 * 60 * 60;
 
     public ProxRemoteConfig(int iconAppId, String appName) {
         this.iconAppId = iconAppId;
         this.appName = appName;
     }
 
+    public void setReleaseFetchTime(long fetchTime) {
+        this.fetchTime = fetchTime;
+    }
+
     public void showRemoteConfigIfNecessary(AppCompatActivity activity, int appVersionCode, boolean isDebug) {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        long minFetch = 12 * 60 * 60;
+        long minFetch = fetchTime;
         if (isDebug) {
             minFetch = 0;
         }
@@ -54,7 +57,7 @@ public class ProxRemoteConfig {
             String json = config.getString("config_update_version");
 
             ConfigUpdateVersion result = new Gson().fromJson(json, ConfigUpdateVersion.class);
-
+            
             if (result.isRequired) {
                 for (int version : result.versionCodeRequired) {
                     if (version == appVersionCode) {
