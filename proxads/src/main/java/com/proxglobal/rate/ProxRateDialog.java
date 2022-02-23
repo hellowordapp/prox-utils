@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,62 +28,51 @@ import androidx.fragment.app.FragmentManager;
 
 import com.proxglobal.proxads.R;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 public class ProxRateDialog extends DialogFragment {
     private View view;
     private Config mConfig;
-    private Context context;
     private static SharedPreferences sp;
     private static ProxRateDialog dialog;
     private int layoutId;
 
-    private ProxRateDialog(Context context, Config config){
-        mConfig = config;
-        this.context = context;
-        sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-        layoutId = R.layout.dialog_rating;
+    public ProxRateDialog() {
 
-        setRetainInstance(true);
     }
 
-    private ProxRateDialog(Context context, int layoutId) {
-        this.layoutId = layoutId;
-        this.context = context;
-        sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-        mConfig = null;
+    private ProxRateDialog(Config config){
+        mConfig = config;
+        layoutId = R.layout.dialog_rating;
+    }
 
-        setRetainInstance(true);
+    private ProxRateDialog(int layoutId) {
+        this.layoutId = layoutId;
+        mConfig = null;
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Dialog dialog = getDialog();
-        if (dialog != null && getRetainInstance()) {
-            dialog.setDismissMessage(null);
-        }
-        super.onDestroyView();
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
     }
 
     /**
      * init dialog view with layout id as param
-     * @param context
      * @param layoutId
      */
-    private static void init(Context context, int layoutId) {
-        dialog = new ProxRateDialog(context, layoutId);
+    private static void init(int layoutId) {
+        dialog = new ProxRateDialog(layoutId);
     }
 
     /**
      * init dialog view with default view and config
-     * @param context
      * @param config
      */
-    public static void init(Context context, @NonNull Config config){
-        dialog = new ProxRateDialog(context, config);
+    public static void init(@NonNull Config config){
+        dialog = new ProxRateDialog(config);
     }
 
     /**
@@ -104,11 +93,26 @@ public class ProxRateDialog extends DialogFragment {
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) {
+            mConfig = (Config) savedInstanceState.getSerializable("rate_config");
+            layoutId = (int) savedInstanceState.getInt("rate_layout_id");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("rate_config", mConfig);
+        outState.putInt("rate_layout_id", layoutId);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Log.d("vanh", "onCreateDialog: ");
-
+        Toast.makeText(getActivity(), "Create dialog", Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(layoutId, null);
@@ -122,7 +126,8 @@ public class ProxRateDialog extends DialogFragment {
         List<String> starDes = Arrays.asList("Very Bad", "Not good", "Quite ok", "Very Good", "Excellent !!!");
         view.findViewById(R.id.submit).setOnClickListener(v -> {
             if ((int) ratingBar.getRating() < 1) {
-                androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(context).create();
+                androidx.appcompat.app.AlertDialog alertDialog =
+                        new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
                 alertDialog.setTitle("Notify");
                 alertDialog.setMessage("Please select star !");
                 alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -134,7 +139,8 @@ public class ProxRateDialog extends DialogFragment {
                 alertDialog.show();
             } else {
                 sp.edit().putBoolean("isRated", true).apply();
-                androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(context).create();
+                androidx.appcompat.app.AlertDialog alertDialog =
+                        new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
                 alertDialog.setTitle("Thanks!");
                 alertDialog.setMessage("Thank for rating");
                 alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -218,7 +224,7 @@ public class ProxRateDialog extends DialogFragment {
         }
     }
 
-    public static class Config {
+    public static class Config implements Serializable {
         private RatingDialogListener listener;
         private Drawable icon;
         private Drawable backgroundIcon;

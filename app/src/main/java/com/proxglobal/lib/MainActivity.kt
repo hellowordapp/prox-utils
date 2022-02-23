@@ -11,6 +11,7 @@ import com.proxglobal.proxads.ads.callback.AdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback2
 import com.proxglobal.proxads.ads.openads.AppOpenManager
+import com.proxglobal.proxads.remote_config.UpdateDialog
 import com.proxglobal.purchase.ProxPurchase
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
@@ -26,7 +27,7 @@ class MainActivity : BaseActivity() {
         val inter = ProxUtils.INSTANCE.createInterstitialAd(this, ProxUtils.TEST_INTERSTITIAL_ID)
             .load()
         findViewById<Button>(R.id.test_interstitial).setOnClickListener(View.OnClickListener {
-            inter.show(object : AdCallback() {
+            inter.show(this, object : AdCallback() {
                 override fun onAdClose() {
                     Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
                 }
@@ -114,7 +115,7 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        ProxRateDialog.init(this@MainActivity, config)
+        ProxRateDialog.init(config)
 
         findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(
                 supportFragmentManager

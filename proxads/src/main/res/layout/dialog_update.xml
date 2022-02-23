@@ -108,7 +108,10 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:background="@drawable/solid_30"
-                android:backgroundTint="@color/color_main"/>
+                android:backgroundTint="@color/color_main"
+
+                android:clickable="false"
+                android:focusable="false"/>
 
 
         </LinearLayout>

@@ -1,6 +1,5 @@
 package com.proxglobal.proxads.remote_config;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -36,18 +35,38 @@ public class UpdateDialog extends DialogFragment {
     private TextView message;
 
     private long exitPressTime= 0L;
-    private final int layoutId;
+    private int layoutId;
+
+    public UpdateDialog() {
+
+    }
 
     public UpdateDialog(int iconAppId, String appTitle) {
         this.iconAppId = iconAppId;
         this.appTitle = appTitle;
         this.layoutId = R.layout.dialog_update;
-
-        setRetainInstance(true);
     }
 
     public UpdateDialog(int layoutId) {
         this.layoutId = layoutId;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) {
+            this.appTitle = (String) savedInstanceState.getString("app_title");
+            this.iconAppId = (int) savedInstanceState.getInt("icon_app_id");
+            this.layoutId = (int) savedInstanceState.getInt("layout_id");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("icon_app_id", iconAppId);
+        outState.putString("app_title", appTitle);
+        outState.putInt("layout_id", layoutId);
     }
 
     @NonNull
@@ -114,17 +133,6 @@ public class UpdateDialog extends DialogFragment {
             title.setText(configUpdateVersion.title);
             message.setText(configUpdateVersion.message);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Dialog dialog = getDialog();
-        if (dialog != null && getRetainInstance()) {
-            dialog.setDismissMessage(null);
-        }
-        super.onDestroyView();
     }
 
     public void showDialog(FragmentManager manager, ConfigUpdateVersion config) {
