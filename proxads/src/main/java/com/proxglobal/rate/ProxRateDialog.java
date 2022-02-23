@@ -53,12 +53,6 @@ public class ProxRateDialog extends DialogFragment {
         mConfig = null;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-    }
-
     /**
      * init dialog view with layout id as param
      * @param layoutId
@@ -87,7 +81,9 @@ public class ProxRateDialog extends DialogFragment {
      * show if you haven't rate this app yet
      * @param fm
      */
-    public static void showIfNeed(FragmentManager fm){
+    public static void showIfNeed(Context context, FragmentManager fm){
+        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+
         if (!sp.getBoolean("isRated", false)){
             dialog.show(fm, "prox");
         }
@@ -112,7 +108,6 @@ public class ProxRateDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Toast.makeText(getActivity(), "Create dialog", Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(layoutId, null);
