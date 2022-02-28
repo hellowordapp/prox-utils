@@ -91,6 +91,7 @@ public final class ProxAds {
 
     public void showInterstitial(@NonNull Activity activity, String tag, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
             return;
         }
 
@@ -109,12 +110,12 @@ public final class ProxAds {
     public void showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String  colonyZoneId,
                            int timeout) {
-        splashDone = false;
-
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
+
+        splashDone = false;
 
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
