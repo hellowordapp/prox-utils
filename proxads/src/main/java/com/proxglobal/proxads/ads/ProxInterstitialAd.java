@@ -1,6 +1,7 @@
 package com.proxglobal.proxads.ads;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
@@ -36,7 +37,7 @@ public class ProxInterstitialAd {
     }
 
     public ProxInterstitialAd load () {
-        if(ProxPurchase.getInstance().checkPurchased()) return this;
+        if(ProxPurchase.getInstance().checkPurchased() || interstitialAd != null) return this;
 
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(mActivity, adId, adRequest, new InterstitialAdLoadCallback() {
@@ -80,6 +81,17 @@ public class ProxInterstitialAd {
 //    }
 
     public void show(Activity activity, AdClose adCallback) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
+            adCallback.onAdClose();
+            return;
+        }
+
+        if(interstitialAd == null) {
+            adCallback.onAdClose();
+            if(autoReload) load();
+            return;
+        }
+
         if(mActivity != activity || loadingDialog == null) {
             createKHub(activity);
         } else {
@@ -88,17 +100,12 @@ public class ProxInterstitialAd {
             }
         }
 
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        loadingDialog.show();
+        new Handler().postDelayed(() -> {
+            loadingDialog.dismiss();
             showAds(adCallback);
             if(autoReload) load();
-        } else {
-            loadingDialog.show();
-            new Handler().postDelayed(() -> {
-                loadingDialog.dismiss();
-                showAds(adCallback);
-                if(autoReload) load();
-            }, 700);
-        }
+        }, 700);
     }
 
     public void show(Activity activity, AdClose adCallback, int times) {
@@ -111,10 +118,6 @@ public class ProxInterstitialAd {
     }
 
     private void showAds (AdClose adCallback) {
-        if (interstitialAd == null || ProxPurchase.getInstance().checkPurchased()) {
-            adCallback.onAdClose();
-            return;
-        }
         isShowing = true;
         interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override
