@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -48,17 +49,18 @@ public class ProxRateDialog extends DialogFragment {
         layoutId = R.layout.dialog_rating;
     }
 
-    private ProxRateDialog(int layoutId) {
+    private ProxRateDialog(int layoutId, RatingDialogListener listener) {
         this.layoutId = layoutId;
-        mConfig = null;
+        mConfig = new Config();
+        mConfig.setListener(listener);
     }
 
     /**
-     * init dialog view with layout id as param
+     * init dialog view with layout id as param with listener
      * @param layoutId
      */
-    private static void init(int layoutId) {
-        dialog = new ProxRateDialog(layoutId);
+    private static void init(int layoutId, RatingDialogListener listener) {
+        dialog = new ProxRateDialog(layoutId, listener);
     }
 
     /**
@@ -73,7 +75,9 @@ public class ProxRateDialog extends DialogFragment {
      * show by anyway (ignore rated)
      * @param fm
      */
-    public static void showAlways(FragmentManager fm){
+    public static void showAlways(Context context, FragmentManager fm){
+        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+
         dialog.show(fm,"prox");
     }
 
@@ -89,25 +93,12 @@ public class ProxRateDialog extends DialogFragment {
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            mConfig = (Config) savedInstanceState.getSerializable("rate_config");
-            layoutId = (int) savedInstanceState.getInt("rate_layout_id");
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("rate_config", mConfig);
-        outState.putInt("rate_layout_id", layoutId);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        mConfig = dialog.mConfig;
+        layoutId = dialog.layoutId;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(layoutId, null);
@@ -219,7 +210,7 @@ public class ProxRateDialog extends DialogFragment {
         }
     }
 
-    public static class Config implements Serializable {
+    public static class Config {
         private RatingDialogListener listener;
         private Drawable icon;
         private Drawable backgroundIcon;
