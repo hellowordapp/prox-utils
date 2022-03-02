@@ -333,6 +333,8 @@ public class ProxPurchase {
     }
 
     private void getState() {
+        isPurchased = loadPreviousState();
+
         if (listINAPId != null && listINAPId.size() > 0) {
             billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
                 @Override
@@ -349,8 +351,6 @@ public class ProxPurchase {
                             }
                         }
                         savePurchaseState(false);
-                    } else {
-                        isPurchased = loadPreviousState();
                     }
                 }
             });
@@ -371,8 +371,6 @@ public class ProxPurchase {
                             }
                         }
                         savePurchaseState(false);
-                    } else {
-                        isPurchased = loadPreviousState();
                     }
                 }
             });
