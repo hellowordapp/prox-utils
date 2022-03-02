@@ -310,12 +310,22 @@ public class ProxPurchase {
     }
 
     // --------------------------- check purchase flow 2 ---------------------------
+    /**
+     * must call sync purchase state before call this method
+     * @return
+     */
+    private boolean isSync = false;
     public boolean checkPurchased() {
+        if(!isSync) {
+            syncPurchaseState();
+        }
         return isPurchased;
     }
 
     public void syncPurchaseState() {
         getState();
+
+        isSync = true;
     }
 
     private void savePurchaseState(boolean state) {
