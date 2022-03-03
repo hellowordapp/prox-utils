@@ -173,6 +173,10 @@ put this into application:
             override fun onLaterButtonClicked() {
 
             }
+	    
+	    override fun onDone() {
+	    	//this method will call after dismiss tks dialog
+	    }
         })
 
         ProxRateDialog.init(this, config)
