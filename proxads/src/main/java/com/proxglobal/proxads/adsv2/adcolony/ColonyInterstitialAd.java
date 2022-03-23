@@ -1,14 +1,12 @@
 package com.proxglobal.proxads.adsv2.adcolony;
 
 import android.app.Activity;
-import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAppOptions;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.adcolony.sdk.AdColonyZone;
@@ -30,6 +28,7 @@ public class ColonyInterstitialAd extends BaseInterAds {
     }
 
     public ColonyInterstitialAd(String zoneId) {
+        super(null);
         this.zoneId = zoneId;
     }
 
@@ -39,7 +38,6 @@ public class ColonyInterstitialAd extends BaseInterAds {
         inLoading = true;
 
         AdColony.requestInterstitial(zoneId, getMListener());
-        Log.d(TAG, "load: colony");
         return this;
     }
 

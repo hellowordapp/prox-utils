@@ -2,8 +2,6 @@ package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +16,6 @@ import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
 public class GoogleInterstitialAd extends BaseInterAds {
     private InterstitialAd interstitialAd;
-    private final Context mContext;
     private String adId;
 
     private GoogleInterstitialCallback mListener;
@@ -32,7 +29,7 @@ public class GoogleInterstitialAd extends BaseInterAds {
     }
 
     public GoogleInterstitialAd(Activity activity, String adId) {
-        this.mContext = activity.getApplicationContext();
+        super(activity);
         this.adId = adId;
     }
 
@@ -42,7 +39,7 @@ public class GoogleInterstitialAd extends BaseInterAds {
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(mContext, adId, adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(mActivity.getApplicationContext(), adId, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 interstitialAd.setFullScreenContentCallback(getMListener());
@@ -58,7 +55,6 @@ public class GoogleInterstitialAd extends BaseInterAds {
             }
         });
 
-        Log.d(TAG, "load: google");
         return this;
     }
 

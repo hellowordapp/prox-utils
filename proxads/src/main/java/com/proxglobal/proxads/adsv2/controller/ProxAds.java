@@ -3,35 +3,28 @@ package com.proxglobal.proxads.adsv2.controller;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.proxglobal.proxads.ProxUtils;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.ads.ProxInterstitialAd;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
+import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
+import com.proxglobal.proxads.adsv2.base.BaseAds;
 import com.proxglobal.proxads.adsv2.base.BaseInterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.Objects;
 
 public final class ProxAds {
-    private final HashMap<String, BaseInterAds> interStorage;
+    private final HashMap<String, BaseAds> interStorage;
     private static ProxAds INSTANCE = null;
 
     private ProxAds() {
@@ -56,7 +49,7 @@ public final class ProxAds {
                                  @Nullable String colonyZoneId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
-        BaseInterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
+        BaseAds ads = new GoogleInterstitialAd(activity, googleAdsId);
         interStorage.put(tag, ads);
 
         ads.setLoadCallback(new LoadCallback() {
@@ -79,7 +72,7 @@ public final class ProxAds {
             return;
         }
 
-        BaseInterAds ads = interStorage.get(tag);
+        BaseAds ads = interStorage.get(tag);
         if(ads == null) return;
         if(!ads.isAvailable()) {
             ads.show(activity);
@@ -95,7 +88,7 @@ public final class ProxAds {
             return;
         }
 
-        BaseInterAds ads = interStorage.get(tag);
+        BaseAds ads = interStorage.get(tag);
 
         if(ads == null) return;
         if(!ads.isAvailable()) {
@@ -107,7 +100,7 @@ public final class ProxAds {
     }
 
     BaseInterAds splashAds;
-    public void showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
+    public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String  colonyZoneId,
                            int timeout) {
         if(ProxPurchase.getInstance().checkPurchased()) {
@@ -145,7 +138,7 @@ public final class ProxAds {
             @Override
             public void onLoadFailed() {
                 if(colonyZoneId != null) {
-                    splashAds = new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
+                    splashAds = (BaseInterAds) new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
                         @Override
                         public void onLoadSuccess() {
                             if(splashDone) return;
@@ -176,20 +169,18 @@ public final class ProxAds {
         interStorage.clear();
     }
 
-    private void showAdsWithKHub(Activity activity, BaseInterAds ads, AdsCallback callback) {
+    private void showAdsWithKHub(Activity activity, BaseAds ads, AdsCallback callback) {
         KProgressHUD khub = createKHub(activity);
 
-        if(!khub.isShowing()) {
-            khub.show();
-            new Handler().postDelayed(() -> {
-                if(callback == null) ads.show(activity);
-                else ads.show(activity, callback);
-                khub.dismiss();
-            }, 700);
-        }
+        khub.show();
+        new Handler().postDelayed(() -> {
+            if(callback == null) ads.show(activity);
+            else ads.show(activity, callback);
+            khub.dismiss();
+        }, 700);
     }
 
-    private KProgressHUD createKHub(Activity activity) {
+    public static KProgressHUD createKHub(Activity activity) {
         return KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(activity.getString(R.string.loading_ads))
@@ -238,5 +229,14 @@ public final class ProxAds {
      */
     public void configure(Application application, AdColonyAppOptions options, String appId, String... zoneIds) {
         AdColony.configure(application, options, appId, zoneIds);
+    }
+
+    // ----------------------- Native -----------------------\
+    public void showBanner(Activity activity, FrameLayout container, String adId) {
+        new GoogleBannerAds(activity, container, adId).load().show(activity);
+    }
+
+    public void showBanner(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
+        new GoogleBannerAds(activity, container, adId).load().show(activity, callback);
     }
 }
