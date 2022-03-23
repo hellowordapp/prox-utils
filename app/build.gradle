@@ -61,6 +61,5 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.android.play:core:1.10.0'
 
-    implementation 'com.github.AperoVN:AperoModuleAds:2.2.6'
     implementation project(":proxads")
 }

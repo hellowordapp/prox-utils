@@ -6,13 +6,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.proxglobal.proxads.ProxUtils
-import com.proxglobal.proxads.ads.callback.AdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
 import com.proxglobal.proxads.ads.callback.NativeAdCallback2
 import com.proxglobal.proxads.ads.openads.AppOpenManager
-import com.proxglobal.proxads.remote_config.UpdateDialog
-import com.proxglobal.purchase.ProxPurchase
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
+import com.proxglobal.proxads.adsv2.controller.ProxAds
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
@@ -22,26 +22,40 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        ProxPurchase.getInstance().syncPurchaseState()
+        ProxAds.getInstance().showBanner(this, findViewById(R.id.banner_container), ProxUtils.TEST_BANNER_ID);
 
-        val inter = ProxUtils.INSTANCE.createInterstitialAd(this, ProxUtils.TEST_INTERSTITIAL_ID)
-            .load()
+//        ProxPurchase.getInstance().syncPurchaseState()
         findViewById<Button>(R.id.test_interstitial).setOnClickListener(View.OnClickListener {
-            inter.show(this, object : AdCallback() {
-                override fun onAdClose() {
+            ProxAds.getInstance().showInterstitial(this, "inter", object: AdsCallback {
+                override fun onShow() {
+                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onClosed() {
                     Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onAdShow() {
-                    super.onAdShow()
-                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                override fun onError() {
+                    Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                 }
+
             })
         })
 
-
         findViewById<Button>(R.id.test_interstitial_splash).setOnClickListener {
-            startActivity(Intent(this, MainActivity2::class.java))
+            ProxAds.getInstance().showSplash(this, object : AdsCallback {
+                override fun onShow() {
+                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                }
+                override fun onClosed() {
+                    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+                }
+                override fun onError() {
+                    Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+                }
+            }, ProxUtils.TEST_INTERSTITIAL_ID, "vz3ebfacd56a34480da8", 12000)
         }
 
         findViewById<Button>(R.id.test_native).setOnClickListener {
@@ -115,9 +129,10 @@ class MainActivity : BaseActivity() {
             }
         })
 
+        config.setForegroundIcon(ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground))
         ProxRateDialog.init(config)
 
-        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(
+        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(this,
                 supportFragmentManager
         ) }
 

@@ -18,4 +18,6 @@
     <color name="rating_star">#fed555</color>
 
     <color name="lightTransparent">#16000000</color>
+
+    <color name="shimmer_color">#AFAFAF</color>
 </resources>

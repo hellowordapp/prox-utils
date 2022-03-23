@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+
+    android:paddingHorizontal="20dp"
+
+    android:background="@drawable/border">
+
+    <View
+        android:id="@+id/first_square"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintHeight_percent="0.38"
+        app:layout_constraintDimensionRatio="1:1"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/solid_radius_2"/>
+
+    <View
+        android:id="@+id/second_rect"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/solid_radius_2"
+
+        android:layout_marginStart="5dp"
+
+        app:layout_constraintStart_toEndOf="@id/first_square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/first_square"
+        app:layout_constraintBottom_toBottomOf="@id/first_square"/>
+
+    <View
+        android:id="@+id/third_rect"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/solid_radius_2"
+
+        app:layout_constraintHeight_percent="0.38"
+
+        app:layout_constraintTop_toBottomOf="@id/first_square"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_goneMarginTop="7dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

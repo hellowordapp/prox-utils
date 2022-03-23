@@ -17,7 +17,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
+import com.proxglobal.proxads.adsv2.controller.ProxAds;
 import com.proxglobal.purchase.ProxPurchase;
 
 import java.util.ArrayList;
@@ -121,6 +123,9 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (!isShowingAd && isAdAvailable()) {
             Log.d(LOG_TAG, "Will show ad.");
 
+            KProgressHUD dialog = ProxAds.createKHub(currentActivity);
+            dialog.show();
+
             FullScreenContentCallback fullScreenContentCallback =
                     new FullScreenContentCallback() {
                         @Override
@@ -132,11 +137,14 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                         }
 
                         @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {}
+                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                            dialog.dismiss();
+                        }
 
                         @Override
                         public void onAdShowedFullScreenContent() {
                             isShowingAd = true;
+                            dialog.dismiss();
                         }
                     };
 
