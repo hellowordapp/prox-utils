@@ -2,6 +2,7 @@ package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -34,7 +35,7 @@ public class GoogleInterstitialAd extends BaseInterAds {
     }
 
     public GoogleInterstitialAd load () {
-        if (this.interstitialAd != null || inLoading) return this;
+        if (isAvailable() || inLoading) return this;
         inLoading = true;
 
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -60,7 +61,9 @@ public class GoogleInterstitialAd extends BaseInterAds {
 
     @Override
     public void show(Activity activity) {
-        if(interstitialAd == null) {
+        if(isShowing) return;
+
+        if(!isAvailable()) {
             if(autoReload) load();
             onShowError();
             return;

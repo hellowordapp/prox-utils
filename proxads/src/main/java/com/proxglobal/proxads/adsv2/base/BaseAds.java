@@ -14,6 +14,7 @@ public abstract class BaseAds extends Ads {
 
     protected boolean inLoading = false;
     protected boolean autoReload = true;
+    protected boolean isShowing = false;
 
     protected Activity mActivity;
 
@@ -24,6 +25,7 @@ public abstract class BaseAds extends Ads {
     @Override
     @CallSuper
     public void onShowSuccess() {
+        isShowing = true;
         if(mCallback == null) return;
         mCallback.onShow();
     }
@@ -31,6 +33,7 @@ public abstract class BaseAds extends Ads {
     @Override
     @CallSuper
     public void onClosed() {
+        isShowing = false;
         if(mCallback == null) {
             if(autoReload) load();
             return;
@@ -43,6 +46,7 @@ public abstract class BaseAds extends Ads {
     @Override
     @CallSuper
     public void onShowError() {
+        isShowing = false;
         if(mCallback == null) return;
         mCallback.onError();
     }

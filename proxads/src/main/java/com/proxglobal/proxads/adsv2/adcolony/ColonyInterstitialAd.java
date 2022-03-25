@@ -34,7 +34,7 @@ public class ColonyInterstitialAd extends BaseInterAds {
 
     @Override
     public ColonyInterstitialAd load() {
-        if (ads != null || inLoading) return this;
+        if (isAvailable() || inLoading) return this;
         inLoading = true;
 
         AdColony.requestInterstitial(zoneId, getMListener());
@@ -43,7 +43,9 @@ public class ColonyInterstitialAd extends BaseInterAds {
 
     @Override
     public void show(Activity activity) {
-        if(ads == null) {
+        if(isShowing) return;
+
+        if(!isAvailable()) {
             if(autoReload) load();
             onShowError();
             return;
