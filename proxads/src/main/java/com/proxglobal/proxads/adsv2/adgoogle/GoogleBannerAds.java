@@ -2,6 +2,7 @@ package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,6 +18,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.base.BaseAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
+import com.proxglobal.purchase.ProxPurchase;
 
 public class GoogleBannerAds extends BaseAds {
     private AdView mAdView;
@@ -28,11 +30,14 @@ public class GoogleBannerAds extends BaseAds {
         this.adId = adId;
         this.mContainer = container;
 
+        this.autoReload = false;
         enableShimmer(R.layout.shimmer_banner);
     }
 
     @Override
     public GoogleBannerAds load() {
+        if(isAvailable() || inLoading) return this;
+
         mAdView = new AdView(mActivity);
         mAdView.setAdSize(getAdSize());
         mAdView.setAdUnitId(adId);
@@ -44,6 +49,11 @@ public class GoogleBannerAds extends BaseAds {
 
     @Override
     public void show(Activity activity) {
+        if(!isAvailable()) {
+            onShowError();
+            return;
+        }
+
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -60,12 +70,13 @@ public class GoogleBannerAds extends BaseAds {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
+                onShowError();
                 onLoadFailed();
             }
 
             @Override
-            public void onAdOpened() {
-                super.onAdOpened();
+            public void onAdImpression() {
+                super.onAdImpression();
                 onShowSuccess();
             }
         });
@@ -83,7 +94,7 @@ public class GoogleBannerAds extends BaseAds {
 
     @Override
     public boolean isAvailable() {
-        return true;
+        return (mAdView != null);
     }
 
     private AdSize getAdSize() {

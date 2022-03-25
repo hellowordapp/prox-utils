@@ -1,4 +1,4 @@
-package com.proxglobal.proxads.adsv2.controller;
+package com.proxglobal.proxads.adsv2.facade;
 
 import android.app.Activity;
 import android.app.Application;
@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.proxglobal.proxads.ProxUtils;
 import com.proxglobal.proxads.R;
+import com.proxglobal.proxads.ads.callback.NativeAdCallback2;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
@@ -231,12 +233,30 @@ public final class ProxAds {
         AdColony.configure(application, options, appId, zoneIds);
     }
 
-    // ----------------------- Native -----------------------\
+    // ----------------------- Banner -----------------------
     public void showBanner(Activity activity, FrameLayout container, String adId) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            return;
+        }
+
         new GoogleBannerAds(activity, container, adId).load().show(activity);
     }
 
     public void showBanner(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
         new GoogleBannerAds(activity, container, adId).load().show(activity, callback);
+    }
+
+    // ---------------------- Native -------------------------
+    public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, NativeAdCallback2 callback) {
+        ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(activity, adId, adContainer).load(callback);
+    }
+
+    public void showBigNative(Activity activity, String adId, FrameLayout adContainer, NativeAdCallback2 callback) {
+        ProxUtils.INSTANCE.createBigNativeAdWithShimmer(activity, adId, adContainer).load(callback);
     }
 }
