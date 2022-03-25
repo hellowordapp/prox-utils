@@ -3,13 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Project/prox-utils/app/src/main/res/layout/activity_main.xml" value="0.1527777777777778" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/drawable/ads_icon.xml" value="0.104" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/drawable/border.xml" value="0.1055" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/drawable/solid_radius_3.xml" value="0.295" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.16354166666666667" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/layout/dialog_update.xml" value="0.1" />
-        <entry key="..\:/Project/prox-utils/proxads/src/main/res/layout/shimmer_banner.xml" value="0.13333333333333333" />
+        <entry key="..\:/Code/Android/prox-utils/proxads/src/main/res/layout/ads_native_medium.xml" value="0.15260416666666668" />
       </map>
     </option>
   </component>

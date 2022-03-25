@@ -48,6 +48,13 @@ public final class ProxAds {
         return INSTANCE;
     }
 
+    /**
+     * show inter ads
+     * @param activity
+     * @param googleAdsId
+     * @param colonyZoneId pass null if don't want to use this
+     * @param tag
+     */
     public void initInterstitial(@NonNull Activity activity, @NonNull String googleAdsId,
                                  @Nullable String colonyZoneId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
@@ -88,6 +95,15 @@ public final class ProxAds {
     }
 
     InterAds splashAds;
+
+    /**
+     * show splash ads
+     * @param activity
+     * @param callback
+     * @param googleAdsId
+     * @param colonyZoneId pass null if don't want to use this
+     * @param timeout
+     */
     public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String colonyZoneId,
                            int timeout) {

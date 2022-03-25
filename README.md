@@ -3,7 +3,7 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:1.1.1'
+        implementation 'com.github.hellowordapp:prox-utils:1.1.2'
 }
 ```
 
@@ -193,4 +193,7 @@ put this into application:
     ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
 ```
 
-
+## Ads version 2
+```sh
+    ProxAds.getInstance().<call method you want>
+```
