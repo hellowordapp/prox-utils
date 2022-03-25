@@ -19,7 +19,7 @@ abstract class Ads {
     /**
      * show available ads
      */
-    public abstract void show(Activity activity);
+    protected abstract void show(Activity activity);
 
     /**
      * show available ads with callback

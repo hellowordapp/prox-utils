@@ -39,7 +39,7 @@ public abstract class BaseAds<T> extends Ads {
     }
 
     @Override
-    public void show(Activity activity) {
+    protected void show(Activity activity) {
         if(isShowing) return;
 
         if(!isAvailable()) {
@@ -113,6 +113,11 @@ public abstract class BaseAds<T> extends Ads {
     public final BaseAds<T> setAdsCallback(AdsCallback callback) {
         this.mCallback = callback;
         return this;
+    }
+
+    public void clearAllCallback() {
+        this.mCallback = null;
+        this.mLoadCallback = null;
     }
 
     public final void turnOnAutoReload() {

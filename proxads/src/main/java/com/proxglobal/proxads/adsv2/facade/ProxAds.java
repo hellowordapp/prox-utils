@@ -70,21 +70,6 @@ public final class ProxAds {
         }).load();
     }
 
-    public void showInterstitial(@NonNull Activity activity, String tag) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
-            return;
-        }
-
-        BaseAds ads = interStorage.get(tag);
-        if(ads == null) return;
-        if(!ads.isAvailable()) {
-            ads.show(activity);
-            return;
-        }
-
-        showAdsWithKHub(activity, ads, null);
-    }
-
     public void showInterstitial(@NonNull Activity activity, String tag, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
@@ -104,7 +89,7 @@ public final class ProxAds {
 
     InterAds splashAds;
     public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
-                           @NonNull String googleAdsId,@Nullable String  colonyZoneId,
+                           @NonNull String googleAdsId,@Nullable String colonyZoneId,
                            int timeout) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
@@ -133,13 +118,15 @@ public final class ProxAds {
                 if(splashDone) return;
                 splashAds.turnOffAutoReload();
                 showAdsWithKHub(activity, splashAds, callback);
-                handler.removeCallbacks(runnable);
+                handler.removeCallbacksAndMessages(null);
 
                 splashAds = null;
             }
 
             @Override
             public void onLoadFailed() {
+                if(splashDone) return;
+
                 if(colonyZoneId != null) {
                     splashAds = (InterAds) new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
                         @Override
@@ -147,7 +134,7 @@ public final class ProxAds {
                             if(splashDone) return;
                             splashAds.turnOffAutoReload();
                             showAdsWithKHub(activity, splashAds, callback);
-                            handler.removeCallbacks(runnable);
+                            handler.removeCallbacksAndMessages(null);
 
                             splashAds = null;
                         }
@@ -156,7 +143,7 @@ public final class ProxAds {
                         public void onLoadFailed() {
                             splashAds = null;
                             splashDone = true;
-                            handler.removeCallbacks(runnable);
+                            handler.removeCallbacksAndMessages(null);
 
                             callback.onError();
                         }
@@ -177,8 +164,7 @@ public final class ProxAds {
 
         khub.show();
         new Handler().postDelayed(() -> {
-            if(callback == null) ads.show(activity);
-            else ads.show(activity, callback);
+            ads.show(activity, callback);
             khub.dismiss();
         }, 700);
     }
@@ -235,14 +221,6 @@ public final class ProxAds {
     }
 
     // ----------------------- Banner -----------------------
-    public void showBanner(Activity activity, FrameLayout container, String adId) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
-            return;
-        }
-
-        new GoogleBannerAds(activity, container, adId).load().show(activity);
-    }
-
     public void showBanner(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
@@ -254,10 +232,20 @@ public final class ProxAds {
 
     // ---------------------- Native -------------------------
     public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
         new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_medium).load().show(activity, callback);
     }
 
     public void showBigNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
         new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big).load().show(activity, callback);
     }
 }
