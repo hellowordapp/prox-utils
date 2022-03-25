@@ -7,7 +7,8 @@ import androidx.annotation.CallSuper;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 
-public abstract class BaseAds extends Ads {
+public abstract class BaseAds<T> extends Ads {
+    protected T ads;
     // Callback
     protected AdsCallback mCallback;
     private LoadCallback mLoadCallback;
@@ -18,8 +19,41 @@ public abstract class BaseAds extends Ads {
 
     protected Activity mActivity;
 
-    protected BaseAds(Activity activity) {
+    protected String adId;
+
+    protected BaseAds(Activity activity, String adId) {
         this.mActivity = activity;
+        this.adId = adId;
+    }
+
+    @Override
+    public BaseAds<T> load() {
+        if (isAvailable() || inLoading) return this;
+        inLoading = true;
+
+        specificLoadAdsMethod();
+
+        return this;
+    }
+
+    @Override
+    public void show(Activity activity) {
+        if(isShowing) return;
+
+        if(!isAvailable()) {
+            if(autoReload) load();
+            onShowError();
+            return;
+        }
+
+        specificShowAdsMethod(activity);
+        ads = null;
+    }
+
+    @Override
+    public void show(Activity activity, AdsCallback callback) {
+        setAdsCallback(callback);
+        show(activity);
     }
 
     @Override
@@ -69,15 +103,28 @@ public abstract class BaseAds extends Ads {
         mLoadCallback.onLoadFailed();
     }
 
-    public final BaseAds setLoadCallback(LoadCallback callback) {
+    public final BaseAds<T> setLoadCallback(LoadCallback callback) {
         this.mLoadCallback = callback;
         return this;
     }
 
-    public final BaseAds setAdsCallback(AdsCallback callback) {
+    public final BaseAds<T> setAdsCallback(AdsCallback callback) {
         this.mCallback = callback;
         return this;
     }
 
-    public abstract boolean isAvailable();
+    public final void turnOnAutoReload() {
+        this.autoReload = true;
+    }
+
+    public final void turnOffAutoReload() {
+        this.autoReload = false;
+    }
+
+    public final boolean isAvailable() {
+        return (ads != null);
+    }
+
+    public abstract void specificLoadAdsMethod();
+    public abstract void specificShowAdsMethod(Activity activity);
 }

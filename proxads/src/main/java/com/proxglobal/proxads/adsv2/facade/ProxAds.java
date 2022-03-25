@@ -51,7 +51,7 @@ public final class ProxAds {
                                  @Nullable String colonyZoneId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
-        BaseAds ads = new GoogleInterstitialAd(activity, googleAdsId);
+        BaseInterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
         interStorage.put(tag, ads);
 
         ads.setLoadCallback(new LoadCallback() {

@@ -20,13 +20,11 @@ import com.proxglobal.proxads.adsv2.base.BaseAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
-public class GoogleBannerAds extends BaseAds {
-    private AdView mAdView;
-    private String adId;
-    private FrameLayout mContainer;
+public class GoogleBannerAds extends BaseAds<AdView> {
+    private final FrameLayout mContainer;
 
     public GoogleBannerAds(Activity activity, FrameLayout container, String adId) {
-        super(activity);
+        super(activity, adId);
         this.adId = adId;
         this.mContainer = container;
 
@@ -35,26 +33,24 @@ public class GoogleBannerAds extends BaseAds {
     }
 
     @Override
-    public GoogleBannerAds load() {
-        if(isAvailable() || inLoading) return this;
+    public void show(Activity activity, AdsCallback callback) {
+        setAdsCallback(callback);
 
-        mAdView = new AdView(mActivity);
-        mAdView.setAdSize(getAdSize());
-        mAdView.setAdUnitId(adId);
-
-        mContainer.addView(mAdView);
-
-        return this;
+        show(activity);
     }
 
     @Override
-    public void show(Activity activity) {
-        if(!isAvailable()) {
-            onShowError();
-            return;
-        }
+    public void specificLoadAdsMethod() {
+        ads = new AdView(mActivity);
+        ads.setAdSize(getAdSize());
+        ads.setAdUnitId(adId);
 
-        mAdView.setAdListener(new AdListener() {
+        mContainer.addView(ads);
+    }
+
+    @Override
+    public void specificShowAdsMethod(Activity activity) {
+        ads.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
@@ -82,19 +78,7 @@ public class GoogleBannerAds extends BaseAds {
         });
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
-    @Override
-    public void show(Activity activity, AdsCallback callback) {
-        setAdsCallback(callback);
-
-        show(activity);
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return (mAdView != null);
+        ads.loadAd(adRequest);
     }
 
     private AdSize getAdSize() {

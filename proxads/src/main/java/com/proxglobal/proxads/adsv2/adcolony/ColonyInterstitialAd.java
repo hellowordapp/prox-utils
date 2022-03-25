@@ -1,7 +1,6 @@
 package com.proxglobal.proxads.adsv2.adcolony;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -10,13 +9,11 @@ import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.adcolony.sdk.AdColonyZone;
+import com.proxglobal.proxads.adsv2.base.BaseAds;
 import com.proxglobal.proxads.adsv2.base.BaseInterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
-public class ColonyInterstitialAd extends BaseInterAds {
-    private AdColonyInterstitial ads;
-    private final String zoneId;
-
+public class ColonyInterstitialAd extends BaseInterAds<AdColonyInterstitial> {
     private ColonyInterstitialCallback mListener;
 
     private AdColonyInterstitialListener getMListener() {
@@ -28,32 +25,8 @@ public class ColonyInterstitialAd extends BaseInterAds {
     }
 
     public ColonyInterstitialAd(String zoneId) {
-        super(null);
-        this.zoneId = zoneId;
-    }
-
-    @Override
-    public ColonyInterstitialAd load() {
-        if (isAvailable() || inLoading) return this;
-        inLoading = true;
-
-        AdColony.requestInterstitial(zoneId, getMListener());
-        return this;
-    }
-
-    @Override
-    public void show(Activity activity) {
-        if(isShowing) return;
-
-        if(!isAvailable()) {
-            if(autoReload) load();
-            onShowError();
-            return;
-        }
-
-        ads.show();
-
-        ads = null;
+        super(null, zoneId);
+        this.adId = zoneId;
     }
 
     @Override
@@ -68,8 +41,13 @@ public class ColonyInterstitialAd extends BaseInterAds {
     }
 
     @Override
-    public boolean isAvailable() {
-        return (ads != null);
+    public void specificLoadAdsMethod() {
+        AdColony.requestInterstitial(adId, getMListener());
+    }
+
+    @Override
+    public void specificShowAdsMethod(Activity activity) {
+        ads.show();
     }
 
     // base callback for adcolony
