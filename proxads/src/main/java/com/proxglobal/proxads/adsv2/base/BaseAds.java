@@ -1,6 +1,7 @@
 package com.proxglobal.proxads.adsv2.base;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.CallSuper;
 
@@ -10,12 +11,12 @@ import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 public abstract class BaseAds<T> extends Ads {
     protected T ads;
     // Callback
-    protected AdsCallback mCallback;
+    private AdsCallback mCallback;
     private LoadCallback mLoadCallback;
 
-    protected boolean inLoading = false;
-    protected boolean autoReload = true;
-    protected boolean isShowing = false;
+    private boolean inLoading = false;
+    private boolean autoReload = true;
+    private boolean isShowing = false;
 
     protected Activity mActivity;
 
@@ -31,6 +32,7 @@ public abstract class BaseAds<T> extends Ads {
         if (isAvailable() || inLoading) return this;
         inLoading = true;
 
+        Log.i(TAG, "load: ");
         specificLoadAdsMethod();
 
         return this;

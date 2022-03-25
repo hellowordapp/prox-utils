@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         ProxAds.getInstance().showBanner(this, findViewById(R.id.banner_container), ProxUtils.TEST_BANNER_ID,
-            object: AdsCallback {
+            object: AdsCallback() {
                 override fun onShow() {
                     Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                 }
@@ -38,10 +38,11 @@ class MainActivity : BaseActivity() {
             }
         )
 
-        ProxAds.getInstance().initInterstitial(this, ProxUtils.TEST_INTERSTITIAL_ID, null, "inter");
+        ProxAds.getInstance().configure(this, "appbe67360c55654f97b2", "vz3ebfacd56a34480da8")
+        ProxAds.getInstance().initInterstitial(this, "fjdlsafj", "vz3ebfacd56a34480da8", "inter");
 //        ProxPurchase.getInstance().syncPurchaseState()
         findViewById<Button>(R.id.test_interstitial).setOnClickListener(View.OnClickListener {
-            ProxAds.getInstance().showInterstitial(this, "inter", object: AdsCallback {
+            ProxAds.getInstance().showInterstitial(this, "inter", object: AdsCallback() {
                 override fun onShow() {
                     Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                 }
@@ -58,7 +59,7 @@ class MainActivity : BaseActivity() {
         })
 
         findViewById<Button>(R.id.test_interstitial_splash).setOnClickListener {
-            ProxAds.getInstance().showSplash(this, object : AdsCallback {
+            ProxAds.getInstance().showSplash(this, object : AdsCallback() {
                 override fun onShow() {
                     Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                 }
@@ -74,25 +75,33 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native).setOnClickListener {
-            ProxUtils.INSTANCE.createNativeAd(
+            ProxAds.getInstance().showMediumNative(
                     this, ProxUtils.TEST_NATIVE_ID,
-                    findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big
-            ).load(
-                NativeAdCallback {
-                    Toast.makeText(this@MainActivity, "Native", Toast.LENGTH_SHORT).show()
-                })
+                findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
+                    override fun onShow() {
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onClosed() {
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
         }
 
         findViewById<Button>(R.id.test_native_big_shimmer).setOnClickListener {
             ProxAds.getInstance().showBigNative(
                     this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container), object : NativeAdCallback2() {
-                    override fun onNativeAdCallback() {
+                findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
+                    override fun onShow() {
                         Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                     }
 
-                    override fun onNativeAdsShowFailed() {
-                        super.onNativeAdsShowFailed()
+                    override fun onError() {
                         findViewById<FrameLayout>(R.id.ad_container).removeAllViews()
                         Toast.makeText(this@MainActivity, "Failed", Toast.LENGTH_SHORT).show()
                     }

@@ -1,7 +1,7 @@
 package com.proxglobal.proxads.adsv2.callback;
 
-public interface AdsCallback {
-    void onShow();
-    void onClosed();
-    void onError();
+public abstract class AdsCallback {
+    public void onShow() {};
+    public void onClosed() {};
+    public void onError() {};
 }

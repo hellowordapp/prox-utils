@@ -9,11 +9,10 @@ import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.adcolony.sdk.AdColonyZone;
-import com.proxglobal.proxads.adsv2.base.BaseAds;
-import com.proxglobal.proxads.adsv2.base.BaseInterAds;
+import com.proxglobal.proxads.adsv2.base.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
-public class ColonyInterstitialAd extends BaseInterAds<AdColonyInterstitial> {
+public class ColonyInterstitialAd extends InterAds<AdColonyInterstitial> {
     private ColonyInterstitialCallback mListener;
 
     private AdColonyInterstitialListener getMListener() {
@@ -57,8 +56,6 @@ public class ColonyInterstitialAd extends BaseInterAds<AdColonyInterstitial> {
         public void onRequestFilled(AdColonyInterstitial adColonyInterstitial) {
             ColonyInterstitialAd.this.ads = adColonyInterstitial;
             ColonyInterstitialAd.this.onLoadSuccess();
-
-            inLoading = false;
         }
 
         @Override
@@ -67,8 +64,6 @@ public class ColonyInterstitialAd extends BaseInterAds<AdColonyInterstitial> {
             super.onRequestNotFilled(zone);
             ColonyInterstitialAd.this.ads = null;
             ColonyInterstitialAd.this.onLoadFailed();
-
-            inLoading = false;
         }
 
         @Override

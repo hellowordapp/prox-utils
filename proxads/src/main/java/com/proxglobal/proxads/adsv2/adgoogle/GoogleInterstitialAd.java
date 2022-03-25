@@ -10,11 +10,10 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.proxglobal.proxads.adsv2.base.BaseAds;
-import com.proxglobal.proxads.adsv2.base.BaseInterAds;
+import com.proxglobal.proxads.adsv2.base.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
-public class GoogleInterstitialAd extends BaseInterAds<InterstitialAd> {
+public class GoogleInterstitialAd extends InterAds<InterstitialAd> {
     private GoogleInterstitialCallback mListener;
 
     private FullScreenContentCallback getMListener() {

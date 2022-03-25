@@ -17,26 +17,17 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.base.BaseAds;
+import com.proxglobal.proxads.adsv2.base.NativeAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
-public class GoogleBannerAds extends BaseAds<AdView> {
-    private final FrameLayout mContainer;
-
+public class GoogleBannerAds extends NativeAds<AdView> {
     public GoogleBannerAds(Activity activity, FrameLayout container, String adId) {
-        super(activity, adId);
+        super(activity, container, adId);
         this.adId = adId;
         this.mContainer = container;
 
-        this.autoReload = false;
         enableShimmer(R.layout.shimmer_banner);
-    }
-
-    @Override
-    public void show(Activity activity, AdsCallback callback) {
-        setAdsCallback(callback);
-
-        show(activity);
     }
 
     @Override
@@ -94,27 +85,5 @@ public class GoogleBannerAds extends BaseAds<AdView> {
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(mActivity, adWidth);
-    }
-
-    public void enableShimmer(int shimmerLayoutId) {
-        View view = mActivity.getLayoutInflater().inflate(shimmerLayoutId, mContainer);
-
-        ShimmerFrameLayout shimmer;
-        if(view instanceof ShimmerFrameLayout) {
-            shimmer = (ShimmerFrameLayout) view;
-        } else {
-            shimmer = new ShimmerFrameLayout(mActivity);
-            shimmer.setId(View.generateViewId());
-            shimmer.setLayoutParams(
-                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT));
-
-            mActivity.getLayoutInflater().inflate(shimmerLayoutId, shimmer);
-        }
-
-        shimmer.startShimmer();
-
-        mContainer.removeAllViews();
-        mContainer.addView(shimmer);
     }
 }

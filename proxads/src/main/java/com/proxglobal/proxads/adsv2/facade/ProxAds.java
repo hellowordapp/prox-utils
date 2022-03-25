@@ -17,8 +17,9 @@ import com.proxglobal.proxads.ads.callback.NativeAdCallback2;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
+import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
 import com.proxglobal.proxads.adsv2.base.BaseAds;
-import com.proxglobal.proxads.adsv2.base.BaseInterAds;
+import com.proxglobal.proxads.adsv2.base.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 import com.proxglobal.purchase.ProxPurchase;
@@ -51,7 +52,7 @@ public final class ProxAds {
                                  @Nullable String colonyZoneId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
-        BaseInterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
+        InterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
         interStorage.put(tag, ads);
 
         ads.setLoadCallback(new LoadCallback() {
@@ -101,7 +102,7 @@ public final class ProxAds {
         showAdsWithKHub(activity, ads, callback);
     }
 
-    BaseInterAds splashAds;
+    InterAds splashAds;
     public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String  colonyZoneId,
                            int timeout) {
@@ -140,7 +141,7 @@ public final class ProxAds {
             @Override
             public void onLoadFailed() {
                 if(colonyZoneId != null) {
-                    splashAds = (BaseInterAds) new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
+                    splashAds = (InterAds) new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
                         @Override
                         public void onLoadSuccess() {
                             if(splashDone) return;
@@ -252,11 +253,11 @@ public final class ProxAds {
     }
 
     // ---------------------- Native -------------------------
-    public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, NativeAdCallback2 callback) {
-        ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(activity, adId, adContainer).load(callback);
+    public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_medium).load().show(activity, callback);
     }
 
-    public void showBigNative(Activity activity, String adId, FrameLayout adContainer, NativeAdCallback2 callback) {
-        ProxUtils.INSTANCE.createBigNativeAdWithShimmer(activity, adId, adContainer).load(callback);
+    public void showBigNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big).load().show(activity, callback);
     }
 }
