@@ -11,27 +11,28 @@ import androidx.annotation.Nullable;
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.proxglobal.proxads.ProxUtils;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.ads.callback.NativeAdCallback2;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
+import com.proxglobal.proxads.adsv2.adgoogle.GoogleRewardAds;
 import com.proxglobal.proxads.adsv2.base.BaseAds;
 import com.proxglobal.proxads.adsv2.base.InterAds;
+import com.proxglobal.proxads.adsv2.base.RewardAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
+import com.proxglobal.proxads.adsv2.callback.RewardCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
 import java.util.HashMap;
 
 public final class ProxAds {
-    private final HashMap<String, BaseAds> interStorage;
+    private final HashMap<String, BaseAds> adsStorage;
     private static ProxAds INSTANCE = null;
 
     private ProxAds() {
-        interStorage = new HashMap<>();
+        adsStorage = new HashMap<>();
     }
 
     private boolean splashDone = false;
@@ -53,14 +54,14 @@ public final class ProxAds {
      * @param activity
      * @param googleAdsId
      * @param colonyZoneId pass null if don't want to use this
-     * @param tag
+     * @param tag tag name of ads
      */
     public void initInterstitial(@NonNull Activity activity, @NonNull String googleAdsId,
                                  @Nullable String colonyZoneId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
         InterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
-        interStorage.put(tag, ads);
+        adsStorage.put(tag, ads);
 
         ads.setLoadCallback(new LoadCallback() {
             @Override
@@ -71,19 +72,25 @@ public final class ProxAds {
             @Override
             public void onLoadFailed() {
                 if(colonyZoneId != null) {
-                    interStorage.put(tag, new ColonyInterstitialAd(colonyZoneId).load());
+                    adsStorage.put(tag, new ColonyInterstitialAd(colonyZoneId).load());
                 }
             }
         }).load();
     }
 
+    /**
+     * show showInterstitial with existed tag name
+     * @param activity
+     * @param tag tag name of ads
+     * @param callback
+     */
     public void showInterstitial(@NonNull Activity activity, String tag, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
 
-        BaseAds ads = interStorage.get(tag);
+        BaseAds ads = adsStorage.get(tag);
 
         if(ads == null) return;
         if(!ads.isAvailable()) {
@@ -102,7 +109,7 @@ public final class ProxAds {
      * @param callback
      * @param googleAdsId
      * @param colonyZoneId pass null if don't want to use this
-     * @param timeout
+     * @param timeout timeout
      */
     public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String colonyZoneId,
@@ -172,7 +179,7 @@ public final class ProxAds {
     }
 
     private void clearStorage() {
-        interStorage.clear();
+        adsStorage.clear();
     }
 
     private void showAdsWithKHub(Activity activity, BaseAds ads, AdsCallback callback) {
@@ -263,5 +270,55 @@ public final class ProxAds {
         }
 
         new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big).load().show(activity, callback);
+    }
+
+    // ----------------------- Reward -------------------------
+    /**
+     * show inter ads
+     * @param activity
+     * @param googleAdsId
+     * @param colonyZoneId pass null if don't want to use this
+     * @param tag tag name of ads
+     */
+    public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId,
+                                 @Nullable String colonyZoneId, @NonNull String tag) {
+        if(ProxPurchase.getInstance().checkPurchased()) return;
+
+        RewardAds ads = new GoogleRewardAds(activity, googleAdsId);
+
+        ads.setLoadCallback(new LoadCallback() {
+            @Override
+            public void onLoadSuccess() {
+                adsStorage.put(tag, ads);
+            }
+
+            @Override
+            public void onLoadFailed() {
+
+            }
+        }).load();
+    }
+
+    /**
+     * show showInterstitial with existed tag name
+     * @param activity
+     * @param tag tag name of ads
+     * @param callback
+     */
+    public void showRewardAds(@NonNull Activity activity, String tag, AdsCallback callback, RewardCallback rewardCallback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        GoogleRewardAds ads = (GoogleRewardAds) adsStorage.get(tag);
+
+        if(ads == null) return;
+        if(!ads.isAvailable()) {
+            ads.show(activity, callback, rewardCallback);
+            return;
+        }
+
+        showAdsWithKHub(activity, ads, callback);
     }
 }

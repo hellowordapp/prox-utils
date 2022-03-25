@@ -18,7 +18,7 @@ public class GoogleRewardAds extends RewardAds<RewardedAd> {
     private RewardCallback rewardCallback;
     private GoogleRewardCallback mListener;
 
-    protected GoogleRewardAds(Activity activity, String adId) {
+    public GoogleRewardAds(Activity activity, String adId) {
         super(activity, adId);
     }
 
