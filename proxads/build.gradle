@@ -67,6 +67,6 @@ dependencies {
     implementation("com.android.billingclient:billing-ktx:4.0.0")
 
     //loading dialog
-    implementation 'com.kaopiz:kprogresshud:1.0.2'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
 
 }
