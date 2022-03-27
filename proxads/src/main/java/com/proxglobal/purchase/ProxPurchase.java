@@ -316,6 +316,7 @@ public class ProxPurchase {
      */
     private boolean isSync = false;
     public boolean checkPurchased() {
+        if(mContext == null) return false;
         if(!isSync) {
             syncPurchaseState();
         }
@@ -323,6 +324,7 @@ public class ProxPurchase {
     }
 
     public void syncPurchaseState() {
+        if(mContext == null) return;
         getState();
 
         isSync = true;
