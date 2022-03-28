@@ -49,7 +49,8 @@ public final class ProxAds {
     }
 
     /**
-     * show inter ads
+     * load inter ads available
+     * @param activity
      * @param activity
      * @param googleAdsId
      * @param colonyZoneId pass null if don't want to use this
@@ -83,7 +84,7 @@ public final class ProxAds {
      * @param tag tag name of ads
      * @param callback
      */
-    public void showInterstitial(@NonNull Activity activity, String tag, AdsCallback callback) {
+    public void showInterstitial(@NonNull Activity activity,@NonNull String tag, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
@@ -91,7 +92,10 @@ public final class ProxAds {
 
         BaseAds ads = adsStorage.get(tag);
 
-        if(ads == null) return;
+        if(ads == null) {
+            callback.onError();
+            return;
+        }
         if(!ads.isAvailable()) {
             ads.show(activity, callback);
             return;
