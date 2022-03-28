@@ -10,7 +10,7 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-import com.proxglobal.proxads.adsv2.base.RewardAds;
+import com.proxglobal.proxads.adsv2.ads.RewardAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.RewardCallback;
 

@@ -1,7 +1,6 @@
 package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.adsv2.base.NativeAds;
+import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
 public class GoogleNativeAds extends NativeAds<NativeAdView> {
     private int layoutAdId;

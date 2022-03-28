@@ -1,4 +1,4 @@
-package com.proxglobal.proxads.adsv2.base;
+package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
 import android.view.View;

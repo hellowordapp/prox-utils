@@ -1,4 +1,4 @@
-package com.proxglobal.proxads.adsv2.facade;
+package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
 import android.app.Application;
@@ -17,15 +17,14 @@ import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleRewardAds;
-import com.proxglobal.proxads.adsv2.base.BaseAds;
-import com.proxglobal.proxads.adsv2.base.InterAds;
-import com.proxglobal.proxads.adsv2.base.RewardAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 import com.proxglobal.proxads.adsv2.callback.RewardCallback;
 import com.proxglobal.purchase.ProxPurchase;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Stack;
 
 public final class ProxAds {
     private final HashMap<String, BaseAds> adsStorage;
@@ -320,5 +319,56 @@ public final class ProxAds {
         }
 
         showAdsWithKHub(activity, ads, callback);
+    }
+
+    // ------------------- show sequence ads ---------------
+    public void initInterstitials(@NonNull Activity activity, String tag, @NonNull InterAds... adss) {
+        if(ProxPurchase.getInstance().checkPurchased() || adss.length == 0) return;
+
+        Stack<InterAds> idAdsStack = new Stack<>();
+        idAdsStack.addAll(Arrays.asList(adss));
+
+        final InterAds[] loadAds = {idAdsStack.pop()};
+
+        final boolean[] isSuccess = {false};
+
+        LoadCallback callback = new LoadCallback() {
+            @Override
+            public void onLoadSuccess() {
+                isSuccess[0] = true;
+            }
+
+            @Override
+            public void onLoadFailed() {
+                loadAds[0] = idAdsStack.pop();
+            }
+        };
+
+        while(!idAdsStack.isEmpty() && !isSuccess[0]) {
+            loadAds[0].setLoadCallback(callback);
+            loadAds[0].load();
+        }
+
+        if(isSuccess[0]) adsStorage.put(tag, loadAds[0]);
+
+        idAdsStack.clear();
+    }
+
+    public static class Factory {
+        public InterAds getInterAds(@NonNull Activity activity, String adId, AdsType type) {
+            switch (type) {
+                case GOOGLE:
+                    return new GoogleInterstitialAd(activity, adId);
+                case COLONY:
+                    return new ColonyInterstitialAd(adId);
+            }
+
+            return null;
+        }
+    }
+
+    public static enum AdsType {
+        GOOGLE,
+        COLONY
     }
 }

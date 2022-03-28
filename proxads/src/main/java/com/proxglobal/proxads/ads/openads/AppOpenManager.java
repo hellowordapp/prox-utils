@@ -19,7 +19,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
-import com.proxglobal.proxads.adsv2.facade.ProxAds;
+import com.proxglobal.proxads.adsv2.ads.ProxAds;
 import com.proxglobal.purchase.ProxPurchase;
 
 import java.util.ArrayList;

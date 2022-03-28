@@ -1,9 +1,6 @@
-package com.proxglobal.proxads.adsv2.base;
+package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 

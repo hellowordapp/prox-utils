@@ -1,4 +1,4 @@
-package com.proxglobal.proxads.adsv2.base;
+package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
 import android.util.Log;
@@ -8,7 +8,7 @@ import androidx.annotation.CallSuper;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 
-public abstract class BaseAds<T> extends Ads {
+abstract class BaseAds<T> extends Ads {
     protected T ads;
     // Callback
     private AdsCallback mCallback;

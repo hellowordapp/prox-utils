@@ -9,10 +9,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
-import com.proxglobal.proxads.ads.callback.NativeAdCallback2
 import com.proxglobal.proxads.ads.openads.AppOpenManager
 import com.proxglobal.proxads.adsv2.callback.AdsCallback
-import com.proxglobal.proxads.adsv2.facade.ProxAds
+import com.proxglobal.proxads.adsv2.ads.ProxAds
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
@@ -139,7 +138,11 @@ class MainActivity : BaseActivity() {
 
         val config = Config()
 
-        config.setListener(object : RatingDialogListener {
+        config.setListener(object : RatingDialogListener() {
+            override fun onRated() {
+                super.onRated()
+                Toast.makeText(this@MainActivity, "Rated", Toast.LENGTH_SHORT).show()
+            }
             override fun onSubmitButtonClicked(rate: Int, comment: String?) {
                 Toast.makeText(this@MainActivity, "Submit", Toast.LENGTH_SHORT).show()
             }
@@ -160,7 +163,7 @@ class MainActivity : BaseActivity() {
         config.setForegroundIcon(ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground))
         ProxRateDialog.init(config)
 
-        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showAlways(this,
+        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? -> ProxRateDialog.showIfNeed(this,
                 supportFragmentManager
         ) }
 

@@ -9,7 +9,7 @@ import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.adcolony.sdk.AdColonyZone;
-import com.proxglobal.proxads.adsv2.base.InterAds;
+import com.proxglobal.proxads.adsv2.ads.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
 public class ColonyInterstitialAd extends InterAds<AdColonyInterstitial> {

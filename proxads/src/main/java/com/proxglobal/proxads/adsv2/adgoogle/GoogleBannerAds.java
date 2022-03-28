@@ -2,24 +2,18 @@ package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.adsv2.base.BaseAds;
-import com.proxglobal.proxads.adsv2.base.NativeAds;
-import com.proxglobal.proxads.adsv2.callback.AdsCallback;
-import com.proxglobal.purchase.ProxPurchase;
+import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
 public class GoogleBannerAds extends NativeAds<AdView> {
     public GoogleBannerAds(Activity activity, FrameLayout container, String adId) {
