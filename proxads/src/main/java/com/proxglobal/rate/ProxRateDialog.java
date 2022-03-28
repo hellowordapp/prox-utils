@@ -90,6 +90,10 @@ public class ProxRateDialog extends DialogFragment {
 
         if (!sp.getBoolean("isRated", false)){
             dialog.show(fm, "prox");
+        } else {
+            if(dialog.mConfig != null) {
+                dialog.mConfig.listener.onRated();
+            }
         }
     }
 

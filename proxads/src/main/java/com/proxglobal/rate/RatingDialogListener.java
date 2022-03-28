@@ -1,8 +1,9 @@
 package com.proxglobal.rate;
 
-public interface RatingDialogListener {
-    void onSubmitButtonClicked(int rate, String comment);
-    void onLaterButtonClicked();
-    void onChangeStar(int rate);
-    void onDone();
+public abstract class RatingDialogListener {
+    public void onSubmitButtonClicked(int rate, String comment) {};
+    public void onLaterButtonClicked() {};
+    public void onChangeStar(int rate) {};
+    public void onRated() {};
+    public void onDone() {};
 }
