@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.proxglobal.proxads.ads.ProxInterstitialAd;
 import com.proxglobal.proxads.ads.ProxNativeAd;
+import com.proxglobal.proxads.adsv2.admax.MaxBannerAds;
+import com.proxglobal.proxads.adsv2.admax.MaxNativeAds;
 import com.proxglobal.proxads.remote_config.ProxRemoteConfig;
 
 public class ProxUtils {
@@ -19,6 +21,10 @@ public class ProxUtils {
     public static final String TEST_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
     public static final String TEST_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110";
     public static final String TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
+
+    public static final String TEST_INTERSTITIAL_MAX_ID = "d39a9f1ed149f427";
+    public static final String TEST_NATIVE_MAX_ID = "aaced834bba86a77";
+    public static final String TEST_BANNER_MAX_ID = "65c30933da2a6760";
 
     public ProxInterstitialAd createInterstitialAd (Activity activity, String adId) {
         return new ProxInterstitialAd(activity, adId);

@@ -52,7 +52,10 @@ dependencies {
 
     // Ad colony
     implementation 'com.adcolony:sdk:4.6.5'
-    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+
+    //Ad AppLovin MAX
+    implementation 'com.applovin:applovin-sdk:+'
 
     // lifecycle
     def lifecycle_version = "2.0.0"

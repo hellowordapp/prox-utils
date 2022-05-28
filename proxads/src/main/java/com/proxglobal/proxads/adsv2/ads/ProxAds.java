@@ -17,6 +17,8 @@ import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleRewardAds;
+import com.proxglobal.proxads.adsv2.admax.MaxBannerAds;
+import com.proxglobal.proxads.adsv2.admax.MaxNativeAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
 import com.proxglobal.proxads.adsv2.callback.RewardCallback;
@@ -26,7 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
-public final class ProxAds {
+public class ProxAds {
     private final HashMap<String, BaseAds> adsStorage;
     private static ProxAds INSTANCE = null;
 
@@ -114,7 +116,7 @@ public final class ProxAds {
      * @param colonyZoneId pass null if don't want to use this
      * @param timeout timeout
      */
-    public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
+    public void showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String colonyZoneId,
                            int timeout) {
         if(ProxPurchase.getInstance().checkPurchased()) {
@@ -256,6 +258,15 @@ public final class ProxAds {
         new GoogleBannerAds(activity, container, adId).load().show(activity, callback);
     }
 
+    public void showBannerMax(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        new MaxBannerAds(activity, container, adId).load().show(activity, callback);
+    }
+
     // ---------------------- Native -------------------------
     public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
@@ -273,6 +284,45 @@ public final class ProxAds {
         }
 
         new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big).load().show(activity, callback);
+    }
+
+    public void showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        new MaxNativeAds(activity, adContainer, adId, R.layout.max_native_custom_ad_small).load().show(activity, callback);
+    }
+
+    public void showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        new MaxNativeAds(activity, adContainer, adId, R.layout.max_native_custom_ad_view).load().show(activity, callback);
+    }
+
+    public void showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.max_native_custom_ad_small);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_medium);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.max_native_custom_ad_view);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big);
+        maxNativeAds.load().show(activity, callback);
     }
 
     // ----------------------- Reward -------------------------

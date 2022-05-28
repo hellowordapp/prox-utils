@@ -8,6 +8,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 public abstract class NativeAds<T> extends BaseAds<T> {
     protected FrameLayout mContainer;
+    protected ShimmerFrameLayout shimmer;
 
     protected NativeAds(Activity activity, FrameLayout container, String adId) {
         super(activity, adId);
@@ -18,7 +19,6 @@ public abstract class NativeAds<T> extends BaseAds<T> {
     public void enableShimmer(int shimmerLayoutId) {
         View view = mActivity.getLayoutInflater().inflate(shimmerLayoutId, mContainer);
 
-        ShimmerFrameLayout shimmer;
         if(view instanceof ShimmerFrameLayout) {
             shimmer = (ShimmerFrameLayout) view;
         } else {
