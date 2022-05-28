@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
+import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
@@ -18,6 +19,7 @@ import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleRewardAds;
 import com.proxglobal.proxads.adsv2.admax.MaxBannerAds;
+import com.proxglobal.proxads.adsv2.admax.MaxInterstitialAds;
 import com.proxglobal.proxads.adsv2.admax.MaxNativeAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 import com.proxglobal.proxads.adsv2.callback.LoadCallback;
@@ -30,10 +32,12 @@ import java.util.Stack;
 
 public class ProxAds {
     private final HashMap<String, BaseAds> adsStorage;
+    private final HashMap<String, BaseAds> adsMaxStorage;
     private static ProxAds INSTANCE = null;
 
     private ProxAds() {
         adsStorage = new HashMap<>();
+        adsMaxStorage = new HashMap<>();
     }
 
     private boolean splashDone = false;
@@ -80,6 +84,14 @@ public class ProxAds {
         }).load();
     }
 
+    public void initInterstitialMax(@NonNull Activity activity, @NonNull String adsId, @NonNull String tag) {
+        if(ProxPurchase.getInstance().checkPurchased()) return;
+
+        InterAds ads = new MaxInterstitialAds(activity, adsId);
+        adsMaxStorage.put(tag, ads);
+        ads.load();
+    }
+
     /**
      * show showInterstitial with existed tag name
      * @param activity
@@ -93,6 +105,26 @@ public class ProxAds {
         }
 
         BaseAds ads = adsStorage.get(tag);
+
+        if(ads == null) {
+            callback.onError();
+            return;
+        }
+        if(!ads.isAvailable()) {
+            ads.show(activity, callback);
+            return;
+        }
+
+        showAdsWithKHub(activity, ads, callback);
+    }
+
+    public void showInterstitialMax(@NonNull Activity activity,@NonNull String tag, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        BaseAds ads = adsMaxStorage.get(tag);
 
         if(ads == null) {
             callback.onError();
@@ -179,6 +211,47 @@ public class ProxAds {
 
                     splashAds.load();
                 }
+            }
+        }).load();
+    }
+
+    public void showSplashMax(@NonNull Activity activity,@NonNull AdsCallback callback,
+                           @NonNull String adsId, int timeout) {
+        if(ProxPurchase.getInstance().checkPurchased()) {
+            callback.onError();
+            return;
+        }
+
+        splashDone = false;
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!splashDone) {
+                    callback.onError();
+                    splashDone = true;
+                }
+            }
+        };
+        handler.postDelayed(runnable, timeout);
+
+        splashAds = new MaxInterstitialAds(activity, adsId);
+
+        splashAds.setLoadCallback(new LoadCallback() {
+            @Override
+            public void onLoadSuccess() {
+                if(splashDone) return;
+                splashAds.turnOffAutoReload();
+                showAdsWithKHub(activity, splashAds, callback);
+                handler.removeCallbacksAndMessages(null);
+
+                splashAds = null;
+            }
+
+            @Override
+            public void onLoadFailed() {
+                if(splashDone) return;
             }
         }).load();
     }
