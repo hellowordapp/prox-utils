@@ -37,6 +37,10 @@ class MainActivity : BaseActivity() {
             }
         )
 
+        findViewById<Button>(R.id.btn_max).setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this@MainActivity, MaxActivity::class.java))
+        })
+
         ProxAds.getInstance().configure(this, "appbe67360c55654f97b2", "vz3ebfacd56a34480da8")
         ProxAds.getInstance().initInterstitial(this, "fjdlsafj", "vz3ebfacd56a34480da8", "inter");
 //        ProxPurchase.getInstance().syncPurchaseState()

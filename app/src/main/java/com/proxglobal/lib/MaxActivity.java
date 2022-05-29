@@ -2,6 +2,7 @@ package com.proxglobal.lib;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -71,12 +72,14 @@ public class MaxActivity extends AppCompatActivity {
                 public void onClosed() {
                     super.onClosed();
                     Toast.makeText(MaxActivity.this, "Close", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MaxActivity.this, MainActivity2.class));
                 }
 
                 @Override
                 public void onError() {
                     super.onError();
                     Toast.makeText(MaxActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MaxActivity.this, MainActivity2.class));
                 }
             }, ProxUtils.TEST_INTERSTITIAL_MAX_ID, 12000);
         });

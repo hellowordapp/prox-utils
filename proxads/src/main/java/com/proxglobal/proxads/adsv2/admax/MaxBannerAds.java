@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.applovin.impl.mediation.ads.MaxAdViewImpl;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
 import com.applovin.sdk.AppLovinSdkUtils;
+import com.google.android.gms.ads.AdLoader;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
@@ -27,66 +30,59 @@ public class MaxBannerAds extends NativeAds<MaxAdView> {
     @Override
     public void specificLoadAdsMethod() {
         ads = new MaxAdView(adId, mActivity);
-
+        MaxAdView adsTemp = ads;
         ads.setLayoutParams(getAdSize());
-        mContainer.addView(ads);
-    }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
         ads.setListener(new MaxAdViewAdListener() {
             @Override
             public void onAdExpanded(MaxAd ad) {
-                Log.d("ntduc", "onAdExpanded");
-
             }
 
             @Override
             public void onAdCollapsed(MaxAd ad) {
-                Log.d("ntduc", "onAdCollapsed");
             }
 
             @Override
             public void onAdLoaded(MaxAd ad) {
-                Log.d("ntduc", "onAdLoaded");
                 onLoadSuccess();
             }
 
             @Override
             public void onAdDisplayed(MaxAd ad) {
-                Log.d("ntduc", "onAdDisplayed");
-                if (shimmer != null){
-                    mContainer.removeView(shimmer);
-                }
                 onShowSuccess();
+                if (shimmer != null && !mActivity.isDestroyed()){
+                    mContainer.removeView(shimmer);
+                    shimmer = null;
+                }
             }
 
             @Override
             public void onAdHidden(MaxAd ad) {
-                Log.d("ntduc", "onAdHidden");
-
+                adsTemp.destroy();
             }
 
             @Override
             public void onAdClicked(MaxAd ad) {
-                Log.d("ntduc", "onAdClicked");
             }
 
             @Override
             public void onAdLoadFailed(String adUnitId, MaxError error) {
-                Log.d("ntduc", "onAdLoadFailed");
                 onShowError();
                 onLoadFailed();
             }
 
             @Override
             public void onAdDisplayFailed(MaxAd ad, MaxError error) {
-                Log.d("ntduc", "onAdDisplayFailed");
                 onShowError();
             }
         });
 
         ads.loadAd();
+    }
+
+    @Override
+    public void specificShowAdsMethod(Activity activity) {
+        mContainer.addView(ads);
     }
 
     private ViewGroup.LayoutParams getAdSize() {
