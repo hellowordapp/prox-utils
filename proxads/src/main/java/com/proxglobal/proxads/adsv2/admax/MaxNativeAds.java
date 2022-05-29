@@ -56,9 +56,10 @@ public class MaxNativeAds extends NativeAds<MaxNativeAdView> {
         nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
             @Override
             public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
-                Log.d("ntduc", "onNativeAdLoaded");
                 onLoadSuccess();
-                if (!mActivity.isDestroyed()) {
+                if (mActivity.isDestroyed()) {
+                    nativeAdLoader.destroy();
+                } else {
                     onShowSuccess();
 
                     populateNativeAdView(ad.getNativeAd(), nativeAdView);
@@ -69,17 +70,23 @@ public class MaxNativeAds extends NativeAds<MaxNativeAdView> {
 
             @Override
             public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
-                Log.d("ntduc", "onNativeAdLoadFailed");
                 onLoadFailed();
-                ads = new MaxNativeAdView(binder, mActivity);
-                nativeAdLoader.loadAd(ads);
+                if (mActivity.isDestroyed()) {
+                    nativeAdLoader.destroy();
+                } else {
+                    ads = new MaxNativeAdView(binder, mActivity);
+                    nativeAdLoader.loadAd(ads);
+                }
             }
 
             @Override
             public void onNativeAdClicked(final MaxAd ad) {
-                Log.d("ntduc", "onNativeAdClicked");
-                ads = new MaxNativeAdView(binder, mActivity);
-                nativeAdLoader.loadAd(ads);
+                if (mActivity.isDestroyed()) {
+                    nativeAdLoader.destroy();
+                } else {
+                    ads = new MaxNativeAdView(binder, mActivity);
+                    nativeAdLoader.loadAd(ads);
+                }
             }
         });
 
