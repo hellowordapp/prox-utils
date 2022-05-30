@@ -15,8 +15,8 @@ dependencies {
 ```
 ### initialize the SDK inside your application
 ```sh
-	AppLovinSdk.getInstance(this).setMediationProvider(AppLovinMediationProvider.MAX);
-        AppLovinSdk.getInstance(this).initializeSdk(config -> {
+	AppLovinSdk.getInstance(Context context).setMediationProvider(AppLovinMediationProvider.MAX);
+        AppLovinSdk.getInstance(Context context).initializeSdk(config -> {
         });
 ```
 ### load and show banner with AdsCallback
