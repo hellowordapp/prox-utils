@@ -25,39 +25,39 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
         ads.setListener(new MaxAdListener() {
             @Override
             public void onAdLoaded(MaxAd ad) {
-                Log.d("ntduc123", "onAdLoaded");
                 onLoadSuccess();
             }
 
             @Override
             public void onAdDisplayed(MaxAd ad) {
-                Log.d("ntduc123", "onAdDisplayed");
                 onShowSuccess();
             }
 
             @Override
             public void onAdHidden(MaxAd ad) {
-                Log.d("ntduc123", "onAdHidden");
                 onClosed();
             }
 
             @Override
             public void onAdClicked(MaxAd ad) {
-                Log.d("ntduc123", "onAdClicked");
             }
 
             @Override
             public void onAdLoadFailed(String adUnitId, MaxError error) {
-                Log.d("ntduc123", "onAdLoadFailed");
                 onShowError();
                 onLoadFailed();
+                if (ads == null){
+                    ads = new MaxInterstitialAd(adId, mActivity);
+                }
                 ads.loadAd();
             }
 
             @Override
             public void onAdDisplayFailed(MaxAd ad, MaxError error) {
-                Log.d("ntduc123", "onAdDisplayFailed");
                 onShowError();
+                if (ads == null){
+                    ads = new MaxInterstitialAd(adId, mActivity);
+                }
                 ads.loadAd();
             }
         });

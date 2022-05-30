@@ -3,6 +3,7 @@ package com.proxglobal.proxads.adsv2.ads;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Handler;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -32,12 +33,10 @@ import java.util.Stack;
 
 public class ProxAds {
     private final HashMap<String, BaseAds> adsStorage;
-    private final HashMap<String, BaseAds> adsMaxStorage;
     private static ProxAds INSTANCE = null;
 
     private ProxAds() {
         adsStorage = new HashMap<>();
-        adsMaxStorage = new HashMap<>();
     }
 
     private boolean splashDone = false;
@@ -88,7 +87,7 @@ public class ProxAds {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
         InterAds ads = new MaxInterstitialAds(activity, adsId);
-        adsMaxStorage.put(tag, ads);
+        adsStorage.put(tag, ads);
         ads.load();
     }
 
@@ -124,7 +123,7 @@ public class ProxAds {
             return;
         }
 
-        BaseAds ads = adsMaxStorage.get(tag);
+        BaseAds ads = adsStorage.get(tag);
 
         if(ads == null) {
             callback.onError();
@@ -334,6 +333,9 @@ public class ProxAds {
     public void showBannerMax(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (container != null){
+                container.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -362,6 +364,9 @@ public class ProxAds {
     public void showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (adContainer != null){
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -371,6 +376,9 @@ public class ProxAds {
     public void showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (adContainer != null){
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -380,6 +388,9 @@ public class ProxAds {
     public void showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (adContainer != null){
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -391,6 +402,9 @@ public class ProxAds {
     public void showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (adContainer != null){
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.max_native_custom_ad_view);
