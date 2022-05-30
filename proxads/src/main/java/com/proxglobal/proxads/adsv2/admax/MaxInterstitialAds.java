@@ -11,10 +11,15 @@ import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.FullScreenContentCallback;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
+import com.proxglobal.proxads.adsv2.ads.ProxAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
 public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
+    private KProgressHUD kProgressHUD;
+
     public MaxInterstitialAds(Activity activity, String adId) {
         super(activity, adId);
     }
@@ -31,11 +36,19 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
             @Override
             public void onAdDisplayed(MaxAd ad) {
                 onShowSuccess();
+                if (kProgressHUD==null){
+                    kProgressHUD = createKHub(mActivity);
+                }
+                kProgressHUD.show();
             }
 
             @Override
             public void onAdHidden(MaxAd ad) {
                 onClosed();
+                if (kProgressHUD!=null){
+                    kProgressHUD.dismiss();
+                    kProgressHUD = null;
+                }
             }
 
             @Override
@@ -70,5 +83,14 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
         if (ads.isReady()){
             ads.showAd();
         }
+    }
+
+    private KProgressHUD createKHub(Activity activity) {
+        return KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setAutoDismiss(true)
+                .setDimAmount(0.5f);
     }
 }
