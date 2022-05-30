@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 
 import com.applovin.impl.mediation.ads.MaxAdViewImpl;
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
@@ -32,7 +33,16 @@ public class MaxBannerAds extends NativeAds<MaxAdView> {
         ads = new MaxAdView(adId, mActivity);
         MaxAdView adsTemp = ads;
         ads.setLayoutParams(getAdSize());
-
+        ads.setRevenueListener(new MaxAdRevenueListener() {
+            @Override
+            public void onAdRevenuePaid(MaxAd ad) {
+                Log.d("ntduc", "BannerMax Revenue: "+ad.getRevenue());
+                Log.d("ntduc", "BannerMax NetworkName: "+ad.getNetworkName());
+                Log.d("ntduc", "BannerMax AdUnitId: "+ad.getAdUnitId());
+                Log.d("ntduc", "BannerMax Placement: "+ad.getPlacement());
+                Log.d("ntduc", "-------------------------------------------");
+            }
+        });
         ads.setListener(new MaxAdViewAdListener() {
             @Override
             public void onAdExpanded(MaxAd ad) {

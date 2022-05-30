@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.nativeAds.MaxNativeAd;
 import com.applovin.mediation.nativeAds.MaxNativeAdListener;
@@ -53,6 +54,16 @@ public class MaxNativeAds extends NativeAds<MaxNativeAdView> {
         ads = new MaxNativeAdView(binder, mActivity);
 
         MaxNativeAdLoader nativeAdLoader = new MaxNativeAdLoader(adId, mActivity);
+        nativeAdLoader.setRevenueListener(new MaxAdRevenueListener() {
+            @Override
+            public void onAdRevenuePaid(MaxAd ad) {
+                Log.d("ntduc", "NativeMax Revenue: "+ad.getRevenue());
+                Log.d("ntduc", "NativeMax NetworkName: "+ad.getNetworkName());
+                Log.d("ntduc", "NativeMax AdUnitId: "+ad.getAdUnitId());
+                Log.d("ntduc", "NativeMax Placement: "+ad.getPlacement());
+                Log.d("ntduc", "-------------------------------------------");
+            }
+        });
         nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
             @Override
             public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {

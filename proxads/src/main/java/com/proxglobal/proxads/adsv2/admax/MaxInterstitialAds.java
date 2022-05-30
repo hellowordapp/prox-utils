@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdListener;
+import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.google.android.gms.ads.AdError;
@@ -27,6 +28,16 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
     @Override
     public void specificLoadAdsMethod() {
         ads = new MaxInterstitialAd(adId, mActivity);
+        ads.setRevenueListener(new MaxAdRevenueListener() {
+            @Override
+            public void onAdRevenuePaid(MaxAd ad) {
+                Log.d("ntduc", "InterstitialMax Revenue: "+ad.getRevenue());
+                Log.d("ntduc", "InterstitialMax NetworkName: "+ad.getNetworkName());
+                Log.d("ntduc", "InterstitialMax AdUnitId: "+ad.getAdUnitId());
+                Log.d("ntduc", "InterstitialMax Placement: "+ad.getPlacement());
+                Log.d("ntduc", "-------------------------------------------");
+            }
+        });
         ads.setListener(new MaxAdListener() {
             @Override
             public void onAdLoaded(MaxAd ad) {
