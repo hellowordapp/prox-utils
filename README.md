@@ -8,102 +8,139 @@ dependencies {
 ```
 
 ## Usage
-
-### create interstitial
+### Add the following \<meta-data\> element to your AndroidManifest.xml inside the \<application\> element:
 ```sh
-        ProxInterstitialAd inter = ProxUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
+	<meta-data android:name="applovin.sdk.key"
+           	android:value="YOUR_SDK_KEY_HERE"/>
 ```
-
-### load interstitial 
+### initialize the SDK inside your application
 ```sh
-        inter.load(); // this method is auto call after shown/closed ads 
+	AppLovinSdk.getInstance(this).setMediationProvider(AppLovinMediationProvider.MAX);
+        AppLovinSdk.getInstance(this).initializeSdk(config -> {
+        });
 ```
-> #### disable/enable auto reload interstitial ads
+### load and show banner with AdsCallback
 ```sh
-        inter.disableAutoReload()/inter.enableAutoReload()
-```
-
-### show interstitial with Adclose call back
-```sh
-        inter.show(new AdClose() {
+        ProxAds.getInstance().showBannerMax(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
             @Override
-            public void onAdClose() {
-		`//TO-DO`
+            public void onShow() {
+                super.onShow();
+                `//TO-DO`
+            }
+
+            @Override
+            public void onClosed() {
+                super.onClosed();
+                `//TO-DO`
+            }
+
+            @Override
+            public void onError() {
+                super.onError();
+                `//TO-DO`
             }
         });
-
 ```
-> #### show interstitial with Adclose extend call back
+### create and load interstitial
 ```sh
-        inter.show(object : AdCallback() {
-		override fun onAdClose() {
-		    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
-		}
-
-		override fun onAdShow() {
-		    super.onAdShow()
-		    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
-		}
-        })
-
+        ProxAds.getInstance().initInterstitialMax(Activity activity, String adId, String tag);
 ```
-
-### show interstitial with Adclose/AdCallback after specific times
+### show interstitial with AdsCallback
 ```sh
-        inter.show(new AdClose() {
-            @Override
-            public void onAdClose() {
-		`//TO-DO`
-            }
-        }, times);
+        ProxAds.getInstance().showInterstitialMax(Activity activity, String tag, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+            });
 
 ```
-
-### load splash with Adclose/AdCallback call back
+### load and show splash with AdsCallback after specific times
 ```sh
-        inter.loadSplash(int timeout, new AdClose() {
-            @Override
-            public void onAdClose() {
-		`//TO-DO`
-            }
-        });
+        ProxAds.getInstance().showSplashMax(Activity activity, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+            }, String adId, int timeout);
 
 ```
-
-### create native ads
+### load and show native medium ads with AdsCallback
 ```sh 
-        ProxUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
-                .load(new NativeAdCallback() {
-                    @Override
-                    public void onNativeAdCallback() {
-		    	`//TO-DO`
-                    }
-                });
-```
+        ProxAds.getInstance().showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
 
-> #### create native ads with shimmer
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+        });
+```
+### load and show native big ads with AdsCallback
+```sh 
+        ProxAds.getInstance().showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+        });
+```
+> #### load and show native ads with shimmer
 > #### ads with already shimmer layout before loaded
 ```sh
-        ProxUtils.INSTANCE.createNativeAdWithShimmer(
-                activity, String adId,
-                FrameLayout adContainer, int layoutAdId, int layoutShimmerId).load(
-                NativeAdCallback {
-
-                })
+        ProxAds.getInstance().showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
+	ProxAds.getInstance().showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
 ```
-**layoutShimmerId sample from prox library:** com.proxglobal.proxads.R.layout.shimmer_native_***
->#### create native ads with shimmer using default view 
-```sh
-	createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
-	createBigNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
-```
-
-> #### native ads call back **NativeAdCallback/NativeAdCallback2**
-1. NativeAdCallback will call *onNativeAdCallback()* after show or failed to load 
-2. NativeAdCallback2 will return callback more specific
- - *onNativeAdCallback()* only call after native show success
- - *onNativeAdsShowFailed()* will call after native doesn't show 
-
 ### Open App Ads
 ```sh
     class OpenAdsApp: ProxOpenAdsApplication() {
