@@ -13,10 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProxLib">
-        <activity android:name=".MaxActivity" />
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".MainActivity3" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MaxActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"/>
+        <activity
+            android:name=".MainActivity3"
+            android:exported="true"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

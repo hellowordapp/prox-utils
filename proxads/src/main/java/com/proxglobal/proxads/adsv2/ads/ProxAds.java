@@ -2,6 +2,7 @@ package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
 import com.applovin.mediation.ads.MaxInterstitialAd;
+import com.applovin.sdk.AppLovinMediationProvider;
+import com.applovin.sdk.AppLovinSdk;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
@@ -493,6 +496,17 @@ public class ProxAds {
         if(isSuccess[0]) adsStorage.put(tag, loadAds[0]);
 
         idAdsStack.clear();
+    }
+
+    public void initMax(Context context) {
+        // Initialize the AppLovin SDK
+        AppLovinSdk.getInstance(context).setMediationProvider(AppLovinMediationProvider.MAX);
+        AppLovinSdk.getInstance(context).initializeSdk(config -> {
+        });
+    }
+
+    public void showMaxMediationDebug(Context context) {
+        AppLovinSdk.getInstance(context).showMediationDebugger();
     }
 
     public static class Factory {

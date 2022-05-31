@@ -17,6 +17,10 @@ public class MaxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_max);
 
+        findViewById(R.id.test_mediation).setOnClickListener(v -> {
+            ProxAds.getInstance().showMaxMediationDebug(MaxActivity.this);
+        });
+
         ProxAds.getInstance().showBannerMax(this, findViewById(R.id.banner_container), ProxUtils.TEST_BANNER_MAX_ID, new AdsCallback() {
             @Override
             public void onShow() {

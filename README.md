@@ -15,9 +15,7 @@ dependencies {
 ```
 ### initialize the SDK inside your application
 ```sh
-	AppLovinSdk.getInstance(Context context).setMediationProvider(AppLovinMediationProvider.MAX);
-        AppLovinSdk.getInstance(Context context).initializeSdk(config -> {
-        });
+        ProxAds.getInstance().initMax(Context context);
 ```
 ### load and show banner with AdsCallback
 ```sh

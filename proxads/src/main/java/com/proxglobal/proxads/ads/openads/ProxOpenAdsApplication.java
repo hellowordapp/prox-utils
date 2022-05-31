@@ -23,12 +23,6 @@ public abstract class ProxOpenAdsApplication extends Application {
                 });
 
         AppOpenManager.getInstance().init(this, getOpenAdsId());
-
-        // Initialize the AppLovin SDK
-        AppLovinSdk.getInstance(this).setMediationProvider(AppLovinMediationProvider.MAX);
-        AppLovinSdk.getInstance(this).initializeSdk(config -> {
-
-        });
     }
 
     protected final void disableOpenAdsAt(Class ... clss) {

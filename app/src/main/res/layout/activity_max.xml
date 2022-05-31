@@ -16,6 +16,14 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/test_mediation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Test Mediation"
+                android:textColor="@color/white"/>
+
+            <Button
                 android:id="@+id/test_interstitial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
