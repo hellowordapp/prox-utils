@@ -13,6 +13,12 @@ dependencies {
 	<meta-data android:name="applovin.sdk.key"
            	android:value="YOUR_SDK_KEY_HERE"/>
 ```
+### If you use the mediation with Admob, add APPLICATION_ID of Admob to AndroidManifest.xml like this:
+```sh
+	<meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="YOUR_APP_ID_HERE" />
+```
 ### initialize the SDK inside your application
 ```sh
         ProxAds.getInstance().initMax(Context context);
