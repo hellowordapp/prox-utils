@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/ad_headline"
-        app:layout_constraintTop_toTopOf="@+id/ad_app_icon" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/ad_headline"
@@ -54,12 +54,11 @@
         android:id="@+id/ad_advertiser"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toBottomOf="@+id/ad_app_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
+        app:layout_constraintStart_toStartOf="@id/textView"
         app:layout_constraintTop_toBottomOf="@+id/ad_headline"
         tools:text="Advertiser" />
 
@@ -71,7 +70,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ad_app_icon"
+        app:layout_constraintTop_toBottomOf="@+id/ad_advertiser"
         tools:text="Body" />
 
 
