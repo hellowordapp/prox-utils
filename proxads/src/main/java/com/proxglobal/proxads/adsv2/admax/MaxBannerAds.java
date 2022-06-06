@@ -18,6 +18,7 @@ import com.applovin.sdk.AppLovinSdkUtils;
 import com.google.android.gms.ads.AdLoader;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
+import com.proxglobal.proxads.adsv2.ads.ProxAds;
 
 public class MaxBannerAds extends NativeAds<MaxAdView> {
     public MaxBannerAds(Activity activity, FrameLayout container, String adId) {
@@ -55,6 +56,9 @@ public class MaxBannerAds extends NativeAds<MaxAdView> {
             @Override
             public void onAdLoaded(MaxAd ad) {
                 onLoadSuccess();
+                if (ProxAds.isNetworkAvailable(mActivity)){
+                    mContainer.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -79,6 +83,9 @@ public class MaxBannerAds extends NativeAds<MaxAdView> {
             public void onAdLoadFailed(String adUnitId, MaxError error) {
                 onShowError();
                 onLoadFailed();
+                if (!ProxAds.isNetworkAvailable(mActivity)){
+                    mContainer.setVisibility(View.GONE);
+                }
             }
 
             @Override

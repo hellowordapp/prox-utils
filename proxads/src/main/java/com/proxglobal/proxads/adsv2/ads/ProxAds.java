@@ -3,6 +3,8 @@ package com.proxglobal.proxads.adsv2.ads;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -121,7 +123,7 @@ public class ProxAds {
     }
 
     public void showInterstitialMax(@NonNull Activity activity,@NonNull String tag, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             return;
         }
@@ -341,6 +343,12 @@ public class ProxAds {
             }
             return;
         }
+        if (!isNetworkAvailable(activity)){
+            callback.onError();
+            if (container != null){
+                container.setVisibility(View.GONE);
+            }
+        }
 
         new MaxBannerAds(activity, container, adId).load().show(activity, callback);
     }
@@ -365,7 +373,7 @@ public class ProxAds {
     }
 
     public void showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             if (adContainer != null){
                 adContainer.setVisibility(View.GONE);
@@ -377,7 +385,7 @@ public class ProxAds {
     }
 
     public void showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             if (adContainer != null){
                 adContainer.setVisibility(View.GONE);
@@ -389,7 +397,7 @@ public class ProxAds {
     }
 
     public void showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             if (adContainer != null){
                 adContainer.setVisibility(View.GONE);
@@ -403,7 +411,7 @@ public class ProxAds {
     }
 
     public void showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             if (adContainer != null){
                 adContainer.setVisibility(View.GONE);
@@ -496,6 +504,13 @@ public class ProxAds {
         if(isSuccess[0]) adsStorage.put(tag, loadAds[0]);
 
         idAdsStack.clear();
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void initMax(Context context) {
