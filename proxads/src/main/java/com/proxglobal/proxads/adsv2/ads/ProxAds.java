@@ -198,7 +198,7 @@ public final class ProxAds {
     public static KProgressHUD createKHub(Activity activity) {
         return KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel(activity.getString(R.string.loading_ads))
+                .setLabel(activity.getString(R.string._loading_ads))
                 .setCancellable(false)
                 .setAnimationSpeed(2)
                 .setAutoDismiss(true)

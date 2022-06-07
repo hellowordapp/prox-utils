@@ -3,14 +3,23 @@
     <string name="app_name">Test</string>
     <string name="app_display_name">Test</string>
 
-    <string name="rating_title">Did you like the app?</string>
-    <string name="rating_des">Give us a quick rating so we know if you like it?</string>
-    <string name="later">LATER</string>
-    <string name="cancel">CANCEL</string>
-    <string name="submit">SUBMIT</string>
-    <string name="quite_ok">Quite ok</string>
-    <string name="rating_comment_hint">Please write your comment here …</string>
-    <string name="maybe_later">Maybe Later</string>
+    <string name="_rating_title">Did you like the app?</string>
+    <string name="_rating_des">Give us a quick rating so we know if you like it?</string>
+    <string name="_later">LATER</string>
+    <string name="_cancel">CANCEL</string>
+    <string name="_submit">SUBMIT</string>
+    <string name="_quite_ok">Quite ok</string>
+    <string name="_rating_comment_hint">Please write your comment here …</string>
+    <string name="_maybe_later">Maybe Later</string>
 
-    <string name="loading_ads">Loading ads</string>
+    <string name="_loading_ads">Loading ads</string>
+    <string name="_very_bad">Very Bad</string>
+    <string name="_not_good">Not good</string>
+    <string name="_very_good">Very Good</string>
+    <string name="_excellent">Excellent !!!</string>
+    <string name="_notify">Notify</string>
+    <string name="_please_select_star">Please select star !</string>
+    <string name="_ok">OK</string>
+    <string name="_thanks">Thanks!</string>
+    <string name="_thank_for_rating">Thank for rating</string>
 </resources>
