@@ -22,7 +22,7 @@
             android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/rating_title"
+            android:text="@string/_rating_title"
             android:textSize="20sp"
             android:textColor="@color/rating_title"
             android:textStyle="bold"
@@ -33,7 +33,7 @@
             android:paddingHorizontal="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/rating_des"
+            android:text="@string/_rating_des"
             android:gravity="center_horizontal"
             android:textSize="14sp"/>
 
@@ -62,7 +62,7 @@
             android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:hint="@string/rating_comment_hint"
+            android:hint="@string/_rating_comment_hint"
             android:gravity="top|left"
             android:layout_height="150dp"
             android:background="@drawable/background_rating_edit"
@@ -82,7 +82,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/rating_title"
-                android:text="@string/maybe_later"/>
+                android:text="@string/_maybe_later"/>
             <View
                 android:layout_width="100dp"
                 android:layout_height="1dp"
@@ -99,7 +99,7 @@
             android:paddingHorizontal="10dp"
             android:textColor="@color/white"
             android:background="@drawable/bg_button_dialog"
-            android:text="@string/submit"/>
+            android:text="@string/_submit"/>
 
     </LinearLayout>
 
