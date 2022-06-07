@@ -36,7 +36,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
 
-    private ProxOpenAdsApplication myApplication;
+    private Application myApplication;
 
     private static boolean isShowingAd = false;
     private long loadTime = 0;
@@ -65,7 +65,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     }
 
     /** Constructor */
-    public void init(ProxOpenAdsApplication myApplication, String adsID) {
+    public void init(Application myApplication, String adsID) {
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
         disableOpenAdsList = new ArrayList<>();

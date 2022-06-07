@@ -113,14 +113,18 @@ public class ProxRateDialog extends DialogFragment {
         TextView tvStar = view.findViewById(R.id.star_des);
         EditText edComment = view.findViewById(R.id.comment);
 
-        List<String> starDes = Arrays.asList("Very Bad", "Not good", "Quite ok", "Very Good", "Excellent !!!");
+        List<String> starDes = Arrays.asList(getString(R.string.very_bad),
+                getString(R.string.not_good),
+                getString(R.string.quite_ok),
+                getString(R.string.very_good),
+                getString(R.string.excellent));
         view.findViewById(R.id.submit).setOnClickListener(v -> {
             if ((int) ratingBar.getRating() < 1) {
                 androidx.appcompat.app.AlertDialog alertDialog =
                         new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle("Notify");
-                alertDialog.setMessage("Please select star !");
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
+                alertDialog.setTitle(getString(R.string.notify));
+                alertDialog.setMessage(getString(R.string.please_select_star));
+                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
@@ -131,9 +135,9 @@ public class ProxRateDialog extends DialogFragment {
                 sp.edit().putBoolean("isRated", true).apply();
                 androidx.appcompat.app.AlertDialog alertDialog =
                         new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle("Thanks!");
-                alertDialog.setMessage("Thank for rating");
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
+                alertDialog.setTitle(getString(R.string.thanks));
+                alertDialog.setMessage(getString(R.string.thank_for_rating));
+                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

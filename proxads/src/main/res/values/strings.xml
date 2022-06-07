@@ -13,4 +13,13 @@
     <string name="maybe_later">Maybe Later</string>
 
     <string name="loading_ads">Loading ads</string>
+    <string name="very_bad">Very Bad</string>
+    <string name="not_good">Not good</string>
+    <string name="very_good">Very Good</string>
+    <string name="excellent">Excellent !!!</string>
+    <string name="notify">Notify</string>
+    <string name="please_select_star">Please select star !</string>
+    <string name="ok">OK</string>
+    <string name="thanks">Thanks!</string>
+    <string name="thank_for_rating">Thank for rating</string>
 </resources>
