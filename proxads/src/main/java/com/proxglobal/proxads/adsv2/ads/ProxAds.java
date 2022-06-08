@@ -14,12 +14,10 @@ import androidx.annotation.Nullable;
 
 import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyAppOptions;
-import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.applovin.sdk.AppLovinMediationProvider;
 import com.applovin.sdk.AppLovinSdk;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.adsv2.adcolony.ColonyInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
@@ -47,9 +45,9 @@ public class ProxAds {
     private boolean splashDone = false;
 
     public static ProxAds getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             synchronized (ProxAds.class) {
-                if(INSTANCE == null) {
+                if (INSTANCE == null) {
                     INSTANCE = new ProxAds();
                 }
             }
@@ -60,36 +58,21 @@ public class ProxAds {
 
     /**
      * load inter ads available
-     * @param activity
+     *
      * @param activity
      * @param googleAdsId
-     * @param colonyZoneId pass null if don't want to use this
-     * @param tag tag name of ads
+     * @param tag         tag name of ads
      */
-    public void initInterstitial(@NonNull Activity activity, @NonNull String googleAdsId,
-                                 @Nullable String colonyZoneId, @NonNull String tag) {
-        if(ProxPurchase.getInstance().checkPurchased()) return;
+    public void initInterstitial(@NonNull Activity activity, @NonNull String googleAdsId, @NonNull String tag) {
+        if (ProxPurchase.getInstance().checkPurchased()) return;
 
         InterAds ads = new GoogleInterstitialAd(activity, googleAdsId);
         adsStorage.put(tag, ads);
-
-        ads.setLoadCallback(new LoadCallback() {
-            @Override
-            public void onLoadSuccess() {
-
-            }
-
-            @Override
-            public void onLoadFailed() {
-                if(colonyZoneId != null) {
-                    adsStorage.put(tag, new ColonyInterstitialAd(colonyZoneId).load());
-                }
-            }
-        }).load();
+        ads.load();
     }
 
     public void initInterstitialMax(@NonNull Activity activity, @NonNull String adsId, @NonNull String tag) {
-        if(ProxPurchase.getInstance().checkPurchased()) return;
+        if (ProxPurchase.getInstance().checkPurchased()) return;
 
         InterAds ads = new MaxInterstitialAds(activity, adsId);
         adsStorage.put(tag, ads);
@@ -98,23 +81,24 @@ public class ProxAds {
 
     /**
      * show showInterstitial with existed tag name
+     *
      * @param activity
-     * @param tag tag name of ads
+     * @param tag      tag name of ads
      * @param callback
      */
-    public void showInterstitial(@NonNull Activity activity,@NonNull String tag, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+    public void showInterstitial(@NonNull Activity activity, @NonNull String tag, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
 
         BaseAds ads = adsStorage.get(tag);
 
-        if(ads == null) {
+        if (ads == null) {
             callback.onError();
             return;
         }
-        if(!ads.isAvailable()) {
+        if (!ads.isAvailable()) {
             ads.show(activity, callback);
             return;
         }
@@ -122,19 +106,19 @@ public class ProxAds {
         showAdsWithKHub(activity, ads, callback);
     }
 
-    public void showInterstitialMax(@NonNull Activity activity,@NonNull String tag, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+    public void showInterstitialMax(@NonNull Activity activity, @NonNull String tag, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
             return;
         }
 
         BaseAds ads = adsStorage.get(tag);
 
-        if(ads == null) {
+        if (ads == null) {
             callback.onError();
             return;
         }
-        if(!ads.isAvailable()) {
+        if (!ads.isAvailable()) {
             ads.show(activity, callback);
             return;
         }
@@ -146,16 +130,15 @@ public class ProxAds {
 
     /**
      * show splash ads
+     *
      * @param activity
      * @param callback
      * @param googleAdsId
-     * @param colonyZoneId pass null if don't want to use this
-     * @param timeout timeout
+     * @param timeout     timeout
      */
-    public void showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
-                           @NonNull String googleAdsId,@Nullable String colonyZoneId,
-                           int timeout) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+    public void showSplash(@NonNull Activity activity, @NonNull AdsCallback callback,
+                           @NonNull String googleAdsId, int timeout) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -179,7 +162,7 @@ public class ProxAds {
         splashAds.setLoadCallback(new LoadCallback() {
             @Override
             public void onLoadSuccess() {
-                if(splashDone) return;
+                if (splashDone) return;
                 splashAds.turnOffAutoReload();
                 showAdsWithKHub(activity, splashAds, callback);
                 handler.removeCallbacksAndMessages(null);
@@ -189,39 +172,14 @@ public class ProxAds {
 
             @Override
             public void onLoadFailed() {
-                if(splashDone) return;
 
-                if(colonyZoneId != null) {
-                    splashAds = (InterAds) new ColonyInterstitialAd(colonyZoneId).setLoadCallback(new LoadCallback() {
-                        @Override
-                        public void onLoadSuccess() {
-                            if(splashDone) return;
-                            splashAds.turnOffAutoReload();
-                            showAdsWithKHub(activity, splashAds, callback);
-                            handler.removeCallbacksAndMessages(null);
-
-                            splashAds = null;
-                        }
-
-                        @Override
-                        public void onLoadFailed() {
-                            splashAds = null;
-                            splashDone = true;
-                            handler.removeCallbacksAndMessages(null);
-
-                            callback.onError();
-                        }
-                    });
-
-                    splashAds.load();
-                }
             }
         }).load();
     }
 
-    public void showSplashMax(@NonNull Activity activity,@NonNull AdsCallback callback,
-                           @NonNull String adsId, int timeout) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+    public void showSplashMax(@NonNull Activity activity, @NonNull AdsCallback callback,
+                              @NonNull String adsId, int timeout) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -245,7 +203,7 @@ public class ProxAds {
         splashAds.setLoadCallback(new LoadCallback() {
             @Override
             public void onLoadSuccess() {
-                if(splashDone) return;
+                if (splashDone) return;
                 splashAds.turnOffAutoReload();
                 showAdsWithKHub(activity, splashAds, callback);
                 handler.removeCallbacksAndMessages(null);
@@ -255,7 +213,7 @@ public class ProxAds {
 
             @Override
             public void onLoadFailed() {
-                if(splashDone) return;
+                if (splashDone) return;
             }
         }).load();
     }
@@ -284,50 +242,9 @@ public class ProxAds {
                 .setDimAmount(0.5f);
     }
 
-    // --------------- config ad colony ------------------------
-    /**
-     * this method due to configure adcolony in only once time
-     * @param activity
-     * @param appId
-     * @param zoneIds
-     */
-    public void configure(Activity activity, String appId, String... zoneIds) {
-        AdColony.configure(activity, appId, zoneIds);
-    }
-
-    /**
-     * this method due to configure adcolony in only once time
-     * @param application
-     * @param appId
-     * @param zoneIds
-     */
-    public void configure(Application application, String appId, String... zoneIds) {
-        AdColony.configure(application, appId, zoneIds);
-    }
-
-    /**
-     * this method due to configure adcolony in only once time
-     * @param activity
-     * @param appId
-     * @param zoneIds
-     */
-    public void configure(Activity activity, AdColonyAppOptions options, String appId, String... zoneIds) {
-        AdColony.configure(activity, options, appId, zoneIds);
-    }
-
-    /**
-     * this method due to configure adcolony in only once time
-     * @param application
-     * @param appId
-     * @param zoneIds
-     */
-    public void configure(Application application, AdColonyAppOptions options, String appId, String... zoneIds) {
-        AdColony.configure(application, options, appId, zoneIds);
-    }
-
     // ----------------------- Banner -----------------------
     public void showBanner(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -336,16 +253,16 @@ public class ProxAds {
     }
 
     public void showBannerMax(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
-            if (container != null){
+            if (container != null) {
                 container.setVisibility(View.GONE);
             }
             return;
         }
-        if (!isNetworkAvailable(activity)){
+        if (!isNetworkAvailable(activity)) {
             callback.onError();
-            if (container != null){
+            if (container != null) {
                 container.setVisibility(View.GONE);
             }
         }
@@ -355,7 +272,7 @@ public class ProxAds {
 
     // ---------------------- Native -------------------------
     public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -364,7 +281,7 @@ public class ProxAds {
     }
 
     public void showBigNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -373,9 +290,9 @@ public class ProxAds {
     }
 
     public void showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
-            if (adContainer != null){
+            if (adContainer != null) {
                 adContainer.setVisibility(View.GONE);
             }
             return;
@@ -385,9 +302,9 @@ public class ProxAds {
     }
 
     public void showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
-            if (adContainer != null){
+            if (adContainer != null) {
                 adContainer.setVisibility(View.GONE);
             }
             return;
@@ -397,9 +314,9 @@ public class ProxAds {
     }
 
     public void showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
-            if (adContainer != null){
+            if (adContainer != null) {
                 adContainer.setVisibility(View.GONE);
             }
             return;
@@ -411,9 +328,9 @@ public class ProxAds {
     }
 
     public void showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
-            if (adContainer != null){
+            if (adContainer != null) {
                 adContainer.setVisibility(View.GONE);
             }
             return;
@@ -424,16 +341,16 @@ public class ProxAds {
     }
 
     // ----------------------- Reward -------------------------
+
     /**
      * show inter ads
+     *
      * @param activity
      * @param googleAdsId
-     * @param colonyZoneId pass null if don't want to use this
-     * @param tag tag name of ads
+     * @param tag          tag name of ads
      */
-    public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId,
-                                 @Nullable String colonyZoneId, @NonNull String tag) {
-        if(ProxPurchase.getInstance().checkPurchased()) return;
+    public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId, @NonNull String tag) {
+        if (ProxPurchase.getInstance().checkPurchased()) return;
 
         RewardAds ads = new GoogleRewardAds(activity, googleAdsId);
 
@@ -452,20 +369,21 @@ public class ProxAds {
 
     /**
      * show showInterstitial with existed tag name
+     *
      * @param activity
-     * @param tag tag name of ads
+     * @param tag      tag name of ads
      * @param callback
      */
     public void showRewardAds(@NonNull Activity activity, String tag, AdsCallback callback, RewardCallback rewardCallback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
 
         GoogleRewardAds ads = (GoogleRewardAds) adsStorage.get(tag);
 
-        if(ads == null) return;
-        if(!ads.isAvailable()) {
+        if (ads == null) return;
+        if (!ads.isAvailable()) {
             ads.show(activity, callback, rewardCallback);
             return;
         }
@@ -475,7 +393,7 @@ public class ProxAds {
 
     // ------------------- show sequence ads ---------------
     public void initInterstitials(@NonNull Activity activity, String tag, @NonNull InterAds... adss) {
-        if(ProxPurchase.getInstance().checkPurchased() || adss.length == 0) return;
+        if (ProxPurchase.getInstance().checkPurchased() || adss.length == 0) return;
 
         Stack<InterAds> idAdsStack = new Stack<>();
         idAdsStack.addAll(Arrays.asList(adss));
@@ -496,12 +414,12 @@ public class ProxAds {
             }
         };
 
-        while(!idAdsStack.isEmpty() && !isSuccess[0]) {
+        while (!idAdsStack.isEmpty() && !isSuccess[0]) {
             loadAds[0].setLoadCallback(callback);
             loadAds[0].load();
         }
 
-        if(isSuccess[0]) adsStorage.put(tag, loadAds[0]);
+        if (isSuccess[0]) adsStorage.put(tag, loadAds[0]);
 
         idAdsStack.clear();
     }
@@ -525,20 +443,8 @@ public class ProxAds {
     }
 
     public static class Factory {
-        public InterAds getInterAds(@NonNull Activity activity, String adId, AdsType type) {
-            switch (type) {
-                case GOOGLE:
-                    return new GoogleInterstitialAd(activity, adId);
-                case COLONY:
-                    return new ColonyInterstitialAd(adId);
-            }
-
-            return null;
+        public InterAds getInterAds(@NonNull Activity activity, String adId) {
+            return new GoogleInterstitialAd(activity, adId);
         }
-    }
-
-    public static enum AdsType {
-        GOOGLE,
-        COLONY
     }
 }

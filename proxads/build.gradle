@@ -48,9 +48,6 @@ dependencies {
     // Ad mob
     implementation 'com.google.android.gms:play-services-ads:21.0.0'
     implementation 'com.google.android.play:core:1.10.3'
-
-    // Ad colony
-    implementation 'com.adcolony:sdk:4.6.5'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
 
     //Ad AppLovin MAX
