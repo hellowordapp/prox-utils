@@ -3,6 +3,7 @@ package com.proxglobal.lib
 import android.util.Log
 import com.proxglobal.proxads.ads.openads.ProxOpenAdsApplication
 import com.proxglobal.purchase.ProxPurchase
+import java.util.*
 
 class OpenAdsApp: ProxOpenAdsApplication() {
     override fun onCreate() {
@@ -18,5 +19,9 @@ class OpenAdsApp: ProxOpenAdsApplication() {
     }
 
     override fun getOpenAdsId(): String = "ca-app-pub-3940256099942544/3419835294"
+
+    override fun getListTestDeviceId(): MutableList<String> {
+        return Collections.singletonList("EC25F576DA9B6CE74778B268CB87E431");
+    }
 
 }

@@ -4,9 +4,11 @@ import android.app.Application;
 import android.util.Log;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.proxglobal.purchase.ProxPurchase;
+
+import java.util.List;
 
 public abstract class ProxOpenAdsApplication extends Application {
     @Override
@@ -19,6 +21,7 @@ public abstract class ProxOpenAdsApplication extends Application {
                     public void onInitializationComplete(InitializationStatus initializationStatus) {
                     }
                 });
+        MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(getListTestDeviceId()).build());
 
         AppOpenManager.getInstance().init(this, getOpenAdsId());
     }
@@ -30,4 +33,6 @@ public abstract class ProxOpenAdsApplication extends Application {
     }
 
     protected abstract String getOpenAdsId();
+
+    public abstract List<String> getListTestDeviceId();
 }
