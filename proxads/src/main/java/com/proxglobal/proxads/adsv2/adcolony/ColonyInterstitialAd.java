@@ -1,6 +1,7 @@
 package com.proxglobal.proxads.adsv2.adcolony;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import com.adcolony.sdk.AdColony;
 import com.adcolony.sdk.AdColonyInterstitial;
 import com.adcolony.sdk.AdColonyInterstitialListener;
 import com.adcolony.sdk.AdColonyZone;
+import com.proxglobal.proxads.ads.openads.AppOpenManager;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
@@ -71,6 +73,7 @@ public class ColonyInterstitialAd extends InterAds<AdColonyInterstitial> {
         public void onClosed(AdColonyInterstitial ad) {
             super.onClosed(ad);
             ColonyInterstitialAd.this.onClosed();
+            AppOpenManager.getInstance().enableOpenAds();
         }
 
         @Override
@@ -78,6 +81,7 @@ public class ColonyInterstitialAd extends InterAds<AdColonyInterstitial> {
         public void onOpened(AdColonyInterstitial ad) {
             super.onOpened(ad);
             ColonyInterstitialAd.this.onShowSuccess();
+            AppOpenManager.getInstance().disableOpenAds();
         }
     }
 }

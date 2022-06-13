@@ -10,6 +10,7 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.proxglobal.proxads.ads.openads.AppOpenManager;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
@@ -70,12 +71,14 @@ public class GoogleInterstitialAd extends InterAds<InterstitialAd> {
         @Override
         public void onAdDismissedFullScreenContent() {
             GoogleInterstitialAd.this.onClosed();
+            AppOpenManager.getInstance().enableOpenAds();
         }
 
         @Override
         public void onAdShowedFullScreenContent() {
             super.onAdShowedFullScreenContent();
             GoogleInterstitialAd.this.onShowSuccess();
+            AppOpenManager.getInstance().disableOpenAds();
         }
 
         @Override
