@@ -59,7 +59,7 @@ public class ProxRateDialog extends DialogFragment {
      * init dialog view with layout id as param with listener
      * @param layoutId
      */
-    private static void init(int layoutId, RatingDialogListener listener) {
+    public static void init(int layoutId, RatingDialogListener listener) {
         dialog = new ProxRateDialog(layoutId, listener);
     }
 

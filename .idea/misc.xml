@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/Android/prox-utils/proxads/src/main/res/layout/ads_native_medium.xml" value="0.15260416666666668" />
+        <entry key="..\:/prox-utils/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1215" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/2.xml" value="0.1359375" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_max.xml" value="0.3625" />
@@ -12,7 +13,7 @@
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_banner.xml" value="0.25555555555555554" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_medium.xml" value="0.31203703703703706" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_rating.xml" value="0.15" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_rating.xml" value="0.16197916666666667" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_small.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_view.xml" value="0.2" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_banner.xml" value="0.25" />
