@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
+import com.proxglobal.proxads.ads.openads.AppOpenManager;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
 import com.proxglobal.proxads.adsv2.ads.ProxAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
@@ -51,6 +52,7 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
                     kProgressHUD = createKHub(mActivity);
                 }
                 kProgressHUD.show();
+                AppOpenManager.getInstance().disableOpenAds();
             }
 
             @Override
@@ -60,6 +62,7 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
                     kProgressHUD.dismiss();
                     kProgressHUD = null;
                 }
+                AppOpenManager.getInstance().enableOpenAds();
             }
 
             @Override
