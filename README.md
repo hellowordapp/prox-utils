@@ -3,7 +3,7 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:2.0.0-max'
+        implementation 'com.github.hellowordapp:prox-utils:2.0.5-max'
 }
 ```
 
