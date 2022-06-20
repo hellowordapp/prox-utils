@@ -3,71 +3,128 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:1.1.5'
+        implementation 'com.github.hellowordapp:prox-utils:1.1.9'
 }
 ```
 
 ## Usage
 
-### create interstitial
+### load and show banner with AdsCallback
 ```sh
-        ProxInterstitialAd inter = ProxUtils.INSTANCE.createInterstitialAd (Activity activity, String adId);
-```
-
-### load interstitial 
-```sh
-        inter.load(); // this method is auto call after shown/closed ads 
-```
-> #### disable/enable auto reload interstitial ads
-```sh
-        inter.disableAutoReload()/inter.enableAutoReload()
-```
-
-### show interstitial with Adclose call back
-```sh
-        inter.show(new AdClose() {
+        ProxAds.getInstance().showBanner(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
             @Override
-            public void onAdClose() {
-		`//TO-DO`
+            public void onShow() {
+                super.onShow();
+                `//TO-DO`
+            }
+
+            @Override
+            public void onClosed() {
+                super.onClosed();
+                `//TO-DO`
+            }
+
+            @Override
+            public void onError() {
+                super.onError();
+                `//TO-DO`
             }
         });
+```
+### create and load interstitial 
+```sh
+        ProxAds.getInstance().initInterstitial(Activity activity, String adId, String colonyZoneId, String tag);
+```
+### show interstitial with AdsCallback
+```sh
+        ProxAds.getInstance().showInterstitial(Activity activity, String tag, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+            });
 
 ```
-> #### show interstitial with Adclose extend call back
+### load and show splash with AdsCallback after specific times
 ```sh
-        inter.show(object : AdCallback() {
-		override fun onAdClose() {
-		    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
-		}
+        ProxAds.getInstance().showSplash(Activity activity, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
 
-		override fun onAdShow() {
-		    super.onAdShow()
-		    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
-		}
-        })
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+            }, String adId, String colonyZoneId, int timeout);
 
 ```
 
-### show interstitial with Adclose/AdCallback after specific times
-```sh
-        inter.show(new AdClose() {
-            @Override
-            public void onAdClose() {
-		`//TO-DO`
-            }
-        }, times);
+### load and show native medium ads with AdsCallback
+```sh 
+        ProxAds.getInstance().showMediumNative(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
 
-```
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
 
-### load splash with Adclose/AdCallback call back
-```sh
-        inter.loadSplash(int timeout, new AdClose() {
-            @Override
-            public void onAdClose() {
-		`//TO-DO`
-            }
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
         });
+```
+### load and show native big ads with AdsCallback
+```sh 
+        ProxAds.getInstance().showBigNative(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+                @Override
+                public void onShow() {
+                    super.onShow();
+                    `//TO-DO`
+                }
 
+                @Override
+                public void onClosed() {
+                    super.onClosed();
+                    `//TO-DO`
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                    `//TO-DO`
+                }
+        });
 ```
 
 ### create native ads
