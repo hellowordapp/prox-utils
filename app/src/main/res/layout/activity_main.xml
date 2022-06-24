@@ -32,35 +32,51 @@
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/test_native"
+                android:id="@+id/test_native_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Test native"
+                android:text="Test native small"
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/test_native_big_shimmer"
+                android:id="@+id/test_native_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Test big native shimmer"
+                android:text="Test native medium"
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/test_native_medium_shimmer"
+                android:id="@+id/test_native_big"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Test native medium shimmer"
+                android:text="Test native big"
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/test_native_shimmer"
+                android:id="@+id/test_native_small_with_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Test native shimmer"
+                android:text="Test native small with shimmer"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/test_native_medium_with_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Test native medium with shimmer"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/test_native_big_with_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Test native big with shimmer"
                 android:textColor="@color/white"/>
 
             <Button

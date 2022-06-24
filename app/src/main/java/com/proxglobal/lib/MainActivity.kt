@@ -73,7 +73,26 @@ class MainActivity : BaseActivity() {
             }, ProxUtils.TEST_INTERSTITIAL_ID, "vz3ebfacd56a34480da8", 12000)
         }
 
-        findViewById<Button>(R.id.test_native).setOnClickListener {
+        findViewById<Button>(R.id.test_native_small).setOnClickListener {
+            ProxAds.getInstance().showSmallNative(
+                this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
+                    override fun onShow() {
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onClosed() {
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+        }
+
+        findViewById<Button>(R.id.test_native_medium).setOnClickListener {
             ProxAds.getInstance().showMediumNative(
                     this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
@@ -92,7 +111,7 @@ class MainActivity : BaseActivity() {
             )
         }
 
-        findViewById<Button>(R.id.test_native_big_shimmer).setOnClickListener {
+        findViewById<Button>(R.id.test_native_big).setOnClickListener {
             ProxAds.getInstance().showBigNative(
                     this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
@@ -101,31 +120,63 @@ class MainActivity : BaseActivity() {
                     }
 
                     override fun onError() {
-                        findViewById<FrameLayout>(R.id.ad_container).removeAllViews()
                         Toast.makeText(this@MainActivity, "Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
         }
 
-        findViewById<Button>(R.id.test_native_medium_shimmer).setOnClickListener {
-            ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(
-                    this, ProxUtils.TEST_NATIVE_ID,
-                    findViewById<FrameLayout>(R.id.ad_container)
-            ).load(
-                    NativeAdCallback {
+        findViewById<Button>(R.id.test_native_small_with_shimmer).setOnClickListener {
+            ProxAds.getInstance().showSmallNativeWithShimmer(
+                this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
+                    override fun onShow() {
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
 
-                    })
+                    override fun onClosed() {
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
         }
 
-        findViewById<Button>(R.id.test_native_shimmer).setOnClickListener {
-            ProxUtils.INSTANCE.createNativeAdWithShimmer(
-                    this, ProxUtils.TEST_NATIVE_ID,
-                    findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big,
-                    R.layout.layout_preloading_ads).load(
-                    NativeAdCallback {
+        findViewById<Button>(R.id.test_native_medium_with_shimmer).setOnClickListener {
+            ProxAds.getInstance().showMediumNativeWithShimmer(
+                this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
+                    override fun onShow() {
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
 
-                    })
+                    override fun onClosed() {
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+        }
+
+        findViewById<Button>(R.id.test_native_big_with_shimmer).setOnClickListener {
+            ProxAds.getInstance().showBigNativeWithShimmer(
+                this, ProxUtils.TEST_NATIVE_ID,
+                findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
+                    override fun onShow() {
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        Toast.makeText(this@MainActivity, "Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
         }
 
         var a = true;

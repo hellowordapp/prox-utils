@@ -18,8 +18,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:padding="8dip">
 
                 <ImageView
@@ -50,8 +50,8 @@
                             android:ellipsize="end"
                             android:maxLines="2"
                             android:text="@string/offline_notification_text"
-                            android:textStyle="bold"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
 
                         <RatingBar
                             android:id="@+id/ad_stars"
@@ -81,12 +81,12 @@
 
 
                     <Button
-                        android:layout_marginTop="8dp"
-                        android:layout_marginHorizontal="16dp"
                         android:id="@+id/ad_call_to_action"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
                         android:backgroundTint="@color/colorAdsButton"
                         android:gravity="center"
                         android:text="Cài Đặt"
@@ -101,9 +101,9 @@
 
         </LinearLayout>
 
-        <TextView style="@style/AdAttribution" />
+        <TextView
+            style="@style/AdAttribution" />
 
     </RelativeLayout>
-
 
 </com.google.android.gms.ads.nativead.NativeAdView>

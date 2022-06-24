@@ -26,7 +26,7 @@
                     android:layout_width="35dip"
                     android:layout_height="35dip"
                     android:adjustViewBounds="true"
-                    android:src="@color/yellow"/>
+                    android:src="@color/yellow" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -40,11 +40,9 @@
                         android:id="@+id/ad_headline"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="2"
                         android:text="@string/offline_notification_text"
-                        android:textStyle="bold"
-                        android:textSize="10dp" />
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -55,7 +53,6 @@
                             android:id="@+id/ad_body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="2"
                             android:text="@string/appbar_scrolling_view_behavior"
                             android:textSize="10dp" />
 
@@ -65,10 +62,11 @@
                 <Button
                     android:id="@+id/ad_call_to_action"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:backgroundTint="@color/colorAdsButton"
                     android:gravity="center"
+                    android:maxWidth="@dimen/_80sdp"
                     android:text="Cài Đặt"
                     android:textColor="@color/white"
                     android:textSize="8dp"
@@ -76,12 +74,10 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
         <TextView style="@style/AdAttribution" />
 
     </RelativeLayout>
-
 
 </com.google.android.gms.ads.nativead.NativeAdView>

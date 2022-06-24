@@ -2,7 +2,11 @@ package com.proxglobal.proxads.adsv2.ads;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -250,16 +254,40 @@ public final class ProxAds {
     public void showBanner(Activity activity, FrameLayout container, String adId, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
+            if (container != null) {
+                container.setVisibility(View.GONE);
+            }
             return;
+        }
+        if (!isNetworkAvailable(activity)) {
+            callback.onError();
+            if (container != null) {
+                container.setVisibility(View.GONE);
+            }
         }
 
         new GoogleBannerAds(activity, container, adId).load().show(activity, callback);
     }
 
     // ---------------------- Native -------------------------
-    public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+    public void showSmallNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small).load().show(activity, callback);
+    }
+
+    public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -267,12 +295,57 @@ public final class ProxAds {
     }
 
     public void showBigNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
-        if(ProxPurchase.getInstance().checkPurchased()) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
             return;
         }
 
         new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big).load().show(activity, callback);
+    }
+
+    public void showSmallNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small);
+        nativeAds.enableShimmer(R.layout.shimmer_native_small);
+        nativeAds.load().show(activity, callback);
+    }
+
+    public void showMediumNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_medium);
+        nativeAds.enableShimmer(R.layout.shimmer_native_medium);
+        nativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big);
+        nativeAds.enableShimmer(R.layout.shimmer_native_big);
+        nativeAds.load().show(activity, callback);
     }
 
     // ----------------------- Reward -------------------------
@@ -374,5 +447,12 @@ public final class ProxAds {
     public static enum AdsType {
         GOOGLE,
         COLONY
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
