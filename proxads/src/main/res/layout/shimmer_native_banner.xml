@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shimmer_container_banner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,76 +9,89 @@
     app:shimmer_auto_start="true"
     app:shimmer_base_color="#ccc">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:orientation="vertical"
+        android:background="@color/lightTransparent"
+        android:padding="@dimen/_4sdp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@color/lightTransparent"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:background="@color/lightTransparent"
-                android:padding="5dip"
-                android:scaleType="centerCrop" />
-
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dip"
-                android:layout_marginRight="5dip"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    android:background="@color/lightTransparent"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textColor="@android:color/black"
-                    android:textSize="15.0sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dip"
-                    android:background="@color/lightTransparent"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14.0sp" />
-
-            </LinearLayout>
-
-            <Button
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dip"
-                android:layout_marginRight="10dip"
-                android:layout_marginBottom="5dip"
                 android:background="@color/lightTransparent"
-                android:gravity="center"
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
+                android:paddingHorizontal="@dimen/_2sdp"
+                android:text="Ad"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@android:color/white"
-                android:textSize="12.0sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/ad_options_view"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:background="@color/lightTransparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/_2sdp">
+
+            <ImageView
+                android:id="@+id/ad_app_icon"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@color/lightTransparent" />
+
+            <TextView
+                android:id="@+id/ad_headline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/lightTransparent"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/ad_call_to_action"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/_85sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:background="@color/lightTransparent"
+                android:textSize="@dimen/_10sdp"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
         <TextView
-            style="@style/AppTheme.Ads"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
-    </RelativeLayout>
+            android:id="@+id/ad_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:background="@color/lightTransparent"
+            tools:text="Body" />
+    </LinearLayout>
 </com.facebook.shimmer.ShimmerFrameLayout>
