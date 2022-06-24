@@ -61,7 +61,7 @@
 
             <Button
                 android:id="@+id/ad_call_to_action"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/colorAdsButton"
