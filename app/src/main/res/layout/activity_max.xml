@@ -40,6 +40,14 @@
                 android:textColor="@color/white"/>
 
             <Button
+                android:id="@+id/test_native_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Test native small"
+                android:textColor="@color/white"/>
+
+            <Button
                 android:id="@+id/test_native_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,6 +61,14 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="Test native big"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/test_native_small_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Test native small shimmer"
                 android:textColor="@color/white"/>
 
             <Button
