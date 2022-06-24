@@ -22,6 +22,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:adjustViewBounds="true"
+                android:layout_gravity="center"
                 android:src="@color/yellow"/>
 
             <LinearLayout
@@ -60,11 +61,12 @@
 
             <Button
                 android:id="@+id/ad_call_to_action"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/colorAdsButton"
                 android:gravity="center"
+                android:maxLines="2"
                 android:text="Cài Đặt"
                 android:textColor="@color/white"
                 android:textSize="12dp"
