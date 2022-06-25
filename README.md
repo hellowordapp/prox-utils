@@ -3,7 +3,7 @@
 ## implementation
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:1.1.9'
+	implementation 'com.github.hellowordapp:prox-utils:1.2.0'
 }
 ```
 
@@ -82,6 +82,30 @@ dependencies {
 
 ```
 
+### load and show native small ads with AdsCallback
+
+```sh 
+	ProxAds.getInstance().showSmallNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+    		@Override
+    		public void onShow() {
+        		super.onShow();
+        		`//TO-DO`
+    		}
+
+    	@Override
+    		public void onClosed() {
+        		super.onClosed();
+        		`//TO-DO`
+    		}
+
+    	@Override
+    	public void onError() {
+         	super.onError();
+         	`//TO-DO`
+    	}
+});
+```
+
 ### load and show native medium ads with AdsCallback
 ```sh 
         ProxAds.getInstance().showMediumNative(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
@@ -127,39 +151,14 @@ dependencies {
         });
 ```
 
-### create native ads
-```sh 
-        ProxUtils.INSTANCE.createNativeAd (Activity activity, String adId, FrameLayout adContainer, int layoutAdId);
-                .load(new NativeAdCallback() {
-                    @Override
-                    public void onNativeAdCallback() {
-		    	`//TO-DO`
-                    }
-                });
-```
-
-> #### create native ads with shimmer
+> #### load and show native ads with shimmer
 > #### ads with already shimmer layout before loaded
-```sh
-        ProxUtils.INSTANCE.createNativeAdWithShimmer(
-                activity, String adId,
-                FrameLayout adContainer, int layoutAdId, int layoutShimmerId).load(
-                NativeAdCallback {
 
-                })
-```
-**layoutShimmerId sample from prox library:** com.proxglobal.proxads.R.layout.shimmer_native_***
->#### create native ads with shimmer using default view 
 ```sh
-	createMediumNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
-	createBigNativeAdWithShimmer(Activity activity, String adId, FrameLayout adContainer)
+ProxAds.getInstance().showSmallNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
+ProxAds.getInstance().showMediumNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
+ProxAds.getInstance().showBigNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
 ```
-
-> #### native ads call back **NativeAdCallback/NativeAdCallback2**
-1. NativeAdCallback will call *onNativeAdCallback()* after show or failed to load 
-2. NativeAdCallback2 will return callback more specific
- - *onNativeAdCallback()* only call after native show success
- - *onNativeAdsShowFailed()* will call after native doesn't show 
 
 ### Open App Ads
 ```sh
