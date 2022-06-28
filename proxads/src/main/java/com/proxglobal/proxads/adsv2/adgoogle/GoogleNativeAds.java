@@ -35,7 +35,9 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
 
         AdLoader.Builder builder = new AdLoader.Builder(mActivity, adId).forNativeAd(nativeAd -> {
             if (mActivity.isDestroyed()) {
-                ads.destroy();
+                if (ads != null){
+                    ads.destroy();
+                }
                 nativeAd.destroy();
             } else {
                 onShowSuccess();
