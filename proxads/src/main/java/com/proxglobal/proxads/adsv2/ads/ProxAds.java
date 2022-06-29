@@ -119,6 +119,11 @@ public class ProxAds {
             return;
         }
 
+        if(ads.inLoading()){
+            callback.onError();
+            return;
+        }
+
         showAdsWithKHub(activity, ads, callback);
     }
 

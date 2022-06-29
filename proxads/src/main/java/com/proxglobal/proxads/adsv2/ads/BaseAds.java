@@ -132,6 +132,10 @@ abstract class BaseAds<T> extends Ads {
         return (ads != null);
     }
 
+    public final boolean inLoading() {
+        return inLoading;
+    }
+
     public abstract void specificLoadAdsMethod();
     public abstract void specificShowAdsMethod(Activity activity);
 }

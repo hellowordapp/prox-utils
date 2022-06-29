@@ -1,21 +1,17 @@
 package com.proxglobal.proxads.adsv2.admax;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.applovin.impl.mediation.ads.MaxAdViewImpl;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
-import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
 import com.applovin.sdk.AppLovinSdkUtils;
-import com.google.android.gms.ads.AdLoader;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
 import com.proxglobal.proxads.adsv2.ads.ProxAds;

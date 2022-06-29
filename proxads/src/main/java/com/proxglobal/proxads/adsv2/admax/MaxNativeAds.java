@@ -1,15 +1,9 @@
 package com.proxglobal.proxads.adsv2.admax;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdRevenueListener;
@@ -19,15 +13,6 @@ import com.applovin.mediation.nativeAds.MaxNativeAdListener;
 import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
 import com.applovin.mediation.nativeAds.MaxNativeAdView;
 import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.VideoOptions;
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdOptions;
-import com.google.android.gms.ads.nativead.NativeAdView;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
