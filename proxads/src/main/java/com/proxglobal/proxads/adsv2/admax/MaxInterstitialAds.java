@@ -9,10 +9,11 @@ import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.proxglobal.proxads.ads.openads.AppOpenManager;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
 
 public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
+    public static boolean isShowing = false;
+
     private KProgressHUD kProgressHUD;
 
     public MaxInterstitialAds(Activity activity, String adId) {
@@ -41,21 +42,25 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
             @Override
             public void onAdDisplayed(MaxAd ad) {
                 onShowSuccess();
+
+                isShowing = true;
+
                 if (kProgressHUD==null){
                     kProgressHUD = createKHub(mActivity);
                 }
                 kProgressHUD.show();
-                AppOpenManager.getInstance().disableOpenAds();
             }
 
             @Override
             public void onAdHidden(MaxAd ad) {
                 onClosed();
+
+                isShowing = false;
+
                 if (kProgressHUD!=null){
                     kProgressHUD.dismiss();
                     kProgressHUD = null;
                 }
-                AppOpenManager.getInstance().enableOpenAds();
             }
 
             @Override
@@ -66,6 +71,9 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
             public void onAdLoadFailed(String adUnitId, MaxError error) {
                 onShowError();
                 onLoadFailed();
+
+                isShowing = false;
+
                 if (ads == null){
                     ads = new MaxInterstitialAd(adId, mActivity);
                 }
@@ -75,6 +83,9 @@ public class MaxInterstitialAds extends InterAds<MaxInterstitialAd> {
             @Override
             public void onAdDisplayFailed(MaxAd ad, MaxError error) {
                 onShowError();
+
+                isShowing = false;
+
                 if (ads == null){
                     ads = new MaxInterstitialAd(adId, mActivity);
                 }

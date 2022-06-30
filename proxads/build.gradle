@@ -68,6 +68,7 @@ dependencies {
 
     //loading dialog
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'com.victor:lib:1.0.4'
 
     //size unit scales with the screen size
     implementation 'com.intuit.sdp:sdp-android:1.1.0'

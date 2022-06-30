@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -103,7 +104,7 @@ public class ProxAds {
     }
 
     public void showInterstitialMax(@NonNull Activity activity, @NonNull String tag, AdsCallback callback) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+        if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError();
             return;
         }
@@ -119,7 +120,7 @@ public class ProxAds {
             return;
         }
 
-        if(ads.inLoading()){
+        if (ads.inLoading()) {
             callback.onError();
             return;
         }
@@ -214,7 +215,6 @@ public class ProxAds {
 
             @Override
             public void onLoadFailed() {
-                if (splashDone) return;
             }
         }).load();
     }
@@ -373,7 +373,7 @@ public class ProxAds {
      *
      * @param activity
      * @param googleAdsId
-     * @param tag          tag name of ads
+     * @param tag         tag name of ads
      */
     public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId, @NonNull String tag) {
         if (ProxPurchase.getInstance().checkPurchased()) return;

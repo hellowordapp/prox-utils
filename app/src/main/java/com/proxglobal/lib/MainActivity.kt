@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.callback.NativeAdCallback
 import com.proxglobal.proxads.ads.openads.AppOpenManager
+import com.proxglobal.proxads.adsv2.admax.openads.MaxOpenAds
 import com.proxglobal.proxads.adsv2.callback.AdsCallback
 import com.proxglobal.proxads.adsv2.ads.ProxAds
 import com.proxglobal.rate.ProxRateDialog
@@ -136,8 +137,8 @@ class MainActivity : BaseActivity() {
 
         var a = true;
         findViewById<Button>(R.id.btn_toggle_open_ads).setOnClickListener {
-            if (a) AppOpenManager.getInstance().disableOpenAds()
-            else AppOpenManager.getInstance().enableOpenAds()
+            if (a) MaxOpenAds.getInstance().disableOpenAds()
+            else MaxOpenAds.getInstance().enableOpenAds()
 
             a = !a;
         }
