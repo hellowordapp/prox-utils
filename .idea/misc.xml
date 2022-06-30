@@ -9,22 +9,36 @@
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_max.xml" value="0.2" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_max2.xml" value="0.1359375" />
         <entry key="..\:/prox-utils/proxads/src/main/res/drawable/ads_icon.xml" value="0.1" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/drawable/bg_ads.xml" value="0.1215" />
         <entry key="..\:/prox-utils/proxads/src/main/res/drawable/bg_card_ads.xml" value="0.274" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/drawable/bg_corner.xml" value="0.1215" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/drawable/ic_ad.xml" value="0.1215" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_banner.xml" value="0.2" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.1" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.2" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_1.xml" value="0.35818181818181816" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_5.xml" value="0.2" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_medium.xml" value="0.31203703703703706" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small.xml" value="0.2972222222222222" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_medium_19.xml" value="0.2" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_medium_20.xml" value="0.176" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small.xml" value="0.23229166666666667" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small_15.xml" value="0.264" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/bottom_remote_update.xml" value="0.23229166666666667" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_open_ads.xml" value="0.176" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_big.xml" value="0.1" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_medium.xml" value="0.152" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_small.xml" value="0.22653721682847897" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_medium.xml" value="0.264" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_small.xml" value="0.2" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_view.xml" value="0.2" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_banner.xml" value="0.25" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_banner_max.xml" value="0.3614583333333333" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_medium_native_max.xml" value="0.13385416666666666" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_banner.xml" value="0.23229166666666667" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big.xml" value="0.10052083333333334" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_medium.xml" value="0.2" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_small.xml" value="0.1" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big.xml" value="0.2" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big_1.xml" value="0.2" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big_5.xml" value="0.2" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_medium.xml" value="0.18981481481481483" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_medium_19.xml" value="0.176" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_medium_20.xml" value="0.23229166666666667" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_small_15.xml" value="0.264" />
         <entry key="..\:/prox-utils/proxads/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>

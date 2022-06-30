@@ -159,9 +159,15 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
         try {
             if (nativeAd.getStore() == null) {
                 adView.getStoreView().setVisibility(View.INVISIBLE);
+                adView.findViewById(R.id.ic_store2).setVisibility(View.GONE);
             } else {
                 adView.getStoreView().setVisibility(View.VISIBLE);
                 ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+                if (nativeAd.getStore().equalsIgnoreCase("Google Play")){
+                    adView.findViewById(R.id.ic_store2).setVisibility(View.VISIBLE);
+                }else{
+                    adView.findViewById(R.id.ic_store2).setVisibility(View.GONE);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
