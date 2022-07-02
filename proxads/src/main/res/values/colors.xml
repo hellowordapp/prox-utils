@@ -21,4 +21,6 @@
     <color name="lightTransparent">#16000000</color>
 
     <color name="shimmer_color">#AFAFAF</color>
+
+    <color name="border_ads">#39485C</color>
 </resources>

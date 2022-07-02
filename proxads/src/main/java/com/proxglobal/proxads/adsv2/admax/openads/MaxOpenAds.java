@@ -27,7 +27,7 @@ import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.admax.MaxInterstitialAds;
 import com.proxglobal.proxads.adsv2.ads.ProxAds;
 import com.proxglobal.purchase.ProxPurchase;
-import com.victor.loading.newton.NewtonCradleLoading;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,7 +233,7 @@ public class MaxOpenAds implements LifecycleObserver, Application.ActivityLifecy
         currentActivity = null;
     }
 
-    class OpenAdsDialog extends Dialog {
+    static class OpenAdsDialog extends Dialog {
 
         public OpenAdsDialog(@NonNull Context context) {
             super(context);
@@ -247,8 +247,8 @@ public class MaxOpenAds implements LifecycleObserver, Application.ActivityLifecy
             getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             setCancelable(false);
 
-            NewtonCradleLoading newtonCradleLoading = findViewById(R.id.loading);
-            newtonCradleLoading.start();
+            AVLoadingIndicatorView loading = findViewById(R.id.loading);
+            loading.smoothToShow();
         }
     }
 }
