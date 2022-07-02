@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.applovin.sdk.AppLovinMediationProvider;
 import com.applovin.sdk.AppLovinSdk;
+import com.facebook.ads.AdSettings;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.adgoogle.GoogleBannerAds;
@@ -458,6 +459,9 @@ public class ProxAds {
     }
 
     public void initMax(Context context) {
+        //bật chế độ LDU cho người dùng ở California
+        AdSettings.setDataProcessingOptions( new String[] {"LDU"}, 1, 1000 );
+
         // Initialize the AppLovin SDK
         AppLovinSdk.getInstance(context).setMediationProvider(AppLovinMediationProvider.MAX);
         AppLovinSdk.getInstance(context).initializeSdk(config -> {

@@ -54,6 +54,10 @@ dependencies {
     implementation 'com.applovin:applovin-sdk:+'
     implementation 'com.applovin.mediation:adcolony-adapter:+'
     implementation 'com.applovin.mediation:google-adapter:+'
+    implementation 'com.applovin.mediation:ironsource-adapter:+'
+    implementation 'com.applovin.mediation:facebook-adapter:+'
+    implementation 'com.applovin.mediation:unityads-adapter:+'
+    implementation 'com.applovin.mediation:vungle-adapter:+'
 
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
