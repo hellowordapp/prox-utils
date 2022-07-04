@@ -195,7 +195,7 @@ ProxAds.getInstance().showBigNativeMaxWithShimmer(Activity activity, String adId
 ### Open App Ads
 
 ```sh
-    class OpenAdsApp: ProxOpenAdsApplication() {
+    class OpenAdsApp: MaxOpenAdsApplication() {
         override fun getOpenAdsId(): String = "open-ads-id"
         
     }
@@ -207,7 +207,7 @@ ProxAds.getInstance().showBigNativeMaxWithShimmer(Activity activity, String adId
 
 > #### disable/enable open ads
 
-	AppOpenManager.getInstance().disableOpenAds()/AppOpenManager.getInstance().enableOpenAds()
+	MaxOpenAds.getInstance().disableOpenAds()/MaxOpenAds.getInstance().enableOpenAds()
 
 ## In app purchase
 
@@ -292,10 +292,4 @@ put this into application:
 
 ```sh
     ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
-```
-
-## Ads version 2
-
-```sh
-    ProxAds.getInstance().<call method you want>
 ```
