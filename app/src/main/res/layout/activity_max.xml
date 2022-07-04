@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:padding="20dp">
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@id/banner_container"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,78 +22,54 @@
                 android:id="@+id/test_mediation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test Mediation"
-                android:textColor="@color/white"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/test_interstitial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test Interstitial"
-                android:textColor="@color/white"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/test_interstitial_splash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test Interstitial Splash"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/test_native_small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Test native small"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/test_native_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="Test native medium"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/test_native_big"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="Test native big"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/test_native_small_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test native small shimmer"
-                android:textColor="@color/white"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/test_native_medium_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test native medium shimmer"
-                android:textColor="@color/white"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/test_native_big_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Test native big shimmer"
-                android:textColor="@color/white"/>
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <FrameLayout
                 android:id="@+id/ad_container"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 
@@ -99,5 +78,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

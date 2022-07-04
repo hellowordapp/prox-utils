@@ -88,7 +88,7 @@ public class MaxActivity extends AppCompatActivity {
             }, ProxUtils.TEST_INTERSTITIAL_MAX_ID, 12000);
         });
 
-        findViewById(R.id.test_native_small).setOnClickListener(v -> ProxAds.getInstance().showSmallNativeMax(
+        findViewById(R.id.test_native_small_shimmer).setOnClickListener(v -> ProxAds.getInstance().showSmallNativeMaxWithShimmerStyle15(
                 MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
                 findViewById(R.id.ad_container), new AdsCallback() {
                     @Override
@@ -111,7 +111,7 @@ public class MaxActivity extends AppCompatActivity {
                 }
         ));
 
-        findViewById(R.id.test_native_medium).setOnClickListener(v -> ProxAds.getInstance().showMediumNativeMax(
+        findViewById(R.id.test_native_medium_shimmer).setOnClickListener(v -> ProxAds.getInstance().showMediumNativeMaxWithShimmerStyle19(
                 MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
                 findViewById(R.id.ad_container), new AdsCallback() {
                     @Override
@@ -134,76 +134,7 @@ public class MaxActivity extends AppCompatActivity {
                 }
         ));
 
-        findViewById(R.id.test_native_big).setOnClickListener(v -> ProxAds.getInstance().showBigNativeMax(
-                MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
-                findViewById(R.id.ad_container), new AdsCallback() {
-                    @Override
-                    public void onShow() {
-                        super.onShow();
-                        Toast.makeText(MaxActivity.this, "Show", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onClosed() {
-                        super.onClosed();
-                        Toast.makeText(MaxActivity.this, "Close", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError() {
-                        super.onError();
-                        Toast.makeText(MaxActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ));
-
-        findViewById(R.id.test_native_small_shimmer).setOnClickListener(v -> ProxAds.getInstance().showSmallNativeMaxWithShimmer(
-                MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
-                findViewById(R.id.ad_container), new AdsCallback() {
-                    @Override
-                    public void onShow() {
-                        super.onShow();
-                        Toast.makeText(MaxActivity.this, "Show", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onClosed() {
-                        super.onClosed();
-                        Toast.makeText(MaxActivity.this, "Close", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError() {
-                        super.onError();
-                        Toast.makeText(MaxActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ));
-
-        findViewById(R.id.test_native_medium_shimmer).setOnClickListener(v -> ProxAds.getInstance().showMediumNativeMaxWithShimmer(
-                MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
-                findViewById(R.id.ad_container), new AdsCallback() {
-                    @Override
-                    public void onShow() {
-                        super.onShow();
-                        Toast.makeText(MaxActivity.this, "Show", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onClosed() {
-                        super.onClosed();
-                        Toast.makeText(MaxActivity.this, "Close", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError() {
-                        super.onError();
-                        Toast.makeText(MaxActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ));
-
-        findViewById(R.id.test_native_big_shimmer).setOnClickListener(v -> ProxAds.getInstance().showBigNativeMaxWithShimmer(
+        findViewById(R.id.test_native_big_shimmer).setOnClickListener(v -> ProxAds.getInstance().showBigNativeMaxWithShimmerStyle1(
                 MaxActivity.this, ProxUtils.TEST_NATIVE_MAX_ID,
                 findViewById(R.id.ad_container), new AdsCallback() {
                     @Override
