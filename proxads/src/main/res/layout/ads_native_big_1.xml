@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/border_ads">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -86,9 +87,9 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@id/ad_store"
                 app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
                 app:layout_constraintTop_toTopOf="@id/ad_store"
-                app:layout_constraintBottom_toBottomOf="@id/ad_store"
                 app:srcCompat="@drawable/ic_chplay2" />
 
             <TextView

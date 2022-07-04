@@ -74,7 +74,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_small).setOnClickListener {
-            ProxAds.getInstance().showSmallNative(
+            ProxAds.getInstance().showSmallNativeStyle15(
                 this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
                     override fun onShow() {
@@ -93,7 +93,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_medium).setOnClickListener {
-            ProxAds.getInstance().showMediumNative(
+            ProxAds.getInstance().showMediumNativeStyle19(
                     this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
                     override fun onShow() {
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_big).setOnClickListener {
-            ProxAds.getInstance().showBigNative(
+            ProxAds.getInstance().showBigNativeStyle1(
                     this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
                     override fun onShow() {
@@ -127,7 +127,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_small_with_shimmer).setOnClickListener {
-            ProxAds.getInstance().showSmallNativeWithShimmer(
+            ProxAds.getInstance().showSmallNativeWithShimmerStyle15(
                 this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
                     override fun onShow() {
@@ -146,7 +146,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_medium_with_shimmer).setOnClickListener {
-            ProxAds.getInstance().showMediumNativeWithShimmer(
+            ProxAds.getInstance().showMediumNativeWithShimmerStyle19(
                 this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object: AdsCallback() {
                     override fun onShow() {
@@ -165,7 +165,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.test_native_big_with_shimmer).setOnClickListener {
-            ProxAds.getInstance().showBigNativeWithShimmer(
+            ProxAds.getInstance().showBigNativeWithShimmerStyle1(
                 this, ProxUtils.TEST_NATIVE_ID,
                 findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
                     override fun onShow() {
