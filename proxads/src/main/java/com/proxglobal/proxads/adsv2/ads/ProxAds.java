@@ -322,6 +322,84 @@ public final class ProxAds {
         nativeAds.load().show(activity, callback);
     }
 
+    public void showSmallNativeStyle16(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_16).load().show(activity, callback);
+    }
+
+    public void showSmallNativeWithShimmerStyle16(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_16);
+        nativeAds.enableShimmer(R.layout.shimmer_native_small_16);
+        nativeAds.load().show(activity, callback);
+    }
+
+    public void showSmallNativeStyle21(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_21).load().show(activity, callback);
+    }
+
+    public void showSmallNativeWithShimmerStyle21(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_21);
+        nativeAds.enableShimmer(R.layout.shimmer_native_small_21);
+        nativeAds.load().show(activity, callback);
+    }
+
+    public void showSmallNativeStyle22(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_22).load().show(activity, callback);
+    }
+
+    public void showSmallNativeWithShimmerStyle22(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
+        if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        GoogleNativeAds nativeAds = new GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_22);
+        nativeAds.enableShimmer(R.layout.shimmer_native_small_22);
+        nativeAds.load().show(activity, callback);
+    }
+
     public void showMediumNative(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if(ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
