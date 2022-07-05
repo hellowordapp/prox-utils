@@ -73,9 +73,9 @@
                 android:id="@+id/ic_store2"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                app:layout_constraintBottom_toBottomOf="@id/ad_store"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/ad_store"
-                app:layout_constraintBottom_toBottomOf="@id/ad_store"
                 app:srcCompat="@drawable/ic_chplay2" />
 
             <TextView
@@ -102,13 +102,11 @@
 
         <Button
             android:id="@+id/ad_call_to_action"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAdsButton"
             android:gravity="center"
             android:text="CTA"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

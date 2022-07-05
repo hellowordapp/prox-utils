@@ -20,4 +20,8 @@
     <color name="lightTransparent">#16000000</color>
 
     <color name="shimmer_color">#AFAFAF</color>
+
+    <color name="backgroundTintAdsButton">#2471ff</color>
+    <color name="textColorAdsButton">#ffffffff</color>
+    <color name="rippleColorAdsButton">#ffffffff</color>
 </resources>

@@ -76,20 +76,18 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus..."
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@id/ad_app_icon"
-                app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
                 app:layout_constraintTop_toBottomOf="@+id/ad_headline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/ad_call_to_action"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAdsButton"
             android:gravity="center"
             android:text="CTA"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

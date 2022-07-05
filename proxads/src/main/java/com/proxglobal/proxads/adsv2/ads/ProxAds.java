@@ -118,7 +118,7 @@ public final class ProxAds {
      * @param colonyZoneId pass null if don't want to use this
      * @param timeout timeout
      */
-    public void  showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
+    public void showSplash(@NonNull Activity activity,@NonNull AdsCallback callback,
                            @NonNull String googleAdsId,@Nullable String colonyZoneId,
                            int timeout) {
         if(ProxPurchase.getInstance().checkPurchased()) {

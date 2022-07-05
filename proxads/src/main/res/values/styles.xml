@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AdAttribution">
         <item name="android:textSize">11.0sp</item>
         <item name="android:textColor">#ffffff</item>
@@ -37,4 +38,21 @@
         <item name="android:text">Ad</item>
     </style>
 
+    <style name="CustomButton">
+        <item name="backgroundTint">@color/backgroundTintAdsButton</item>
+
+        <item name="cornerRadius">@dimen/radiusAdsButton</item>
+
+        <item name="android:textColor">@color/textColorAdsButton</item>
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:paddingLeft">@dimen/paddingLeftAdsButton</item>
+        <item name="android:paddingRight">@dimen/paddingRightAdsButton</item>
+        <item name="android:paddingTop">@dimen/paddingTopAdsButton</item>
+        <item name="android:paddingBottom">@dimen/paddingBottomAdsButton</item>
+
+        <item name="rippleColor">@color/rippleColorAdsButton</item>
+
+        <item name="android:stateListAnimator">@null</item>
+    </style>
 </resources>

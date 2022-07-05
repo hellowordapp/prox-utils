@@ -2,4 +2,10 @@
 <resources>
     <dimen name="shimmer_native_height">280dp</dimen>
     <dimen name="shimmer_medium_native_height">160dp</dimen>
+
+    <dimen name="radiusAdsButton">0dp</dimen>
+    <dimen name="paddingLeftAdsButton">16dp</dimen>
+    <dimen name="paddingRightAdsButton">16dp</dimen>
+    <dimen name="paddingTopAdsButton">4dp</dimen>
+    <dimen name="paddingBottomAdsButton">4d</dimen>
 </resources>

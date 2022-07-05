@@ -58,14 +58,12 @@
 
             <Button
                 android:id="@+id/ad_call_to_action"
+                style="@style/CustomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAdsButton"
                 android:gravity="center"
                 android:maxWidth="@dimen/_50sdp"
                 android:text="CTA"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus..."
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

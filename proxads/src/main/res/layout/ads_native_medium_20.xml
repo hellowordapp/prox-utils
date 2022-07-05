@@ -49,14 +49,12 @@
 
         <Button
             android:id="@+id/ad_call_to_action"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:backgroundTint="@color/colorAdsButton"
             android:gravity="center"
             android:text="CTA"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintTop_toBottomOf="@id/ad_body" />
     </androidx.constraintlayout.widget.ConstraintLayout>
