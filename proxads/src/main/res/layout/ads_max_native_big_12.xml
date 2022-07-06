@@ -53,27 +53,35 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:text="Lorem ipsum dolor sit ame..."
+            android:textColor="@color/textColorAds"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ad_call_to_action"
+            app:layout_constraintEnd_toStartOf="@id/linear"
             app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/ad_call_to_action"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAdsButton"
             android:gravity="center"
-            android:maxWidth="@dimen/_85sdp"
-            android:text="CTA"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/_90sdp">
+
+            <Button
+                android:id="@+id/ad_call_to_action"
+                style="@style/DefaultButtonAds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="CTA"
+                android:textColor="@color/textColorAds"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

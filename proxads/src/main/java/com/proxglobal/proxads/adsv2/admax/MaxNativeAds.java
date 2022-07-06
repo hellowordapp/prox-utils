@@ -2,8 +2,13 @@ package com.proxglobal.proxads.adsv2.admax;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdRevenueListener;
@@ -18,22 +23,51 @@ import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
 public class MaxNativeAds extends NativeAds<MaxNativeAdView> {
     private int layoutAdId;
+    private int styleBtnAds;
+    private boolean isCustomStyle;
 
     public MaxNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId) {
         super(activity, container, adId);
         this.layoutAdId = layoutAdId;
+        isCustomStyle = false;
+    }
+
+    public MaxNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId, int styleBtnAds) {
+        super(activity, container, adId);
+        this.layoutAdId = layoutAdId;
+        this.styleBtnAds = styleBtnAds;
+        isCustomStyle = true;
     }
 
     @Override
     public void specificLoadAdsMethod() {
-        MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(layoutAdId)
+        View layoutAd = LayoutInflater.from(mActivity).inflate(layoutAdId, mContainer, false);
+        Button adCallToAction;
+
+        try {
+            if (isCustomStyle) {
+                layoutAd.findViewById(R.id.ad_call_to_action).setVisibility(View.GONE);
+                adCallToAction = new Button(new ContextThemeWrapper(mActivity, styleBtnAds), null, styleBtnAds);
+                adCallToAction.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                adCallToAction.setId(View.generateViewId());
+                ((LinearLayout) layoutAd.findViewById(R.id.linear)).addView(adCallToAction);
+            } else {
+                layoutAd.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
+                adCallToAction = layoutAd.findViewById(R.id.ad_call_to_action);
+            }
+        } catch (Exception e) {
+            layoutAd.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
+            adCallToAction = layoutAd.findViewById(R.id.ad_call_to_action);
+        }
+
+        MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder(layoutAd)
                 .setTitleTextViewId(R.id.ad_headline)
                 .setBodyTextViewId(R.id.ad_body)
                 .setAdvertiserTextViewId(R.id.ad_advertiser)
                 .setIconImageViewId(R.id.ad_app_icon)
                 .setMediaContentViewGroupId(R.id.ad_media)
                 .setOptionsContentViewGroupId(R.id.ad_options_view)
-                .setCallToActionButtonId(R.id.ad_call_to_action)
+                .setCallToActionButtonId(adCallToAction.getId())
                 .build();
 
         ads = new MaxNativeAdView(binder, mActivity);

@@ -22,5 +22,10 @@
 
     <color name="shimmer_color">#AFAFAF</color>
 
-    <color name="border_ads">#39485C</color>
+    <color name="backgroundTintAdsButton">#2471ff</color>
+    <color name="textColorAdsButton">#ffffffff</color>
+    <color name="rippleColorAdsButton">#ffffffff</color>
+
+    <color name="textColorAds">@color/black</color>
+    <color name="textBorderAds">#C4CDE0</color>
 </resources>

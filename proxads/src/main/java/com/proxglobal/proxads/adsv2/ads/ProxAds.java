@@ -323,6 +323,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showSmallNativeMaxWithShimmerStyle15(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_15, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_small_15);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showSmallNativeMaxStyle16(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -344,6 +357,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_16);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_small_16);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showSmallNativeMaxWithShimmerStyle16(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_16, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_16);
         maxNativeAds.load().show(activity, callback);
     }
@@ -373,6 +399,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showSmallNativeMaxWithShimmerStyle21(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_21, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_small_21);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showSmallNativeMaxStyle22(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -394,6 +433,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_22);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_small_22);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showSmallNativeMaxWithShimmerStyle22(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_22, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_22);
         maxNativeAds.load().show(activity, callback);
     }
@@ -459,6 +511,20 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showMediumNativeMaxWithShimmerStyle19(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_medium_19, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_19);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showMediumNativeMaxStyle20(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -481,6 +547,20 @@ public class ProxAds {
         }
 
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_medium_20);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_20);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showMediumNativeMaxWithShimmerStyle20(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_medium_20, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_20);
         maxNativeAds.load().show(activity, callback);
     }
@@ -544,6 +624,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle1(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_1, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_1);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle2(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -565,6 +658,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_2);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_2);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle2(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_2, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_2);
         maxNativeAds.load().show(activity, callback);
     }
@@ -594,6 +700,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle3(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_3, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_3);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle4(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -615,6 +734,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_4);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_4);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle4(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_4, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_4);
         maxNativeAds.load().show(activity, callback);
     }
@@ -644,6 +776,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle5(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_5, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_5);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle6(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -665,6 +810,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_6);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_6);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle6(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_6, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_6);
         maxNativeAds.load().show(activity, callback);
     }
@@ -694,6 +852,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle7(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_7, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_7);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle9(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -715,6 +886,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_9);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_9);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle9(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_9, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_9);
         maxNativeAds.load().show(activity, callback);
     }
@@ -744,6 +928,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle10(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_10, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_10);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle11(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -765,6 +962,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_11);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_11);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle11(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_11, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_11);
         maxNativeAds.load().show(activity, callback);
     }
@@ -794,6 +1004,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle12(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_12, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_12);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle13(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -819,6 +1042,19 @@ public class ProxAds {
         maxNativeAds.load().show(activity, callback);
     }
 
+    public void showBigNativeMaxWithShimmerStyle13(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_13, styleButtonAds);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_13);
+        maxNativeAds.load().show(activity, callback);
+    }
+
     public void showBigNativeMaxStyle14(Activity activity, String adId, FrameLayout adContainer, AdsCallback callback) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError();
@@ -840,6 +1076,19 @@ public class ProxAds {
             return;
         }
         MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_14);
+        maxNativeAds.enableShimmer(R.layout.shimmer_native_big_14);
+        maxNativeAds.load().show(activity, callback);
+    }
+
+    public void showBigNativeMaxWithShimmerStyle14(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback) {
+        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
+            callback.onError();
+            if (adContainer != null) {
+                adContainer.setVisibility(View.GONE);
+            }
+            return;
+        }
+        MaxNativeAds maxNativeAds = new MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_14, styleButtonAds);
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_14);
         maxNativeAds.load().show(activity, callback);
     }
