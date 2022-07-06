@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_8sdp"
-            app:layout_constraintBottom_toTopOf="@id/ad_call_to_action">
+            app:layout_constraintBottom_toTopOf="@id/linear">
 
             <ImageView
                 android:id="@+id/ad_app_icon"
@@ -59,6 +59,7 @@
                 android:layout_marginVertical="@dimen/_2sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="Lorem ipsum dolor sit ame..."
+                android:textColor="@color/textColorAds"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/ad_body"
@@ -74,6 +75,7 @@
                 android:layout_marginVertical="@dimen/_2sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus..."
+                android:textColor="@color/textColorAds"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@id/ad_app_icon"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,14 +83,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/ad_headline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/ad_call_to_action"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/CustomButton"
             android:gravity="center"
-            android:text="CTA"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/ad_call_to_action"
+                style="@style/DefaultButtonAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="CTA"
+                android:textSize="@dimen/_14sdp" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

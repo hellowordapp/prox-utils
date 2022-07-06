@@ -7,7 +7,7 @@
 
     <color name="blueDark">#062737</color>
     <color name="white">#ffffffff</color>
-    <color name="yellow">#eed202 </color>
+    <color name="yellow">#eed202</color>
     <color name="black">#000000</color>
 
     <color name="text_des">#B0B0B0</color>
@@ -24,4 +24,7 @@
     <color name="backgroundTintAdsButton">#2471ff</color>
     <color name="textColorAdsButton">#ffffffff</color>
     <color name="rippleColorAdsButton">#ffffffff</color>
+
+    <color name="textColorAds">@color/black</color>
+    <color name="textBorderAds">#C4CDE0</color>
 </resources>

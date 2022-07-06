@@ -35,30 +35,6 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/test_native_small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test native small"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/test_native_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test native medium"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/test_native_big"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test native big"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <Button
                 android:id="@+id/test_native_small_with_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

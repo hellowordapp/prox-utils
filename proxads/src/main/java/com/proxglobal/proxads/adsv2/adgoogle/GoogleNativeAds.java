@@ -1,13 +1,17 @@
 package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -18,31 +22,43 @@ import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
+import com.google.android.material.button.MaterialButton;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
 public class GoogleNativeAds extends NativeAds<NativeAdView> {
     private int layoutAdId;
+    private int styleBtnAds;
+    private boolean isCustomStyle;
 
     public GoogleNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId) {
         super(activity, container, adId);
         this.layoutAdId = layoutAdId;
+        isCustomStyle = false;
+    }
+
+    public GoogleNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId, int styleBtnAds) {
+        super(activity, container, adId);
+        this.layoutAdId = layoutAdId;
+        this.styleBtnAds = styleBtnAds;
+        isCustomStyle = true;
     }
 
     @Override
     public void specificLoadAdsMethod() {
-        ads = (NativeAdView)mActivity.getLayoutInflater().inflate(layoutAdId, null);
+        ads = (NativeAdView) mActivity.getLayoutInflater().inflate(layoutAdId, null);
 
         AdLoader.Builder builder = new AdLoader.Builder(mActivity, adId).forNativeAd(nativeAd -> {
             if (mActivity.isDestroyed()) {
-                if (ads != null){
+                if (ads != null) {
                     ads.destroy();
                 }
                 nativeAd.destroy();
             } else {
                 onShowSuccess();
 
-                if(ads == null) ads = (NativeAdView)mActivity.getLayoutInflater().inflate(layoutAdId, null);
+                if (ads == null)
+                    ads = (NativeAdView) mActivity.getLayoutInflater().inflate(layoutAdId, null);
                 populateNativeAdView(nativeAd, ads);
 
                 mContainer.removeAllViews();
@@ -95,7 +111,24 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
         // Set other ad assets.
         adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
         adView.setBodyView(adView.findViewById(R.id.ad_body));
-        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+        Button adCallToAction;
+
+        try {
+            if (isCustomStyle) {
+                adView.findViewById(R.id.ad_call_to_action).setVisibility(View.GONE);
+                adCallToAction = new Button(new ContextThemeWrapper(mActivity, styleBtnAds), null, styleBtnAds);
+                adCallToAction.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                ((LinearLayout) adView.findViewById(R.id.linear)).addView(adCallToAction);
+            } else {
+                adView.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
+                adCallToAction = adView.findViewById(R.id.ad_call_to_action);
+            }
+        } catch (Exception e) {
+            adView.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
+            adCallToAction = adView.findViewById(R.id.ad_call_to_action);
+        }
+        adView.setCallToActionView(adCallToAction);
+
         adView.setIconView(adView.findViewById(R.id.ad_app_icon));
         adView.setPriceView(adView.findViewById(R.id.ad_price));
         adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
@@ -127,7 +160,7 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
                 adView.getCallToActionView().setVisibility(View.INVISIBLE);
             } else {
                 adView.getCallToActionView().setVisibility(View.VISIBLE);
-                ((TextView) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+                adCallToAction.setText(nativeAd.getCallToAction());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,9 +196,9 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
             } else {
                 adView.getStoreView().setVisibility(View.VISIBLE);
                 ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
-                if (nativeAd.getStore().equalsIgnoreCase("Google Play")){
+                if (nativeAd.getStore().equalsIgnoreCase("Google Play")) {
                     adView.findViewById(R.id.ic_store2).setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     adView.findViewById(R.id.ic_store2).setVisibility(View.GONE);
                 }
             }

@@ -38,7 +38,7 @@
         <item name="android:text">Ad</item>
     </style>
 
-    <style name="CustomButton">
+    <style name="DefaultButtonAds">
         <item name="backgroundTint">@color/backgroundTintAdsButton</item>
 
         <item name="cornerRadius">@dimen/radiusAdsButton</item>
