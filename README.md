@@ -172,11 +172,11 @@ ProxAds.getInstance().showBigNativeWithShimmer(Activity activity, String adId, F
 ### Customize all native ads
 ```sh 
 <color name="textColorAds">@color/black</color>
-<color name="textBorderAds">'#C4CDE0</color>
+<color name="textBorderAds">#C4CDE0</color>
 
-<color name="backgroundTintAdsButton">'#2471ff</color>
-<color name="textColorAdsButton">'#ffffffff</color>
-<color name="rippleColorAdsButton">'#ffffffff</color>
+<color name="backgroundTintAdsButton">#2471ff</color>
+<color name="textColorAdsButton">#ffffffff</color>
+<color name="rippleColorAdsButton">#ffffffff</color>
 
 <dimen name="radiusAdsButton">0dp</dimen>
 <dimen name="paddingLeftAdsButton">16dp</dimen>
