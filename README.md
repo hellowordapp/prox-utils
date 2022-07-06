@@ -1,102 +1,119 @@
 # prox-utils
 
-## implementation
+## Add the JitPack repository to your build file
+```
+allprojects {
+	repositories {
+		...
+		jcenter()
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+## Add the dependency
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:1.2.1'
+	implementation 'com.github.hellowordapp:prox-utils:1.2.5'
 }
+```
+
+## Push update 
+```sh
+ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
 ```
 
 ## Usage
 
 ### load and show banner with AdsCallback
 ```sh
-        ProxAds.getInstance().showBanner(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
-            @Override
-            public void onShow() {
-                super.onShow();
+ProxAds.getInstance().showBanner(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
                 `//TO-DO`
-            }
+	}
 
-            @Override
-            public void onClosed() {
+	@Override
+	public void onClosed() {
                 super.onClosed();
                 `//TO-DO`
-            }
+	}
 
-            @Override
-            public void onError() {
+	@Override
+	public void onError() {
                 super.onError();
                 `//TO-DO`
-            }
-        });
+	}
+});
 ```
+
 ### create and load interstitial 
 ```sh
-        ProxAds.getInstance().initInterstitial(Activity activity, String adId, String colonyZoneId, String tag);
+ProxAds.getInstance().initInterstitial(Activity activity, String adId, String colonyZoneId, String tag);
 ```
+
 ### show interstitial with AdsCallback
 ```sh
-        ProxAds.getInstance().showInterstitial(Activity activity, String tag, new AdsCallback() {
-                @Override
-                public void onShow() {
-                    super.onShow();
-                    `//TO-DO`
-                }
+ProxAds.getInstance().showInterstitial(Activity activity, String tag, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onClosed() {
-                    super.onClosed();
-                    `//TO-DO`
-                }
+	@Override
+ 	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onError() {
-                    super.onError();
-                    `//TO-DO`
-                }
-            });
-
+	@Override
+  	public void onError() {
+		super.onError();
+		`//TO-DO`
+	}
+});
 ```
+
 ### load and show splash with AdsCallback after specific times
 ```sh
-        ProxAds.getInstance().showSplash(Activity activity, new AdsCallback() {
-                @Override
-                public void onShow() {
-                    super.onShow();
-                    `//TO-DO`
-                }
+ProxAds.getInstance().showSplash(Activity activity, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onClosed() {
-                    super.onClosed();
-                    `//TO-DO`
-                }
+	@Override
+	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onError() {
-                    super.onError();
-                    `//TO-DO`
-                }
-            }, String adId, String colonyZoneId, int timeout);
-
+	@Override
+	public void onError() {
+		super.onError();
+ 		`//TO-DO`
+	}
+}, String adId, String colonyZoneId, int timeout);
 ```
 
 ### load and show native small ads with AdsCallback
 
 ```sh 
-	ProxAds.getInstance().showSmallNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-    		@Override
-    		public void onShow() {
-        		super.onShow();
-        		`//TO-DO`
-    		}
+ProxAds.getInstance().showSmallNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
     	@Override
-    		public void onClosed() {
-        		super.onClosed();
-        		`//TO-DO`
-    		}
+    	public void onClosed() {
+        	super.onClosed();
+        	`//TO-DO`
+    	}
 
     	@Override
     	public void onError() {
@@ -108,56 +125,64 @@ dependencies {
 
 ### load and show native medium ads with AdsCallback
 ```sh 
-        ProxAds.getInstance().showMediumNative(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-                @Override
-                public void onShow() {
-                    super.onShow();
-                    `//TO-DO`
-                }
+ProxAds.getInstance().showMediumNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onClosed() {
-                    super.onClosed();
-                    `//TO-DO`
-                }
+	@Override
+	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onError() {
-                    super.onError();
-                    `//TO-DO`
-                }
-        });
+	@Override
+	public void onError() {
+		super.onError();
+		`//TO-DO`
+	}
+});
 ```
+
 ### load and show native big ads with AdsCallback
 ```sh 
-        ProxAds.getInstance().showBigNative(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-                @Override
-                public void onShow() {
-                    super.onShow();
-                    `//TO-DO`
-                }
+ProxAds.getInstance().showBigNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onClosed() {
-                    super.onClosed();
-                    `//TO-DO`
-                }
+	@Override
+	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-                @Override
-                public void onError() {
-                    super.onError();
-                    `//TO-DO`
-                }
-        });
+	@Override
+	public void onError() {
+		super.onError();
+ 		`//TO-DO`
+	}
+});
 ```
 
-> #### load and show native ads with shimmer
-> #### ads with already shimmer layout before loaded
+### Customize all native ads
+```sh 
+<color name="textColorAds">@color/black</color>
+<color name="textBorderAds">#C4CDE0</color>
 
-```sh
-ProxAds.getInstance().showSmallNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
-ProxAds.getInstance().showMediumNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
-ProxAds.getInstance().showBigNativeWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
+<color name="backgroundTintAdsButton">#2471ff</color>
+<color name="textColorAdsButton">#ffffffff</color>
+<color name="rippleColorAdsButton">#ffffffff</color>
+
+<dimen name="radiusAdsButton">0dp</dimen>
+<dimen name="paddingLeftAdsButton">16dp</dimen>
+<dimen name="paddingRightAdsButton">16dp</dimen>
+<dimen name="paddingTopAdsButton">4dp</dimen>
+<dimen name="paddingBottomAdsButton">4dp</dimen>
 ```
 
 ### Open App Ads
@@ -242,14 +267,4 @@ put this into application:
             ProxRateDialog.showIfNeed(supportFragmentManager)
         }
     } 
-```
-
-## Push update 
-```sh
-    ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
-```
-
-## Ads version 2
-```sh
-    ProxAds.getInstance().<call method you want>
 ```
