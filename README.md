@@ -1,10 +1,20 @@
 # prox-utils
 
-## implementation
+## Add the JitPack repository to your build file
+```
+allprojects {
+	repositories {
+		...
+		jcenter()
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
 
+## Add the dependency
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:2.1.0-max'
+        implementation 'com.github.hellowordapp:prox-utils:2.1.1-max'
 }
 ```
 
@@ -13,9 +23,8 @@ dependencies {
 ### Need to add this line to your MainActivity to push users to update the app:
 
 ```sh
-    ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
+ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
 ```
-
 
 ## Usage
 
@@ -44,23 +53,23 @@ ProxAds.getInstance().initMax(Context context);
 
 ```sh
 ProxAds.getInstance().showBannerMax(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+        	super.onClosed();
+        	`//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-        super.onError();
-        `//TO-DO`
-    }
+	@Override
+	public void onError() {
+        	super.onError();
+        	`//TO-DO`
+	}
 });
 ```
 
@@ -74,73 +83,71 @@ ProxAds.getInstance().initInterstitialMax(Activity activity, String adId, String
 
 ```sh
 ProxAds.getInstance().showInterstitialMax(Activity activity, String tag, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+        	super.onClosed();
+        	`//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-        super.onError();
-        `//TO-DO`
-    }
+	@Override
+	public void onError() {
+        	super.onError();
+        	`//TO-DO`
+	}
 });
-
 ```
 
 ### load and show splash with AdsCallback after specific times
 
 ```sh
 ProxAds.getInstance().showSplashMax(Activity activity, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+        	super.onShow();
+        	`//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-        super.onError();
-        `//TO-DO`
-    }
+	@Override
+	public void onError() {
+		super.onError();
+		`//TO-DO`
+	}
 }, String adId, int timeout);
-
 ```
 
 ### load and show native small ads with AdsCallback
 
 ```sh 
 ProxAds.getInstance().showSmallNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+		super.onShow();
+		`//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+		super.onClosed();
+		`//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-         super.onError();
-         `//TO-DO`
-    }
+	@Override
+	public void onError() {
+        	super.onError();
+        	`//TO-DO`
+	}
 });
 ```
 
@@ -148,23 +155,23 @@ ProxAds.getInstance().showSmallNativeMax(Activity activity, String adId, FrameLa
 
 ```sh 
 ProxAds.getInstance().showMediumNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+		super.onShow();
+                `//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+                super.onClosed();
+                `//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-         super.onError();
-         `//TO-DO`
-    }
+	@Override
+	public void onError() {
+                super.onError();
+                `//TO-DO`
+	}
 });
 ```
 
@@ -172,33 +179,40 @@ ProxAds.getInstance().showMediumNativeMax(Activity activity, String adId, FrameL
 
 ```sh 
 ProxAds.getInstance().showBigNativeMax(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-    @Override
-    public void onShow() {
-        super.onShow();
-        `//TO-DO`
-    }
+	@Override
+	public void onShow() {
+		super.onShow();
+                `//TO-DO`
+	}
 
-    @Override
-    public void onClosed() {
-        super.onClosed();
-        `//TO-DO`
-    }
+	@Override
+	public void onClosed() {
+                super.onClosed();
+                `//TO-DO`
+	}
 
-    @Override
-    public void onError() {
-         super.onError();
-         `//TO-DO`
-    }
+	@Override
+	public void onError() {
+                super.onError();
+                `//TO-DO`
+	}
 });
 ```
 
-> #### load and show native ads with shimmer
-> #### ads with already shimmer layout before loaded
+### Customize all native ads
+```sh 
+<color name="textColorAds">@color/black</color>
+<color name="textBorderAds">#C4CDE0</color>
 
-```sh
-ProxAds.getInstance().showSmallNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
-ProxAds.getInstance().showMediumNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
-ProxAds.getInstance().showBigNativeMaxWithShimmer(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {...});
+<color name="backgroundTintAdsButton">#2471ff</color>
+<color name="textColorAdsButton">#ffffffff</color>
+<color name="rippleColorAdsButton">#ffffffff</color>
+
+<dimen name="radiusAdsButton">0dp</dimen>
+<dimen name="paddingLeftAdsButton">16dp</dimen>
+<dimen name="paddingRightAdsButton">16dp</dimen>
+<dimen name="paddingTopAdsButton">4dp</dimen>
+<dimen name="paddingBottomAdsButton">4dp</dimen>
 ```
 
 ### Open App Ads
