@@ -19,6 +19,8 @@ dependencies {
 ```
 
 ## Push update 
+
+### Need to add this line to your MainActivity to push users to update the app:
 ```sh
 ProxUtils.INSTANCE.initFirebaseRemoteConfig(Activity, appVersionCode, iconAppId, appName);
 ```
