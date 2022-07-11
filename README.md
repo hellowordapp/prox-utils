@@ -202,7 +202,7 @@ ProxAds.getInstance().showBigNativeMax(Activity activity, String adId, FrameLayo
 ### Customize all native ads
 ```sh 
 <color name="textColorAds">@color/black</color>
-<color name="textBorderAds">#C4CDE0</color>
+<color name="borderColorAds">#C4CDE0</color>
 
 <color name="backgroundTintAdsButton">#2471ff</color>
 <color name="textColorAdsButton">#ffffffff</color>
