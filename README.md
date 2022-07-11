@@ -14,7 +14,7 @@ allprojects {
 ## Add the dependency
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:1.2.5'
+	implementation 'com.github.hellowordapp:prox-utils:1.2.6'
 }
 ```
 
@@ -174,7 +174,7 @@ ProxAds.getInstance().showBigNativeWithShimmer(Activity activity, String adId, F
 ### Customize all native ads
 ```sh 
 <color name="textColorAds">@color/black</color>
-<color name="textBorderAds">#C4CDE0</color>
+<color name="borderColorAds">#C4CDE0</color>
 
 <color name="backgroundTintAdsButton">#2471ff</color>
 <color name="textColorAdsButton">#ffffffff</color>

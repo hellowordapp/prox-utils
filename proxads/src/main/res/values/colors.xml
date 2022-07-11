@@ -26,5 +26,5 @@
     <color name="rippleColorAdsButton">#ffffffff</color>
 
     <color name="textColorAds">@color/black</color>
-    <color name="textBorderAds">#C4CDE0</color>
+    <color name="borderColorAds">#C4CDE0</color>
 </resources>
