@@ -44,7 +44,7 @@ public class ProxRateDialog extends DialogFragment {
 
     }
 
-    private ProxRateDialog(Config config){
+    private ProxRateDialog(Config config) {
         mConfig = config;
         layoutId = R.layout.dialog_rating;
     }
@@ -57,6 +57,7 @@ public class ProxRateDialog extends DialogFragment {
 
     /**
      * init dialog view with layout id as param with listener
+     *
      * @param layoutId
      */
     public static void init(int layoutId, RatingDialogListener listener) {
@@ -65,33 +66,42 @@ public class ProxRateDialog extends DialogFragment {
 
     /**
      * init dialog view with default view and config
+     *
      * @param config
      */
-    public static void init(@NonNull Config config){
+    public static void init(@NonNull Config config) {
         dialog = new ProxRateDialog(config);
+    }
+
+    public static boolean isRated(Context context) {
+        if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+
+        return sp.getBoolean("isRated", false);
     }
 
     /**
      * show by anyway (ignore rated)
+     *
      * @param fm
      */
-    public static void showAlways(Context context, FragmentManager fm){
-        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+    public static void showAlways(Context context, FragmentManager fm) {
+        if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
 
-        dialog.show(fm,"prox");
+        dialog.show(fm, "prox");
     }
 
     /**
      * show if you haven't rate this app yet
+     *
      * @param fm
      */
-    public static void showIfNeed(Context context, FragmentManager fm){
-        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+    public static void showIfNeed(Context context, FragmentManager fm) {
+        if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
 
-        if (!sp.getBoolean("isRated", false)){
+        if (!isRated(context)) {
             dialog.show(fm, "prox");
         } else {
-            if(dialog.mConfig != null) {
+            if (dialog.mConfig != null) {
                 dialog.mConfig.listener.onRated();
             }
         }
@@ -159,11 +169,11 @@ public class ProxRateDialog extends DialogFragment {
         ratingBar.setOnRatingBarChangeListener((r, v, b) -> {
             view.findViewById(R.id.layout_later).setVisibility(View.GONE);
             view.findViewById(R.id.submit).setVisibility(View.VISIBLE);
-            if (v>0) tvStar.setText(starDes.get((int) v - 1));
+            if (v > 0) tvStar.setText(starDes.get((int) v - 1));
             edComment.setVisibility(v < 4 ? View.VISIBLE : View.GONE);
 
             mConfig.listener.onChangeStar((int) v);
-            if (v>=4){
+            if (v >= 4) {
                 sp.edit().putBoolean("isRated", true).apply();
                 String appPackageName = getActivity().getPackageName();
                 try {
@@ -186,20 +196,20 @@ public class ProxRateDialog extends DialogFragment {
     }
 
     private void loadConfig() {
-        if(mConfig.rateTitle != null)
+        if (mConfig.rateTitle != null)
             ((TextView) view.findViewById(R.id.tv_rating_title)).setText(mConfig.rateTitle);
 
-        if(mConfig.description != null)
+        if (mConfig.description != null)
             ((TextView) view.findViewById(R.id.tv_rating_description)).setText(mConfig.description);
 
-        if(mConfig.icon != null)
+        if (mConfig.icon != null)
             ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(mConfig.icon);
 
-        if(mConfig.backgroundIcon != null) {
+        if (mConfig.backgroundIcon != null) {
             ((ImageView) view.findViewById(R.id.icon)).setBackground(mConfig.backgroundIcon);
         }
 
-        if(mConfig.commentHint != null) {
+        if (mConfig.commentHint != null) {
             ((EditText) view.findViewById(R.id.comment)).setHint(mConfig.commentHint);
         }
     }
@@ -209,13 +219,17 @@ public class ProxRateDialog extends DialogFragment {
         if (isAdded()) {
             return;
         }
-        super.show(manager, tag);
+        try {
+            super.show(manager, tag);
+        } catch (Exception e) {
+            Log.d("show_rate", "error: "+e.getMessage());
+        }
     }
 
     @Override
     public void dismiss() {
         if (isAdded()) {
-            super.dismiss();;
+            super.dismiss();
         }
     }
 
@@ -228,6 +242,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set comment hint when edit text is empty<br>
          * <b>don't call to use default</b>
+         *
          * @param commentHint
          */
         public void setCommentHint(String commentHint) {
@@ -237,6 +252,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set description for dialog <br>
          * <b>don't call to use default</b>
+         *
          * @param description
          */
         public void setDescription(String description) {
@@ -246,6 +262,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set title for dialog<br>
          * <b>don't call to use default</b>
+         *
          * @param title
          */
         public void setTitle(String title) {
@@ -255,6 +272,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set icon for dialog<br>
          * <b>don't call to use default</b>
+         *
          * @param icon
          */
         public void setForegroundIcon(Drawable icon) {
@@ -264,6 +282,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set background icon for dialog<br>
          * <b>don't call to use default</b>
+         *
          * @param backgroundIcon
          */
         public void setBackgroundIcon(Drawable backgroundIcon) {
@@ -273,6 +292,7 @@ public class ProxRateDialog extends DialogFragment {
         /**
          * set listener for rating dialog<br>
          * <strong>important</strong>
+         *
          * @param listener
          */
         public void setListener(RatingDialogListener listener) {

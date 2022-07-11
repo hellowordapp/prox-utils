@@ -163,7 +163,7 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDone() {
-                TODO("Not yet implemented")
+                Toast.makeText(this@MainActivity, "Done", Toast.LENGTH_SHORT).show()
             }
         })
 
