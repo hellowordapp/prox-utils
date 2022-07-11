@@ -71,6 +71,12 @@ public class ProxRateDialog extends DialogFragment {
         dialog = new ProxRateDialog(config);
     }
 
+    public static boolean isRated(Context context){
+        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
+
+        return sp.getBoolean("isRated", false);
+    }
+
     /**
      * show by anyway (ignore rated)
      * @param fm
@@ -88,7 +94,7 @@ public class ProxRateDialog extends DialogFragment {
     public static void showIfNeed(Context context, FragmentManager fm){
         if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
 
-        if (!sp.getBoolean("isRated", false)){
+        if (!isRated(context)){
             dialog.show(fm, "prox");
         } else {
             if(dialog.mConfig != null) {
@@ -209,7 +215,12 @@ public class ProxRateDialog extends DialogFragment {
         if (isAdded()) {
             return;
         }
-        super.show(manager, tag);
+        try {
+            super.show(manager, tag);
+        }catch (Exception e){
+            Log.d("show_rate", "error: "+e.getMessage());
+        }
+
     }
 
     @Override
