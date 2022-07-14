@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/Android/prox-utils/proxads/src/main/res/layout/ads_native_medium.xml" value="0.15260416666666668" />
+        <entry key="..\:/prox-utils/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
         <entry key="..\:/prox-utils/app/src/main/res/drawable/button.xml" value="0.184" />
         <entry key="..\:/prox-utils/app/src/main/res/drawable/button_disabled.xml" value="0.184" />
         <entry key="..\:/prox-utils/app/src/main/res/drawable/button_enabled.xml" value="0.184" />
@@ -77,10 +78,10 @@
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small_16.xml" value="0.25" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small_21.xml" value="0.23229166666666667" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_small_22.xml" value="0.23229166666666667" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/bottom_remote_update.xml" value="0.23229166666666667" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/bottom_remote_update.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_open_ads.xml" value="0.25" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_rating.xml" value="0.23229166666666667" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_update.xml" value="0.34479166666666666" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_rating.xml" value="0.33" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_update.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_big.xml" value="0.2" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_medium.xml" value="0.264" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_small.xml" value="0.2" />
