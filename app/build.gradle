@@ -1,9 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.android.application'
+
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"

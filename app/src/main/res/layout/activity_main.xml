@@ -59,6 +59,14 @@
                 android:textColor="@color/white" />
 
             <Button
+                android:id="@+id/btn_survey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test Survey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
                 android:id="@+id/btn_show_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

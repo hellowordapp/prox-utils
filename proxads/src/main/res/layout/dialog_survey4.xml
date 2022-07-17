@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_question_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="What do you think about the app?"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:id="@+id/grp_question_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rad_option_1_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I can’t use it"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+
+        <RadioButton
+            android:id="@+id/rad_option_1_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Not the app I’m looking for"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+
+        <RadioButton
+            android:id="@+id/rad_option_1_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Good app, I willl keep using it"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txt_question_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Names of movies you have watched?"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:id="@+id/grp_question_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rad_option_2_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I can’t use it"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+
+        <RadioButton
+            android:id="@+id/rad_option_2__2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Not the app I’m looking for"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+
+        <RadioButton
+            android:id="@+id/rad_option_2__3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Good app, I willl keep using it"
+            android:textColor="@color/button_text_color_survey"
+            android:textSize="14sp"
+            app:buttonTint="@color/button_tint_survey" />
+    </RadioGroup>
+</LinearLayout>

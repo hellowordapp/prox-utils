@@ -22,4 +22,8 @@
     <string name="_ok">OK</string>
     <string name="_thanks">Thanks!</string>
     <string name="_thank_for_rating">Thank for rating</string>
+
+    <string name="_survey_not_now">Not Now</string>
+    <string name="_survey_submit">Submit</string>
+    <string name="_survey_noti_submit">Submit</string>
 </resources>

@@ -134,6 +134,10 @@ class MainActivity : BaseActivity() {
             )
         }
 
+        findViewById<Button>(R.id.btn_survey).setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this@MainActivity, MainActivity4::class.java))
+        })
+
         var a = true;
         findViewById<Button>(R.id.btn_toggle_open_ads).setOnClickListener {
             if (a) AppOpenManager.getInstance().disableOpenAds()
