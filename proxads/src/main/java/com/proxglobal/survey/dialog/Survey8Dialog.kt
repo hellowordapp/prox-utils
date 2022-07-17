@@ -24,7 +24,7 @@ class Survey8Dialog(context: Context, private val binding: DialogSurvey8Binding,
         binding.radOption1.text = config.option_1_1
         binding.radOption2.text = config.option_1_2
         binding.radOption3.text = config.option_1_3
-        binding.radOptionOther.text = config.option_other_1
+        binding.radOptionOther.text = config.option_1_4
 
         binding.txtQuestionOther.text = config.question_2
         binding.txtAnswerOther.hint = config.hint_answer_2

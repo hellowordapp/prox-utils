@@ -28,9 +28,6 @@ class ConfigSurvey {
     @SerializedName("option_1_4")
     var option_1_4: String? = null
 
-    @SerializedName("option_other_1")
-    var option_other_1: String? = null
-
     @SerializedName("question_2")
     var question_2: String? = null
 
@@ -48,7 +45,4 @@ class ConfigSurvey {
 
     @SerializedName("option_2_4")
     var option_2_4: String? = null
-
-    @SerializedName("option_other_2")
-    var option_other_2: String? = null
 }
