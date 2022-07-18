@@ -14,6 +14,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <color name="textColorAds">@color/white</color>
-    <dimen name="radiusAdsButton">0dp</dimen>
+    <color name="ads_text_color">@color/white</color>
+    <dimen name="ads_btn_radius">0dp</dimen>
 </resources>

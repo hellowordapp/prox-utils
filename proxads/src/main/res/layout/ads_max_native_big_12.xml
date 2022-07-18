@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:text="Lorem ipsum dolor sit ame..."
-            android:textColor="@color/textColorAds"
+            android:textColor="@color/ads_text_color"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="CTA"
-                android:textColor="@color/textColorAds"
+                android:textColor="@color/ads_text_color"
                 android:textSize="@dimen/_10sdp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

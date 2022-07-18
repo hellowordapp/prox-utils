@@ -22,13 +22,13 @@
 
     <color name="shimmer_color">#AFAFAF</color>
 
-    <color name="backgroundTintAdsButton">#2471ff</color>
-    <color name="textColorAdsButton">#ffffffff</color>
-    <color name="rippleColorAdsButton">#ffffffff</color>
+    <color name="ads_btn_background_tint">#2471ff</color>
+    <color name="ads_btn_text_color">#ffffffff</color>
+    <color name="ads_btn_ripple_color">#ffffffff</color>
 
-    <color name="textColorAds">@color/black</color>
-    <color name="borderColorAds">#C4CDE0</color>
+    <color name="ads_text_color">@color/black</color>
+    <color name="ads_border_color">#C4CDE0</color>
 
-    <color name="main_color_survey">#5D9EFF</color>
-    <color name="secondary_color_survey">#385D9EFF</color>
+    <color name="survey_main_color">#5D9EFF</color>
+    <color name="survey_secondary_color">#385D9EFF</color>
 </resources>

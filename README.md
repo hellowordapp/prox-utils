@@ -14,7 +14,7 @@ allprojects {
 ## Add the dependency
 ```
 dependencies {
-        implementation 'com.github.hellowordapp:prox-utils:2.1.1-max'
+        implementation 'com.github.hellowordapp:prox-utils:2.1.2-max'
 }
 ```
 
@@ -201,18 +201,18 @@ ProxAds.getInstance().showBigNativeMax(Activity activity, String adId, FrameLayo
 
 ### Customize all native ads
 ```sh 
-<color name="textColorAds">@color/black</color>
-<color name="borderColorAds">#C4CDE0</color>
+<color name="ads_text_color">@color/black</color>
+<color name="ads_border_color">#C4CDE0</color>
 
-<color name="backgroundTintAdsButton">#2471ff</color>
-<color name="textColorAdsButton">#ffffffff</color>
-<color name="rippleColorAdsButton">#ffffffff</color>
+<color name="ads_btn_background_tint">#2471ff</color>
+<color name="ads_btn_text_color">#ffffffff</color>
+<color name="ads_btn_ripple_color">#ffffffff</color>
 
-<dimen name="radiusAdsButton">0dp</dimen>
-<dimen name="paddingLeftAdsButton">16dp</dimen>
-<dimen name="paddingRightAdsButton">16dp</dimen>
-<dimen name="paddingTopAdsButton">4dp</dimen>
-<dimen name="paddingBottomAdsButton">4dp</dimen>
+<dimen name="ads_btn_radius">0dp</dimen>
+<dimen name="ads_btn_padding_left">16dp</dimen>
+<dimen name="ads_btn_padding_right">16dp</dimen>
+<dimen name="ads_btn_padding_top">4dp</dimen>
+<dimen name="ads_btn_padding_bottom">4dp</dimen>
 ```
 
 ### Open App Ads
