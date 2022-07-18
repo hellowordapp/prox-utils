@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_question_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="What do you think about the app?"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/chk_option_1_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 1"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+
+    <CheckBox
+        android:id="@+id/chk_option_1_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 2"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+
+    <CheckBox
+        android:id="@+id/chk_option_1_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 3"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+
+    <TextView
+        android:id="@+id/txt_question_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="What do you think about the app?"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/chk_option_2_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 1"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+
+    <CheckBox
+        android:id="@+id/chk_option_2_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 2"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+
+    <CheckBox
+        android:id="@+id/chk_option_2_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question number 3"
+        android:textColor="@color/button_text_color_survey"
+        android:textSize="14sp"
+        app:buttonTint="@color/button_tint_survey" />
+</LinearLayout>

@@ -7,6 +7,7 @@
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_main2.xml" value="0.3625" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/activity_max.xml" value="0.5" />
         <entry key="..\:/prox-utils/app/src/main/res/layout/layout_preloading_ads.xml" value="0.3625" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/drawable/bg_bottom_survey.xml" value="0.157" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_banner.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_3.xml" value="0.3625" />
@@ -23,7 +24,9 @@
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_survey5.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_survey6.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_survey7.xml" value="0.35" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_survey8.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/dialog_update.xml" value="0.23854166666666668" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/layout_submitted.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_big.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_medium.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/max_native_custom_ad_small.xml" value="0.23854166666666668" />
@@ -31,6 +34,7 @@
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_banner_max.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_banner.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big.xml" value="0.3625" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_big_14.xml" value="0.3625" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/shimmer_native_medium.xml" value="0.3625" />
       </map>
     </option>

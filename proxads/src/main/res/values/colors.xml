@@ -28,4 +28,7 @@
 
     <color name="textColorAds">@color/black</color>
     <color name="borderColorAds">#C4CDE0</color>
+
+    <color name="main_color_survey">#5D9EFF</color>
+    <color name="secondary_color_survey">#385D9EFF</color>
 </resources>

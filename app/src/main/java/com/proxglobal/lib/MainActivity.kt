@@ -155,15 +155,9 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        var a = true
-        binding.btnToggleOpenAds.setOnClickListener {
-            if (a) MaxOpenAds.instance.disableOpenAds()
-            else MaxOpenAds.instance.enableOpenAds()
-            a = !a
-
-            Toast.makeText(this@MainActivity, "OpenAds: $a", Toast.LENGTH_SHORT).show()
+        binding.testSurvey.setOnClickListener {
+            startActivity(Intent(this@MainActivity, MainActivity4::class.java))
         }
-
 
         val config = ProxRateDialog.Config()
         config.setListener(object : RatingDialogListener() {
@@ -195,6 +189,15 @@ class MainActivity : AppCompatActivity() {
                 this,
                 supportFragmentManager
             )
+        }
+
+        var a = true
+        binding.btnToggleOpenAds.setOnClickListener {
+            if (a) MaxOpenAds.instance.disableOpenAds()
+            else MaxOpenAds.instance.enableOpenAds()
+            a = !a
+
+            Toast.makeText(this@MainActivity, "OpenAds: $a", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnTestIap.setOnClickListener {
