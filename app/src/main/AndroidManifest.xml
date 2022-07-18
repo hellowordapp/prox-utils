@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProxLib">
         <activity
-            android:name=".MaxActivity"
-            android:exported="true"/>
-        <activity
             android:name=".MainActivity2"
             android:exported="true"/>
         <activity

@@ -1,61 +1,50 @@
-package com.proxglobal.proxads.adsv2.ads;
+package com.proxglobal.proxads.adsv2.ads
 
-import android.app.Activity;
-
-import com.proxglobal.proxads.adsv2.callback.AdsCallback;
+import android.app.Activity
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
 
 abstract class Ads {
-    protected final String TAG = "proxads";
+    @JvmField
+    protected val TAG = "proxads"
 
     /**
      * load ads
      * @return
      */
-    public abstract Ads load();
+    abstract fun load(): Ads?
 
     /**
      * show available ads
      */
-    protected abstract void show(Activity activity);
+    protected abstract fun show(activity: Activity?)
 
     /**
      * show available ads with callback
      */
-    public abstract void show(Activity activity, AdsCallback callback);
+    abstract fun show(activity: Activity?, callback: AdsCallback?)
 
     /**
      * this callback for ads show successful
      */
-    public void onShowSuccess() {
-
-    }
+    open fun onShowSuccess() {}
 
     /**
      * this callback for close ads after show
      */
-    public void onClosed() {
-
-    }
+    open fun onClosed() {}
 
     /**
      * this callback for ads show error (ex: ads null,..)
      */
-    public void onShowError() {
-
-    }
+    open fun onShowError() {}
 
     /**
      * this callback for load ads successful
      */
-    public void onLoadSuccess() {
-
-    }
-
+    open fun onLoadSuccess() {}
 
     /**
      * this callback for load ads failed
      */
-    public void onLoadFailed() {
-
-    }
+    open fun onLoadFailed() {}
 }

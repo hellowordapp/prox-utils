@@ -1,14 +1,14 @@
 package com.proxglobal.lib
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.proxglobal.purchase.ProxPurchase
 import com.proxglobal.purchase.function.PurchaseListioner
 
-class MainActivity3 : BaseActivity() {
+class MainActivity3 : AppCompatActivity() {
     lateinit var button1 : Button
     lateinit var button2 : Button
     lateinit var button3 : Button
@@ -22,13 +22,13 @@ class MainActivity3 : BaseActivity() {
         ProxPurchase.getInstance().setPurchaseListioner(object : PurchaseListioner {
             override fun onProductPurchased(productId: String?, transactionDetails: String?) {
                 transactionDetails?.let {
-                    Log.d(TAG, "Message: $it")
+                    Log.d("ntduc", "Message: $it")
                 }
             }
 
             override fun displayErrorMessage(errorMsg: String?) {
                 errorMsg?.let {
-                    Log.d(TAG, "Message: $it")
+                    Log.d("ntduc", "Message: $it")
                 }
             }
 

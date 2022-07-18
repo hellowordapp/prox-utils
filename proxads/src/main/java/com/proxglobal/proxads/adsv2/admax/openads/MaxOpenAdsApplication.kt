@@ -1,20 +1,18 @@
-package com.proxglobal.proxads.adsv2.admax.openads;
+package com.proxglobal.proxads.adsv2.admax.openads
 
-import android.app.Application;
+import android.app.Application
 
-public abstract class MaxOpenAdsApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        MaxOpenAds.getInstance().init(this, getOpenAdsId());
+abstract class MaxOpenAdsApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        MaxOpenAds.instance.init(this, getOpenAdsId())
     }
 
-    protected final void disableOpenAdsAt(Class... clss) {
-        for (Class cls : clss) {
-            MaxOpenAds.getInstance().registerDisableOpenAdsAt(cls);
+    protected fun disableOpenAdsAt(vararg clss: Class<*>?) {
+        for (cls in clss) {
+            MaxOpenAds.instance.registerDisableOpenAdsAt(cls!!)
         }
     }
 
-    protected abstract String getOpenAdsId();
+    abstract fun getOpenAdsId(): String
 }

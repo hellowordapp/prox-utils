@@ -1,6 +1,6 @@
-package com.proxglobal.proxads.adsv2.callback;
+package com.proxglobal.proxads.adsv2.callback
 
-public interface LoadCallback {
-    void onLoadSuccess();
-    void onLoadFailed();
+interface LoadCallback {
+    fun onLoadSuccess()
+    fun onLoadFailed()
 }

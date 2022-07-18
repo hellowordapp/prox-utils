@@ -2,149 +2,170 @@ package com.proxglobal.lib
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import com.proxglobal.lib.databinding.ActivityMainBinding
 import com.proxglobal.proxads.ProxUtils
-import com.proxglobal.proxads.ads.callback.NativeAdCallback
-import com.proxglobal.proxads.ads.openads.AppOpenManager
 import com.proxglobal.proxads.adsv2.admax.openads.MaxOpenAds
-import com.proxglobal.proxads.adsv2.callback.AdsCallback
 import com.proxglobal.proxads.adsv2.ads.ProxAds
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
 import com.proxglobal.rate.ProxRateDialog
-import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        ProxAds.getInstance()
-            .showBanner(this, findViewById(R.id.banner_container), ProxUtils.TEST_BANNER_ID,
-                object : AdsCallback() {
-                    override fun onShow() {
-                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
-                    }
+        ProxUtils.INSTANCE.initFirebaseRemoteConfig(
+            this, BuildConfig.VERSION_CODE, BuildConfig.DEBUG,
+            R.drawable.ic_launcher_background, getString(R.string.app_display_name)
+        )
 
-                    override fun onClosed() {
-                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
-                    }
+        binding.testMediation.setOnClickListener {
+            ProxAds.instance.showMaxMediationDebug(this@MainActivity)
+        }
 
-                    override fun onError() {
-                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            )
-
-        findViewById<Button>(R.id.btn_max).setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this@MainActivity, MaxActivity::class.java))
-        })
-
-        ProxAds.getInstance().initInterstitial(this, ProxUtils.TEST_INTERSTITIAL_ID, "inter");
-//        ProxPurchase.getInstance().syncPurchaseState()
-        findViewById<Button>(R.id.test_interstitial).setOnClickListener(View.OnClickListener {
-            ProxAds.getInstance().showInterstitial(this, "inter", object : AdsCallback() {
+        ProxAds.instance.showBannerMax(
+            this,
+            findViewById(R.id.banner_container),
+            ProxUtils.TEST_BANNER_MAX_ID,
+            object : AdsCallback() {
                 override fun onShow() {
+                    super.onShow()
                     Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onClosed() {
+                    super.onClosed()
                     Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onError() {
+                    super.onError()
                     Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                 }
             })
-        })
 
-        findViewById<Button>(R.id.test_interstitial_splash).setOnClickListener {
-            ProxAds.getInstance().showSplash(this, object : AdsCallback() {
+        ProxAds.instance.initInterstitialMax(this, ProxUtils.TEST_INTERSTITIAL_MAX_ID, "max")
+        binding.testInterstitial.setOnClickListener {
+            ProxAds.instance.showInterstitialMax(this@MainActivity, "max", object : AdsCallback() {
                 override fun onShow() {
+                    super.onShow()
                     Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onClosed() {
+                    super.onClosed()
+                    Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError() {
+                    super.onError()
+                    Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+        binding.testInterstitialSplash.setOnClickListener {
+            ProxAds.instance.showSplashMax(this@MainActivity, object : AdsCallback() {
+                override fun onShow() {
+                    super.onShow()
+                    Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onClosed() {
+                    super.onClosed()
                     Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@MainActivity, MainActivity2::class.java))
                 }
 
                 override fun onError() {
+                    super.onError()
                     Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@MainActivity, MainActivity2::class.java))
                 }
-            }, ProxUtils.TEST_INTERSTITIAL_ID, 12000)
+            }, ProxUtils.TEST_INTERSTITIAL_MAX_ID, 12000)
         }
 
-        findViewById<Button>(R.id.test_native).setOnClickListener {
-            ProxAds.getInstance().showMediumNative(
-                this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
+        binding.testNativeSmallShimmer.setOnClickListener {
+            ProxAds.instance.showSmallNativeMaxWithShimmerStyle15(
+                this@MainActivity, ProxUtils.TEST_NATIVE_MAX_ID,
+                findViewById(R.id.ad_container), object : AdsCallback() {
                     override fun onShow() {
+                        super.onShow()
                         Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onClosed() {
+                        super.onClosed()
                         Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onError() {
+                        super.onError()
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+        }
+
+        binding.testNativeMediumShimmer.setOnClickListener {
+            ProxAds.instance.showMediumNativeMaxWithShimmerStyle19(
+                this@MainActivity, ProxUtils.TEST_NATIVE_MAX_ID,
+                findViewById(R.id.ad_container), object : AdsCallback() {
+                    override fun onShow() {
+                        super.onShow()
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onClosed() {
+                        super.onClosed()
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        super.onError()
                         Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
         }
 
-        findViewById<Button>(R.id.test_native_big_shimmer).setOnClickListener {
-            ProxAds.getInstance().showBigNative(
-                this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container), object : AdsCallback() {
+        binding.testNativeBigShimmer.setOnClickListener {
+            ProxAds.instance.showBigNativeMaxWithShimmerStyle1(
+                this@MainActivity, ProxUtils.TEST_NATIVE_MAX_ID,
+                findViewById(R.id.ad_container), object : AdsCallback() {
                     override fun onShow() {
+                        super.onShow()
                         Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
                     }
 
+                    override fun onClosed() {
+                        super.onClosed()
+                        Toast.makeText(this@MainActivity, "Close", Toast.LENGTH_SHORT).show()
+                    }
+
                     override fun onError() {
-                        findViewById<FrameLayout>(R.id.ad_container).removeAllViews()
-                        Toast.makeText(this@MainActivity, "Failed", Toast.LENGTH_SHORT).show()
+                        super.onError()
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
         }
 
-        findViewById<Button>(R.id.test_native_medium_shimmer).setOnClickListener {
-            ProxUtils.INSTANCE.createMediumNativeAdWithShimmer(
-                this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container)
-            ).load(
-                NativeAdCallback {
+        var a = true
+        binding.btnToggleOpenAds.setOnClickListener {
+            if (a) MaxOpenAds.instance.disableOpenAds()
+            else MaxOpenAds.instance.enableOpenAds()
+            a = !a
 
-                })
+            Toast.makeText(this@MainActivity, "OpenAds: $a", Toast.LENGTH_SHORT).show()
         }
 
-        findViewById<Button>(R.id.test_native_shimmer).setOnClickListener {
-            ProxUtils.INSTANCE.createNativeAdWithShimmer(
-                this, ProxUtils.TEST_NATIVE_ID,
-                findViewById<FrameLayout>(R.id.ad_container), R.layout.ads_native_big,
-                R.layout.layout_preloading_ads
-            ).load(
-                NativeAdCallback {
 
-                })
-        }
-
-        var a = true;
-        findViewById<Button>(R.id.btn_toggle_open_ads).setOnClickListener {
-            if (a) MaxOpenAds.getInstance().disableOpenAds()
-            else MaxOpenAds.getInstance().enableOpenAds()
-
-            a = !a;
-        }
-
-        val config = Config()
-
+        val config = ProxRateDialog.Config()
         config.setListener(object : RatingDialogListener() {
             override fun onRated() {
                 super.onRated()
@@ -167,25 +188,16 @@ class MainActivity : BaseActivity() {
                 Toast.makeText(this@MainActivity, "Done", Toast.LENGTH_SHORT).show()
             }
         })
-
-        config.setForegroundIcon(ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground))
         ProxRateDialog.init(config)
 
-        findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? ->
-            ProxRateDialog.showIfNeed(
+        binding.btnShowRate.setOnClickListener {
+            ProxRateDialog.showAlways(
                 this,
                 supportFragmentManager
             )
         }
 
-        ProxUtils.INSTANCE.initFirebaseRemoteConfig(
-            this, BuildConfig.VERSION_CODE, BuildConfig.DEBUG,
-            R.drawable.ic_launcher_background, getString(R.string.app_display_name)
-        )
-
-
-        // test purchase
-        findViewById<Button>(R.id.btn_test_iap).setOnClickListener {
+        binding.btnTestIap.setOnClickListener {
             startActivity(Intent(this@MainActivity, MainActivity3::class.java))
         }
     }

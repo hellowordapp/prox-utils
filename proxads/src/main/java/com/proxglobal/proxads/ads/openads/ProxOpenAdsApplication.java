@@ -2,13 +2,9 @@ package com.proxglobal.proxads.ads.openads;
 
 import android.app.Application;
 
-import com.applovin.sdk.AppLovinMediationProvider;
-import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
-import java.util.Arrays;
 
 public abstract class ProxOpenAdsApplication extends Application {
     @Override

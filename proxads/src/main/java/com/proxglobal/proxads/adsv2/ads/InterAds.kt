@@ -1,9 +1,6 @@
-package com.proxglobal.proxads.adsv2.ads;
+package com.proxglobal.proxads.adsv2.ads
 
-import android.app.Activity;
+import android.app.Activity
 
-public abstract class InterAds<T> extends BaseAds<T> {
-    protected InterAds(Activity activity, String adId) {
-        super(activity, adId);
-    }
-}
+abstract class InterAds<T> protected constructor(activity: Activity?, adId: String?) :
+    BaseAds<T>(activity!!, adId!!)

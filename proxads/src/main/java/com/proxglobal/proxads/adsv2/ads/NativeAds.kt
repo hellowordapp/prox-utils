@@ -1,39 +1,38 @@
-package com.proxglobal.proxads.adsv2.ads;
+package com.proxglobal.proxads.adsv2.ads
 
-import android.app.Activity;
-import android.view.View;
-import android.widget.FrameLayout;
+import android.app.Activity
+import android.view.View
+import android.widget.FrameLayout
+import com.facebook.shimmer.ShimmerFrameLayout
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+abstract class NativeAds<T> protected constructor(
+    activity: Activity?,
+    protected var mContainer: FrameLayout?,
+    adId: String?
+) : BaseAds<T>(
+    activity!!, adId!!
+) {
 
-public abstract class NativeAds<T> extends BaseAds<T> {
-    protected FrameLayout mContainer;
-    protected ShimmerFrameLayout shimmer;
-
-    protected NativeAds(Activity activity, FrameLayout container, String adId) {
-        super(activity, adId);
-        this.mContainer = container;
-        turnOffAutoReload();
+    init {
+        turnOffAutoReload()
     }
 
-    public void enableShimmer(int shimmerLayoutId) {
-        View view = mActivity.getLayoutInflater().inflate(shimmerLayoutId, mContainer);
-
-        if(view instanceof ShimmerFrameLayout) {
-            shimmer = (ShimmerFrameLayout) view;
+    protected var shimmer: ShimmerFrameLayout? = null
+    fun enableShimmer(shimmerLayoutId: Int) {
+        val view = mActivity.layoutInflater.inflate(shimmerLayoutId, mContainer)
+        if (view is ShimmerFrameLayout) {
+            shimmer = view
         } else {
-            shimmer = new ShimmerFrameLayout(mActivity);
-            shimmer.setId(View.generateViewId());
-            shimmer.setLayoutParams(
-                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT));
-
-            mActivity.getLayoutInflater().inflate(shimmerLayoutId, shimmer);
+            shimmer = ShimmerFrameLayout(mActivity)
+            shimmer!!.id = View.generateViewId()
+            shimmer!!.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+            mActivity.layoutInflater.inflate(shimmerLayoutId, shimmer)
         }
-
-        shimmer.startShimmer();
-
-        mContainer.removeAllViews();
-        mContainer.addView(shimmer);
+        shimmer!!.startShimmer()
+        mContainer!!.removeAllViews()
+        mContainer!!.addView(shimmer)
     }
 }
