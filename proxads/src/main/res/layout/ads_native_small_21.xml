@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:text="Lorem ipsum dolor sit ame..."
-                android:textColor="@color/textColorAds"
+                android:textColor="@color/ads_text_color"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

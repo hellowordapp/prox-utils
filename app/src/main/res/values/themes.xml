@@ -14,8 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <color name="textColorAds">@color/black</color>
-    <dimen name="radiusAdsButton">30dp</dimen>
+    <color name="ads_text_color">@color/black</color>
+    <dimen name="ads_btn_radius">30dp</dimen>
 
     <style name="CustomButton" parent="Widget.AppCompat.Button">
         <item name="android:gravity">center</item>

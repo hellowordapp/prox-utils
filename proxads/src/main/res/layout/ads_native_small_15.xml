@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_4sdp"
                 android:text="Lorem ipsum dolor sit ame..."
-                android:textColor="@color/textColorAds"
+                android:textColor="@color/ads_text_color"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus..."
-            android:textColor="@color/textColorAds"
+            android:textColor="@color/ads_text_color"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>

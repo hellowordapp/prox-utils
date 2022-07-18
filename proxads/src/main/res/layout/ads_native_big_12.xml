@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="Lorem ipsum dolor sit ame..."
-                android:textColor="@color/textColorAds"
+                android:textColor="@color/ads_text_color"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus..."
-            android:textColor="@color/textColorAds"
+            android:textColor="@color/ads_text_color"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
