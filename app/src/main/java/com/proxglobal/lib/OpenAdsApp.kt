@@ -21,6 +21,5 @@ class OpenAdsApp : MaxOpenAdsApplication() {
         ProxAds.instance.initMax(this);
     }
 
-    override fun getOpenAdsId(): String = ProxUtils.TEST_INTERSTITIAL_MAX_ID
-
+    override fun getOpenAdsId(): String = ProxUtils.TEST_OPEN_APP_MAX_ID
 }

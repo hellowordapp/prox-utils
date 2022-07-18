@@ -18,6 +18,7 @@ class ProxUtils private constructor() {
     companion object {
         var INSTANCE = ProxUtils()
         var TAG = "ProxUtils"
+        const val TEST_OPEN_APP_MAX_ID = "e15bc16e41464fd0"
         const val TEST_INTERSTITIAL_MAX_ID = "d39a9f1ed149f427"
         const val TEST_NATIVE_MAX_ID = "aaced834bba86a77"
         const val TEST_BANNER_MAX_ID = "65c30933da2a6760"
