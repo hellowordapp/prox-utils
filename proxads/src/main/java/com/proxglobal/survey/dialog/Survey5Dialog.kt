@@ -52,6 +52,7 @@ class Survey5Dialog(
 
             val bundle = Bundle()
             bundle.putString("event_type", "click_submit")
+            bundle.putString("survey_name", config.survey_name)
             bundle.putString("question_1", binding.txtQuestion1.text.toString())
             bundle.putString("answer_1", answer_1)
             bundle.putString("question_2", binding.txtQuestion2.text.toString())
@@ -59,5 +60,12 @@ class Survey5Dialog(
             firebaseAnalytics.logEvent("prox_survey", bundle)
             true
         }
+    }
+
+    override fun onNotNow() {
+        val bundle = Bundle()
+        bundle.putString("event_type", "click_cancel")
+        bundle.putString("survey_name", config.survey_name)
+        firebaseAnalytics.logEvent("prox_survey", bundle)
     }
 }

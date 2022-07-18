@@ -28,10 +28,18 @@ class Survey7Dialog(
         else {
             val bundle = Bundle()
             bundle.putString("event_type", "click_submit")
+            bundle.putString("survey_name", config.survey_name)
             bundle.putString("question_1", binding.txtQuestion.text.toString())
             bundle.putString("answer_1", binding.txtAnswer.text.trim().toString())
             firebaseAnalytics.logEvent("prox_survey", bundle)
             true
         }
+    }
+
+    override fun onNotNow() {
+        val bundle = Bundle()
+        bundle.putString("event_type", "click_cancel")
+        bundle.putString("survey_name", config.survey_name)
+        firebaseAnalytics.logEvent("prox_survey", bundle)
     }
 }

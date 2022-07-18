@@ -10,6 +10,9 @@ class ConfigSurvey {
     @SerializedName("status")
     var status = false
 
+    @SerializedName("survey_name")
+    var survey_name: String? = null
+
     @SerializedName("question_1")
     var question_1: String? = null
 

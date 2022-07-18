@@ -15,8 +15,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.proxglobal.proxads.databinding.DialogSurveyBinding
 
 abstract class SurveyDialog(context: Context, private val layout: View) : Dialog(context) {
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -30,12 +28,8 @@ abstract class SurveyDialog(context: Context, private val layout: View) : Dialog
 
         binding.layoutMain.addView(layout)
 
-        firebaseAnalytics = FirebaseAnalytics.getInstance(context)
-
         binding.btnNotNow.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("event_type", "click_cancel")
-            firebaseAnalytics.logEvent("prox_survey", bundle)
+            onNotNow()
             cancel()
         }
 
@@ -52,4 +46,5 @@ abstract class SurveyDialog(context: Context, private val layout: View) : Dialog
     }
 
     abstract fun onSubmit(): Boolean
+    abstract fun onNotNow()
 }
