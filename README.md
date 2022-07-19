@@ -32,6 +32,39 @@ dependencies {
 	implementation 'com.github.hellowordapp:prox-utils:2.1.2-max'
 }
 ```
+Add the configuration to your application attribute in your application manifest AndroidManifest.xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest … >
+    <application android:networkSecurityConfig="@xml/network_security_config"
+                    … >
+        ⋮
+    </application>
+</manifest>
+```
+
+In the res/xml/network_security_config.xmlfile, add sections that permit cleartext traffic for the networks that require this:
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <!-- For AdColony, this permits all cleartext traffic: -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+    <!-- End AdColony section -->
+
+    <domain-config cleartextTrafficPermitted="true">
+
+        <!-- For Meta Audience Network, this permits cleartext traffic to localhost: -->
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <!-- End Meta Audience Network section -->
+
+    </domain-config>
+</network-security-config>
+```
 
 Add the following \<meta-data\> element to your AndroidManifest.xml inside the \<application\> element:
 ```
