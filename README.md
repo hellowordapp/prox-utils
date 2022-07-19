@@ -3,7 +3,7 @@ Prox Utils
 [![Prox Global](https://github.com/ntduc-let/image_readme_github/blob/master/prox_global_2.jpg)](https://github.com/hellowordapp/prox-utils)
 
 ## Index
-* [Gradle](#Gradle)
+* [Setup](#Setup)
 * [Push Update](#Push-Update)
 * [Survey](#Survey)
 * [Push Rate](#Push-Rate)
@@ -13,7 +13,7 @@ Prox Utils
 * [Interstitial Ads](#Interstitial-Ads)
 * [Native Ads](#Native-Ads)
 
-Gradle
+Setup
 ======================
 Add the following to your project's root build.gradle file
 ```
@@ -31,6 +31,13 @@ Add the following to your project's build.gradle file
 dependencies {
 	implementation 'com.github.hellowordapp:prox-utils:1.2.7'
 }
+```
+
+Add APPLICATION_ID of Admob to AndroidManifest.xml like this:
+```
+<meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="YOUR_APP_ID_HERE" />
 ```
 
 Push Update
