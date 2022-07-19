@@ -40,6 +40,11 @@ Add APPLICATION_ID of Admob to AndroidManifest.xml like this:
     android:value="YOUR_APP_ID_HERE" />
 ```
 
+Initialize inside your application
+```
+ProxPurchase.getInstance().initBilling(this)
+```
+
 Push Update
 ======================
 Setting on Remote Config
