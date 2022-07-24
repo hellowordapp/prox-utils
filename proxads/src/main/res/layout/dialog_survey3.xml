@@ -13,7 +13,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="What do you think about the app?"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <CheckBox
         android:id="@+id/chk_option_1"

@@ -13,7 +13,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="What do you think about the app?"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <RadioGroup
         android:id="@+id/grp_question_1"
@@ -56,7 +56,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="Names of movies you have watched?"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <RadioGroup
         android:id="@+id/grp_question_2"

@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        app:layout_constraintDimensionRatio="312:100"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_top_survey" />
 
@@ -27,8 +26,7 @@
         app:layout_constraintBottom_toTopOf="@id/title_survey2"
         app:layout_constraintTop_toTopOf="@id/img_top_survey"
         app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:layout_editor_absoluteX="28dp" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/title_survey2"
@@ -41,8 +39,7 @@
         android:textColor="@color/white"
         android:textSize="14.06sp"
         app:layout_constraintBottom_toBottomOf="@id/img_top_survey"
-        app:layout_constraintTop_toBottomOf="@id/title_survey1"
-        tools:layout_editor_absoluteX="28dp" />
+        app:layout_constraintTop_toBottomOf="@id/title_survey1" />
 
     <ImageView
         android:id="@+id/img_bottom_survey"
@@ -51,7 +48,6 @@
         android:paddingTop="10dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="312:65"
         app:srcCompat="@drawable/bg_bottom_survey" />
 
     <Button
@@ -96,7 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingHorizontal="28dp"
-        android:paddingVertical="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/img_bottom_survey"
         app:layout_constraintTop_toBottomOf="@+id/img_top_survey">
 
