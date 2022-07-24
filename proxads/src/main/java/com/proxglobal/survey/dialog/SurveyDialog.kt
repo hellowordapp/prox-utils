@@ -9,9 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.Window
-import android.widget.RadioButton
 import android.widget.Toast
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.proxglobal.proxads.databinding.DialogSurveyBinding
 
 abstract class SurveyDialog(context: Context, private val layout: View) : Dialog(context) {
@@ -21,7 +19,7 @@ abstract class SurveyDialog(context: Context, private val layout: View) : Dialog
         val binding = DialogSurveyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val width = (context.resources.displayMetrics.widthPixels * 0.90).toInt()
-        val height = (context.resources.displayMetrics.heightPixels * 0.75).toInt()
+        val height = (context.resources.displayMetrics.heightPixels * 0.80).toInt()
         window!!.setLayout(width, height)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCancelable(false)
