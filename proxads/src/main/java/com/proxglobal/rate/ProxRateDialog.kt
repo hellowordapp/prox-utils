@@ -1,293 +1,373 @@
-package com.proxglobal.rate;
+package com.proxglobal.rate
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.*
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import com.proxglobal.proxads.R
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
+class ProxRateDialog : DialogFragment {
+    private lateinit var mView: View
+    private var mConfig: Config? = null
+    private var layoutId = 0
+    private var starRate = 0
 
-import com.proxglobal.proxads.R;
+    private lateinit var starDes: List<String>
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
+    private lateinit var btnStar1: ImageView
+    private lateinit var btnStar2: ImageView
+    private lateinit var btnStar3: ImageView
+    private lateinit var btnStar4: ImageView
+    private lateinit var btnStar5: ImageView
+    private lateinit var txtStarDes: TextView
+    private lateinit var edtComment: EditText
+    private lateinit var layoutLater: View
+    private lateinit var btnSubmit: Button
 
-public class ProxRateDialog extends DialogFragment {
-    private View view;
-    private Config mConfig;
-    private static SharedPreferences sp;
-    private static ProxRateDialog dialog;
-    private int layoutId;
-
-    public ProxRateDialog() {
-
+    constructor()
+    private constructor(config: Config) {
+        mConfig = config
+        layoutId = R.layout.dialog_rating
     }
 
-    private ProxRateDialog(Config config){
-        mConfig = config;
-        layoutId = R.layout.dialog_rating;
+    private constructor(layoutId: Int, listener: RatingDialogListener) {
+        this.layoutId = layoutId
+        mConfig = Config()
+        mConfig!!.setListener(listener)
     }
 
-    private ProxRateDialog(int layoutId, RatingDialogListener listener) {
-        this.layoutId = layoutId;
-        mConfig = new Config();
-        mConfig.setListener(listener);
-    }
+    @SuppressLint("CutPasteId")
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        mConfig = mDialog!!.mConfig
+        layoutId = mDialog!!.layoutId
+        val builder = AlertDialog.Builder(requireActivity())
+        val inflater = requireActivity().layoutInflater
+        mView = inflater.inflate(layoutId, null)
+        loadConfig()
 
-    /**
-     * init dialog view with layout id as param with listener
-     * @param layoutId
-     */
-    private static void init(int layoutId, RatingDialogListener listener) {
-        dialog = new ProxRateDialog(layoutId, listener);
-    }
+        starDes = listOf(
+            getString(R.string._very_bad),
+            getString(R.string._not_good),
+            getString(R.string._quite_ok),
+            getString(R.string._very_good),
+            getString(R.string._excellent)
+        )
 
-    /**
-     * init dialog view with default view and config
-     * @param config
-     */
-    public static void init(@NonNull Config config){
-        dialog = new ProxRateDialog(config);
-    }
+        btnStar1 = mView.findViewById(R.id.btn_rate1)
+        btnStar2 = mView.findViewById(R.id.btn_rate2)
+        btnStar3 = mView.findViewById(R.id.btn_rate3)
+        btnStar4 = mView.findViewById(R.id.btn_rate4)
+        btnStar5 = mView.findViewById(R.id.btn_rate5)
+        txtStarDes = mView.findViewById(R.id.star_des)
+        edtComment = mView.findViewById(R.id.comment)
+        layoutLater = mView.findViewById(R.id.layout_later)
+        btnSubmit = mView.findViewById(R.id.submit)
 
-    public static boolean isRated(Context context){
-        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-
-        return sp.getBoolean("isRated", false);
-    }
-
-    /**
-     * show by anyway (ignore rated)
-     * @param fm
-     */
-    public static void showAlways(Context context, FragmentManager fm){
-        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-
-        dialog.show(fm,"prox");
-    }
-
-    /**
-     * show if you haven't rate this app yet
-     * @param fm
-     */
-    public static void showIfNeed(Context context, FragmentManager fm){
-        if(sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE);
-
-        if (!isRated(context)){
-            dialog.show(fm, "prox");
-        } else {
-            if(dialog.mConfig != null) {
-                dialog.mConfig.listener.onRated();
-            }
+        btnStar1.setOnClickListener {
+            btnStar1.setImageResource(R.drawable.ic_star_enable)
+            btnStar2.setImageResource(R.drawable.ic_star_disable)
+            btnStar3.setImageResource(R.drawable.ic_star_disable)
+            btnStar4.setImageResource(R.drawable.ic_star_disable)
+            btnStar5.setImageResource(R.drawable.ic_star_disable)
+            starRate = 1
+            txtStarDes.text = starDes[starRate - 1]
+            edtComment.visibility = View.VISIBLE
+            layoutLater.visibility = View.GONE
+            btnSubmit.visibility = View.VISIBLE
         }
-    }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        mConfig = dialog.mConfig;
-        layoutId = dialog.layoutId;
+        btnStar2.setOnClickListener {
+            btnStar1.setImageResource(R.drawable.ic_star_enable)
+            btnStar2.setImageResource(R.drawable.ic_star_enable)
+            btnStar3.setImageResource(R.drawable.ic_star_disable)
+            btnStar4.setImageResource(R.drawable.ic_star_disable)
+            btnStar5.setImageResource(R.drawable.ic_star_disable)
+            starRate = 2
+            txtStarDes.text = starDes[starRate - 1]
+            edtComment.visibility = View.VISIBLE
+            layoutLater.visibility = View.GONE
+            btnSubmit.visibility = View.VISIBLE
+        }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(layoutId, null);
+        btnStar3.setOnClickListener {
+            btnStar1.setImageResource(R.drawable.ic_star_enable)
+            btnStar2.setImageResource(R.drawable.ic_star_enable)
+            btnStar3.setImageResource(R.drawable.ic_star_enable)
+            btnStar4.setImageResource(R.drawable.ic_star_disable)
+            btnStar5.setImageResource(R.drawable.ic_star_disable)
+            starRate = 3
+            txtStarDes.text = starDes[starRate - 1]
+            edtComment.visibility = View.VISIBLE
+            layoutLater.visibility = View.GONE
+            btnSubmit.visibility = View.VISIBLE
+        }
 
-        loadConfig();
+        btnStar4.setOnClickListener {
+            btnStar1.setImageResource(R.drawable.ic_star_enable)
+            btnStar2.setImageResource(R.drawable.ic_star_enable)
+            btnStar3.setImageResource(R.drawable.ic_star_enable)
+            btnStar4.setImageResource(R.drawable.ic_star_enable)
+            btnStar5.setImageResource(R.drawable.ic_star_disable)
+            starRate = 4
+            txtStarDes.text = starDes[starRate - 1]
+            edtComment.visibility = View.GONE
+            layoutLater.visibility = View.GONE
+            btnSubmit.visibility = View.GONE
 
-        RatingBar ratingBar = view.findViewById(R.id.rating_bar);
-        TextView tvStar = view.findViewById(R.id.star_des);
-        EditText edComment = view.findViewById(R.id.comment);
+            sp!!.edit().putBoolean("isRated", true).apply()
+            linkToStore()
+            Handler(Looper.getMainLooper()).postDelayed({ dismiss() }, 1000)
+        }
 
-        List<String> starDes = Arrays.asList(getString(R.string._very_bad),
-                getString(R.string._not_good),
-                getString(R.string._quite_ok),
-                getString(R.string._very_good),
-                getString(R.string._excellent));
-        view.findViewById(R.id.submit).setOnClickListener(v -> {
-            if ((int) ratingBar.getRating() < 1) {
-                androidx.appcompat.app.AlertDialog alertDialog =
-                        new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle(getString(R.string._notify));
-                alertDialog.setMessage(getString(R.string._please_select_star));
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string._ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+        btnStar5.setOnClickListener {
+            btnStar1.setImageResource(R.drawable.ic_star_enable)
+            btnStar2.setImageResource(R.drawable.ic_star_enable)
+            btnStar3.setImageResource(R.drawable.ic_star_enable)
+            btnStar4.setImageResource(R.drawable.ic_star_enable)
+            btnStar5.setImageResource(R.drawable.ic_star_enable)
+            starRate = 5
+            txtStarDes.text = starDes[starRate - 1]
+            edtComment.visibility = View.GONE
+            layoutLater.visibility = View.GONE
+            btnSubmit.visibility = View.GONE
+
+            sp!!.edit().putBoolean("isRated", true).apply()
+            linkToStore()
+            Handler(Looper.getMainLooper()).postDelayed({ dismiss() }, 1000)
+        }
+
+        btnSubmit.setOnClickListener {
+            if (starRate < 1) {
+                val alertDialog = AlertDialog.Builder(requireActivity()).create()
+                alertDialog.setTitle(getString(R.string._notify))
+                alertDialog.setMessage(getString(R.string._please_select_star))
+                alertDialog.setButton(
+                    AlertDialog.BUTTON_NEUTRAL,
+                    getString(R.string._ok)
+                ) { dialog, _ -> dialog.dismiss() }
+                alertDialog.show()
             } else {
-                sp.edit().putBoolean("isRated", true).apply();
-                androidx.appcompat.app.AlertDialog alertDialog =
-                        new androidx.appcompat.app.AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle(getString(R.string._thanks));
-                alertDialog.setMessage(getString(R.string._thank_for_rating));
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string._ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                mConfig.listener.onDone();
-                            }
-                        });
-                this.dismiss();
-                alertDialog.show();
-                mConfig.listener.onSubmitButtonClicked((int) ratingBar.getRating(), edComment.getText().toString());
-            }
-
-        });
-
-        view.findViewById(R.id.layout_later).setOnClickListener(v -> {
-            mConfig.listener.onLaterButtonClicked();
-            this.dismiss();
-        });
-
-        ratingBar.setOnRatingBarChangeListener((r, v, b) -> {
-            view.findViewById(R.id.layout_later).setVisibility(View.GONE);
-            view.findViewById(R.id.submit).setVisibility(View.VISIBLE);
-            if (v>0) tvStar.setText(starDes.get((int) v - 1));
-            edComment.setVisibility(v < 4 ? View.VISIBLE : View.GONE);
-
-            mConfig.listener.onChangeStar((int) v);
-            if (v>=4){
-                sp.edit().putBoolean("isRated", true).apply();
-                String appPackageName = getActivity().getPackageName();
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                sp!!.edit().putBoolean("isRated", true).apply()
+                val alertDialog = AlertDialog.Builder(requireActivity()).create()
+                alertDialog.setTitle(getString(R.string._thanks))
+                alertDialog.setMessage(getString(R.string._thank_for_rating))
+                alertDialog.setButton(
+                    AlertDialog.BUTTON_NEUTRAL,
+                    getString(R.string._ok)
+                ) { dialog, _ ->
+                    dialog.dismiss()
+                    mConfig!!.mListener!!.onDone()
                 }
-                dismiss();
+                dismiss()
+                alertDialog.show()
+                mConfig!!.mListener!!.onSubmitButtonClicked(
+                    starRate,
+                    mView.findViewById<EditText>(R.id.comment).text.toString()
+                )
             }
-        });
-
-        builder.setView(view);
-        Dialog d = builder.create();
-        d.setCanceledOnTouchOutside(false);
-        if (d.getWindow() != null) {
-            d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
-        return d;
+        layoutLater.setOnClickListener {
+            mConfig!!.mListener!!.onLaterButtonClicked()
+            dismiss()
+        }
+
+        builder.setView(mView)
+        val d: Dialog = builder.create()
+        d.setCanceledOnTouchOutside(false)
+        if (d.window != null) {
+            d.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            d.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+        }
+        return d
     }
 
-    private void loadConfig() {
-        if(mConfig.rateTitle != null)
-            ((TextView) view.findViewById(R.id.tv_rating_title)).setText(mConfig.rateTitle);
-
-        if(mConfig.description != null)
-            ((TextView) view.findViewById(R.id.tv_rating_description)).setText(mConfig.description);
-
-        if(mConfig.icon != null)
-            ((ImageView) view.findViewById(R.id.icon)).setImageDrawable(mConfig.icon);
-
-        if(mConfig.backgroundIcon != null) {
-            ((ImageView) view.findViewById(R.id.icon)).setBackground(mConfig.backgroundIcon);
-        }
-
-        if(mConfig.commentHint != null) {
-            ((EditText) view.findViewById(R.id.comment)).setHint(mConfig.commentHint);
+    private fun linkToStore() {
+        val appPackageName = requireActivity().packageName
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=$appPackageName")
+                )
+            )
+        } catch (e: ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                )
+            )
         }
     }
 
-    @Override
-    public void show(@NonNull FragmentManager manager, @Nullable String tag) {
-        if (isAdded()) {
-            return;
+    private fun loadConfig() {
+        if (mConfig!!.rateTitle != null)
+            (mView.findViewById<View>(R.id.tv_rating_title) as TextView).text = mConfig!!.rateTitle
+        if (mConfig!!.mDescription != null)
+            (mView.findViewById<View>(R.id.tv_rating_description) as TextView).text =
+                mConfig!!.mDescription
+        if (mConfig!!.icon != null)
+            (mView.findViewById<View>(R.id.icon) as ImageView).setImageDrawable(mConfig!!.icon)
+        if (mConfig!!.mBackgroundIcon != null)
+            (mView.findViewById<View>(R.id.icon) as ImageView).background =
+                mConfig!!.mBackgroundIcon
+        if (mConfig!!.mCommentHint != null)
+            (mView.findViewById<View>(R.id.comment) as EditText).hint = mConfig!!.mCommentHint
+    }
+
+    override fun show(manager: FragmentManager, tag: String?) {
+        if (isAdded) {
+            return
         }
         try {
-            super.show(manager, tag);
-        }catch (Exception e){
-            Log.d("show_rate", "error: "+e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void dismiss() {
-        if (isAdded()) {
-            super.dismiss();;
+            super.show(manager, tag)
+        } catch (e: Exception) {
+            Log.d("show_rate", "error: " + e.message)
         }
     }
 
-    public static class Config {
-        private RatingDialogListener listener;
-        private Drawable icon;
-        private Drawable backgroundIcon;
-        private String rateTitle, description, commentHint;
+    override fun dismiss() {
+        if (isAdded) {
+            super.dismiss()
+        }
+    }
+
+    class Config {
+        var mListener: RatingDialogListener? = null
+        var icon: Drawable? = null
+        var mBackgroundIcon: Drawable? = null
+        var rateTitle: String? = null
+        var mDescription: String? = null
+        var mCommentHint: String? = null
 
         /**
-         * set comment hint when edit text is empty<br>
-         * <b>don't call to use default</b>
+         * set comment hint when edit text is empty<br></br>
+         * **don't call to use default**
+         *
          * @param commentHint
          */
-        public void setCommentHint(String commentHint) {
-            this.commentHint = commentHint;
+        fun setCommentHint(commentHint: String?) {
+            this.mCommentHint = commentHint
         }
 
         /**
-         * set description for dialog <br>
-         * <b>don't call to use default</b>
+         * set description for dialog <br></br>
+         * **don't call to use default**
+         *
          * @param description
          */
-        public void setDescription(String description) {
-            this.description = description;
+        fun setDescription(description: String?) {
+            this.mDescription = description
         }
 
         /**
-         * set title for dialog<br>
-         * <b>don't call to use default</b>
+         * set title for dialog<br></br>
+         * **don't call to use default**
+         *
          * @param title
          */
-        public void setTitle(String title) {
-            this.rateTitle = title;
+        fun setTitle(title: String?) {
+            rateTitle = title
         }
 
         /**
-         * set icon for dialog<br>
-         * <b>don't call to use default</b>
+         * set icon for dialog<br></br>
+         * **don't call to use default**
+         *
          * @param icon
          */
-        public void setForegroundIcon(Drawable icon) {
-            this.icon = icon;
+        fun setForegroundIcon(icon: Drawable?) {
+            this.icon = icon
         }
 
         /**
-         * set background icon for dialog<br>
-         * <b>don't call to use default</b>
+         * set background icon for dialog<br></br>
+         * **don't call to use default**
+         *
          * @param backgroundIcon
          */
-        public void setBackgroundIcon(Drawable backgroundIcon) {
-            this.backgroundIcon = backgroundIcon;
+        fun setBackgroundIcon(backgroundIcon: Drawable?) {
+            this.mBackgroundIcon = backgroundIcon
         }
 
         /**
-         * set listener for rating dialog<br>
-         * <strong>important</strong>
+         * set listener for rating dialog<br></br>
+         * **important**
+         *
          * @param listener
          */
-        public void setListener(RatingDialogListener listener) {
-            this.listener = listener;
+        fun setListener(listener: RatingDialogListener?) {
+            this.mListener = listener
+        }
+    }
+
+    companion object {
+        private var sp: SharedPreferences? = null
+        private var mDialog: ProxRateDialog? = null
+
+        /**
+         * init dialog view with layout id as param with listener
+         *
+         * @param layoutId
+         */
+        fun init(layoutId: Int, listener: RatingDialogListener) {
+            mDialog = ProxRateDialog(layoutId, listener)
+        }
+
+        /**
+         * init dialog view with default view and config
+         *
+         * @param config
+         */
+        fun init(config: Config) {
+            mDialog = ProxRateDialog(config)
+        }
+
+        fun isRated(context: Context): Boolean {
+            if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE)
+            return sp!!.getBoolean("isRated", false)
+        }
+
+        /**
+         * show by anyway (ignore rated)
+         *
+         * @param fm
+         */
+        fun showAlways(context: Context, fm: FragmentManager) {
+            if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE)
+            mDialog!!.show(fm, "prox")
+        }
+
+        /**
+         * show if you haven't rate this app yet
+         *
+         * @param fm
+         */
+        fun showIfNeed(context: Context, fm: FragmentManager) {
+            if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE)
+            if (!isRated(context)) {
+                mDialog!!.show(fm, "prox")
+            } else {
+                if (mDialog!!.mConfig != null) {
+                    mDialog!!.mConfig!!.mListener!!.onRated()
+                }
+            }
         }
     }
 }

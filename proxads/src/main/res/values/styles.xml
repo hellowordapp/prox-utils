@@ -16,11 +16,6 @@
         <item name="android:text">Ad</item>
     </style>
 
-    <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/rating_desc</item>
-        <item name="colorControlActivated">@color/rating_star</item>
-    </style>
-
     <style name="AppTheme.Ads" parent="Theme.AppCompat.Light">
         <item name="android:textSize">11.0sp</item>
         <item name="android:textColor">#ffffff</item>
