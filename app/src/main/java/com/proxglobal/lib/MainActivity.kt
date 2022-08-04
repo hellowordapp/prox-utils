@@ -171,11 +171,10 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        config.setForegroundIcon(ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground))
         ProxRateDialog.init(config)
 
         findViewById<View>(R.id.btn_show_rate).setOnClickListener { v: View? ->
-            ProxRateDialog.showIfNeed(
+            ProxRateDialog.showAlways(
                 this,
                 supportFragmentManager
             )

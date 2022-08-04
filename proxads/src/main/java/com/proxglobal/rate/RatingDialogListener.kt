@@ -1,9 +1,9 @@
-package com.proxglobal.rate;
+package com.proxglobal.rate
 
-public abstract class RatingDialogListener {
-    public void onSubmitButtonClicked(int rate, String comment) {};
-    public void onLaterButtonClicked() {};
-    public void onChangeStar(int rate) {};
-    public void onRated() {};
-    public void onDone() {};
+abstract class RatingDialogListener {
+    open fun onSubmitButtonClicked(rate: Int, comment: String?) {}
+    open fun onLaterButtonClicked() {}
+    open fun onChangeStar(rate: Int) {}
+    open fun onRated() {}
+    open fun onDone() {}
 }
