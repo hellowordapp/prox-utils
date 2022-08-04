@@ -29,7 +29,7 @@ allprojects {
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:1.2.8'
+	implementation 'com.github.hellowordapp:prox-utils:1.2.9'
 }
 ```
 
