@@ -14,6 +14,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -152,6 +153,8 @@ class ProxRateDialog : DialogFragment {
         }
 
         btnSubmit.setOnClickListener {
+            hideKeyboard(it)
+
             if (starRate < 1) {
                 val alertDialog = AlertDialog.Builder(requireActivity()).create()
                 alertDialog.setTitle(getString(R.string._notify))
@@ -186,6 +189,10 @@ class ProxRateDialog : DialogFragment {
             dismiss()
         }
 
+        mView.setOnClickListener {
+            hideKeyboard(it)
+        }
+
         builder.setView(mView)
         val d: Dialog = builder.create()
         d.setCanceledOnTouchOutside(mConfig.isCanceledOnTouchOutside)
@@ -194,6 +201,12 @@ class ProxRateDialog : DialogFragment {
             d.window!!.requestFeature(Window.FEATURE_NO_TITLE)
         }
         return d
+    }
+
+    private fun hideKeyboard(mView: View) {
+        val inputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(mView.windowToken, 0)
     }
 
     private fun linkToStore() {
