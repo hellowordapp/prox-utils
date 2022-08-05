@@ -160,6 +160,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val config = ProxRateDialog.Config()
+        config.isCanceledOnTouchOutside = true
         config.setListener(object : RatingDialogListener() {
             override fun onRated() {
                 super.onRated()

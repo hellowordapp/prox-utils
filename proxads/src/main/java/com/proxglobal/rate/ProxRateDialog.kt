@@ -24,7 +24,7 @@ import com.proxglobal.proxads.R
 
 class ProxRateDialog : DialogFragment {
     private lateinit var mView: View
-    private var mConfig: Config? = null
+    private lateinit var mConfig: Config
     private var layoutId = 0
     private var starRate = 0
 
@@ -46,10 +46,9 @@ class ProxRateDialog : DialogFragment {
         layoutId = R.layout.dialog_rating
     }
 
-    private constructor(layoutId: Int, listener: RatingDialogListener) {
+    private constructor(layoutId: Int, config: Config) {
         this.layoutId = layoutId
-        mConfig = Config()
-        mConfig!!.setListener(listener)
+        mConfig = config
     }
 
     @SuppressLint("CutPasteId")
@@ -172,24 +171,24 @@ class ProxRateDialog : DialogFragment {
                     getString(R.string._ok)
                 ) { dialog, _ ->
                     dialog.dismiss()
-                    mConfig!!.mListener!!.onDone()
+                    mConfig.getListener()!!.onDone()
                 }
                 dismiss()
                 alertDialog.show()
-                mConfig!!.mListener!!.onSubmitButtonClicked(
+                mConfig.getListener()!!.onSubmitButtonClicked(
                     starRate,
                     mView.findViewById<EditText>(R.id.comment).text.toString()
                 )
             }
         }
         layoutLater.setOnClickListener {
-            mConfig!!.mListener!!.onLaterButtonClicked()
+            mConfig.getListener()!!.onLaterButtonClicked()
             dismiss()
         }
 
         builder.setView(mView)
         val d: Dialog = builder.create()
-        d.setCanceledOnTouchOutside(false)
+        d.setCanceledOnTouchOutside(mConfig.isCanceledOnTouchOutside)
         if (d.window != null) {
             d.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             d.window!!.requestFeature(Window.FEATURE_NO_TITLE)
@@ -217,18 +216,18 @@ class ProxRateDialog : DialogFragment {
     }
 
     private fun loadConfig() {
-        if (mConfig!!.rateTitle != null)
-            (mView.findViewById<View>(R.id.tv_rating_title) as TextView).text = mConfig!!.rateTitle
-        if (mConfig!!.mDescription != null)
+        if (mConfig.title != null)
+            (mView.findViewById<View>(R.id.tv_rating_title) as TextView).text = mConfig.title
+        if (mConfig.description != null)
             (mView.findViewById<View>(R.id.tv_rating_description) as TextView).text =
-                mConfig!!.mDescription
-        if (mConfig!!.icon != null)
-            (mView.findViewById<View>(R.id.icon) as ImageView).setImageDrawable(mConfig!!.icon)
-        if (mConfig!!.mBackgroundIcon != null)
+                mConfig.description
+        if (mConfig.foregroundIcon != null)
+            (mView.findViewById<View>(R.id.icon) as ImageView).setImageDrawable(mConfig.foregroundIcon)
+        if (mConfig.backgroundIcon != null)
             (mView.findViewById<View>(R.id.icon) as ImageView).background =
-                mConfig!!.mBackgroundIcon
-        if (mConfig!!.mCommentHint != null)
-            (mView.findViewById<View>(R.id.comment) as EditText).hint = mConfig!!.mCommentHint
+                mConfig.backgroundIcon
+        if (mConfig.commentHint != null)
+            (mView.findViewById<View>(R.id.comment) as EditText).hint = mConfig.commentHint
     }
 
     override fun show(manager: FragmentManager, tag: String?) {
@@ -248,72 +247,21 @@ class ProxRateDialog : DialogFragment {
         }
     }
 
-    class Config {
-        var mListener: RatingDialogListener? = null
-        var icon: Drawable? = null
-        var mBackgroundIcon: Drawable? = null
-        var rateTitle: String? = null
-        var mDescription: String? = null
-        var mCommentHint: String? = null
-
-        /**
-         * set comment hint when edit text is empty<br></br>
-         * **don't call to use default**
-         *
-         * @param commentHint
-         */
-        fun setCommentHint(commentHint: String?) {
-            this.mCommentHint = commentHint
-        }
-
-        /**
-         * set description for dialog <br></br>
-         * **don't call to use default**
-         *
-         * @param description
-         */
-        fun setDescription(description: String?) {
-            this.mDescription = description
-        }
-
-        /**
-         * set title for dialog<br></br>
-         * **don't call to use default**
-         *
-         * @param title
-         */
-        fun setTitle(title: String?) {
-            rateTitle = title
-        }
-
-        /**
-         * set icon for dialog<br></br>
-         * **don't call to use default**
-         *
-         * @param icon
-         */
-        fun setForegroundIcon(icon: Drawable?) {
-            this.icon = icon
-        }
-
-        /**
-         * set background icon for dialog<br></br>
-         * **don't call to use default**
-         *
-         * @param backgroundIcon
-         */
-        fun setBackgroundIcon(backgroundIcon: Drawable?) {
-            this.mBackgroundIcon = backgroundIcon
-        }
-
-        /**
-         * set listener for rating dialog<br></br>
-         * **important**
-         *
-         * @param listener
-         */
+    class Config(
+        private var listener: RatingDialogListener? = null,
+        var foregroundIcon: Drawable? = null,
+        var backgroundIcon: Drawable? = null,
+        var title: String? = null,
+        var description: String? = null,
+        var commentHint: String? = null,
+        var isCanceledOnTouchOutside: Boolean = false
+    ) {
         fun setListener(listener: RatingDialogListener?) {
-            this.mListener = listener
+            this.listener = listener
+        }
+
+        fun getListener(): RatingDialogListener? {
+            return listener
         }
     }
 
@@ -326,8 +274,8 @@ class ProxRateDialog : DialogFragment {
          *
          * @param layoutId
          */
-        fun init(layoutId: Int, listener: RatingDialogListener) {
-            mDialog = ProxRateDialog(layoutId, listener)
+        fun init(layoutId: Int, config: Config) {
+            mDialog = ProxRateDialog(layoutId, config)
         }
 
         /**
@@ -364,9 +312,7 @@ class ProxRateDialog : DialogFragment {
             if (!isRated(context)) {
                 mDialog!!.show(fm, "prox")
             } else {
-                if (mDialog!!.mConfig != null) {
-                    mDialog!!.mConfig!!.mListener!!.onRated()
-                }
+                mDialog!!.mConfig.getListener()!!.onRated()
             }
         }
     }
