@@ -147,7 +147,7 @@ class MainActivity : BaseActivity() {
         }
 
         val config = Config()
-
+        config.isCanceledOnTouchOutside = true
         config.setListener(object : RatingDialogListener() {
             override fun onRated() {
                 super.onRated()
