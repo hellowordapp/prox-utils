@@ -44,7 +44,7 @@
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big.xml" value="0.23854166666666668" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_1.xml" value="0.3569230769230769" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_10.xml" value="0.3569230769230769" />
-        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_11.xml" value="0.2609375" />
+        <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_11.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_12.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_13.xml" value="0.33" />
         <entry key="..\:/prox-utils/proxads/src/main/res/layout/ads_native_big_14.xml" value="0.33" />
@@ -106,7 +106,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

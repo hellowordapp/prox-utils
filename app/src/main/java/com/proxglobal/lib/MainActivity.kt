@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Rated", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onSubmitButtonClicked(rate: Int, comment: String?) {
+            override fun onSubmitButtonClicked(rate: Int, comment: String) {
                 Toast.makeText(this@MainActivity, "Submit", Toast.LENGTH_SHORT).show()
             }
 
