@@ -30,7 +30,7 @@ allprojects {
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:2.1.5-max'
+	implementation 'com.github.hellowordapp:prox-utils:2.1.7-max'
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
