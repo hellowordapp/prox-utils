@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_ads"
-    android:padding="@dimen/_4sdp">
+    android:paddingBottom="@dimen/ads_small_layout_margin">
 
-    <ImageView
+    <TextView
         android:id="@+id/ic_ad"
+        style="@style/AdAttribution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_ad" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/ad_options_view"
@@ -26,13 +25,13 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginHorizontal="@dimen/ads_small_layout_margin"
         app:layout_constraintTop_toBottomOf="@+id/ic_ad">
 
         <ImageView
             android:id="@+id/ad_app_icon"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/ads_small_app_icon_width"
+            android:layout_height="@dimen/ads_small_app_icon_height"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,36 +41,30 @@
             android:id="@+id/ad_headline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/ads_small_layout_margin"
             android:text="Lorem ipsum dolor sit ame..."
             android:textColor="@color/ads_text_color"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/linear"
+            app:layout_constraintEnd_toStartOf="@id/ad_call_to_action"
             app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linear"
+        <Button
+            android:id="@+id/ad_call_to_action"
+            style="@style/DefaultButtonAds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
+            android:maxWidth="@dimen/ads_btn_width_max"
+            android:text="CTA"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_max="@dimen/_90sdp">
-
-            <Button
-                android:id="@+id/ad_call_to_action"
-                style="@style/DefaultButtonAds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="CTA"
-                android:textSize="@dimen/_10sdp" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.testNativeSmallShimmer.setOnClickListener {
-            ProxAds.instance.showSmallNativeMaxWithShimmerStyle15(
+            ProxAds.instance.showSmallNativeMaxWithShimmerStyle16(
                 this@MainActivity, ProxUtils.TEST_NATIVE_MAX_ID,
                 findViewById(R.id.ad_container), object : AdsCallback() {
                     override fun onShow() {

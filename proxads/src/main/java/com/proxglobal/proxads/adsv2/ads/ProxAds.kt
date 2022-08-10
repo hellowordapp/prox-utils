@@ -137,7 +137,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_15)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_small_15)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_15)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -160,7 +160,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_small_15,
+            R.layout.ads_native_small_15,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_15)
@@ -181,7 +181,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_16)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_small_16)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_16)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -204,7 +204,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_small_16,
+            R.layout.ads_native_small_16,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_16)
@@ -225,7 +225,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_21)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_small_21)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_21)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -248,7 +248,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_small_21,
+            R.layout.ads_native_small_21,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_21)
@@ -269,7 +269,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_small_22)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_small_22)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_22)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -292,7 +292,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_small_22,
+            R.layout.ads_native_small_22,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_small_22)
@@ -313,7 +313,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_medium_19)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_medium_19)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_19)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -336,7 +336,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_medium_19,
+            R.layout.ads_native_medium_19,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_19)
@@ -357,7 +357,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_medium_20)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_medium_20)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_20)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -380,7 +380,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_medium_20,
+            R.layout.ads_native_medium_20,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_medium_20)
@@ -404,7 +404,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_1
+            R.layout.ads_native_big_1
         ).load()!!.show(activity, callback)
     }
 
@@ -421,7 +421,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_1)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_1)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_1)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -441,7 +441,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_1, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_1, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_1)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -459,7 +459,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_2)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_2)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_2)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -479,7 +479,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_2, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_2, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_2)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -497,7 +497,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_3)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_3)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_3)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -517,7 +517,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_3, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_3, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_3)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -535,7 +535,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_4)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_4)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_4)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -555,7 +555,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_4, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_4, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_4)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -573,7 +573,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_5)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_5)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_5)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -593,7 +593,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_5, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_5, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_5)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -611,7 +611,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_6)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_6)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_6)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -631,7 +631,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_6, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_6, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_6)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -649,7 +649,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_7)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_7)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_7)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -669,7 +669,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_7, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_7, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_7)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -687,7 +687,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_9)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_9)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_9)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -707,7 +707,7 @@ class ProxAds private constructor() {
             return
         }
         val maxNativeAds =
-            MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_9, styleButtonAds)
+            MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_9, styleButtonAds)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_9)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -725,7 +725,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_10)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_10)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_10)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -748,7 +748,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_10,
+            R.layout.ads_native_big_10,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_10)
@@ -768,7 +768,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_11)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_11)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_11)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -791,7 +791,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_11,
+            R.layout.ads_native_big_11,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_11)
@@ -811,7 +811,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_12)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_12)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_12)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -834,7 +834,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_12,
+            R.layout.ads_native_big_12,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_12)
@@ -854,7 +854,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_13)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_13)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_13)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -877,7 +877,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_13,
+            R.layout.ads_native_big_13,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_13)
@@ -897,7 +897,7 @@ class ProxAds private constructor() {
             }
             return
         }
-        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_max_native_big_14)
+        val maxNativeAds = MaxNativeAds(activity, adContainer, adId, R.layout.ads_native_big_14)
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_14)
         maxNativeAds.load()!!.show(activity, callback)
     }
@@ -920,7 +920,7 @@ class ProxAds private constructor() {
             activity,
             adContainer,
             adId,
-            R.layout.ads_max_native_big_14,
+            R.layout.ads_native_big_14,
             styleButtonAds
         )
         maxNativeAds.enableShimmer(R.layout.shimmer_native_big_14)
