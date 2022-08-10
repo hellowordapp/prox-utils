@@ -130,10 +130,8 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
         adView.setCallToActionView(adCallToAction);
 
         adView.setIconView(adView.findViewById(R.id.ad_app_icon));
-        adView.setPriceView(adView.findViewById(R.id.ad_price));
         adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
         adView.setStoreView(adView.findViewById(R.id.ad_store));
-        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
         // The headline is guaranteed to be in every UnifiedNativeAd.
         try {

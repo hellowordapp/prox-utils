@@ -11,23 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightTransparent"
-        android:padding="@dimen/_8sdp">
+        android:paddingBottom="@dimen/ads_layout_margin">
 
-        <ImageView
+        <TextView
             android:id="@+id/ic_ad"
-            android:layout_width="21dp"
-            android:layout_height="15dp"
+            style="@style/AdAttribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/lightTransparent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ad_headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/ads_layout_margin"
             android:background="@color/lightTransparent"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/ic_ad"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -36,21 +36,23 @@
             android:id="@+id/ad_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/ads_layout_margin"
+            android:layout_marginTop="@dimen/ads_layout_margin"
             android:background="@color/lightTransparent"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="13sp"
             app:layout_constraintTop_toBottomOf="@+id/ad_headline" />
 
         <Button
             android:id="@+id/ad_call_to_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/ads_layout_margin"
+            android:layout_marginTop="@dimen/ads_layout_margin"
             android:background="@color/lightTransparent"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/ad_body" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.facebook.shimmer.ShimmerFrameLayout>

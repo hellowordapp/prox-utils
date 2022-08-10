@@ -72,7 +72,4 @@ dependencies {
 
     //loading dialog
     implementation 'com.kaopiz:kprogresshud:1.2.0'
-
-    //size unit scales with the screen size
-    implementation 'com.intuit.sdp:sdp-android:1.1.0'
 }
