@@ -256,7 +256,11 @@ class ProxRateDialog : DialogFragment {
 
     override fun dismiss() {
         if (isAdded) {
-            super.dismiss()
+            try {
+                super.dismissAllowingStateLoss()
+            } catch (e: Exception) {
+                Log.d("dismiss_rate", "error: " + e.message)
+            }
         }
     }
 
