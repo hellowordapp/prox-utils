@@ -10,12 +10,12 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.proxglobal.proxads.ads.openads.AppOpenManager;
 import com.proxglobal.proxads.adsv2.ads.InterAds;
 import com.proxglobal.proxads.adsv2.callback.AdsCallback;
 
 public class GoogleInterstitialAd extends InterAds<InterstitialAd> {
     private GoogleInterstitialCallback mListener;
+    public static boolean isShowing = false;
 
     private FullScreenContentCallback getMListener() {
         if(mListener == null) {
@@ -66,19 +66,20 @@ public class GoogleInterstitialAd extends InterAds<InterstitialAd> {
         @Override
         public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
             GoogleInterstitialAd.this.onShowError();
+            isShowing = false;
         }
 
         @Override
         public void onAdDismissedFullScreenContent() {
             GoogleInterstitialAd.this.onClosed();
-            AppOpenManager.getInstance().enableOpenAds();
+            isShowing = false;
         }
 
         @Override
         public void onAdShowedFullScreenContent() {
             super.onAdShowedFullScreenContent();
             GoogleInterstitialAd.this.onShowSuccess();
-            AppOpenManager.getInstance().disableOpenAds();
+            isShowing = true;
         }
 
         @Override

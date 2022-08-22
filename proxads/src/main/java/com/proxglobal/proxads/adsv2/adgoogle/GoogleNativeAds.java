@@ -1,7 +1,6 @@
 package com.proxglobal.proxads.adsv2.adgoogle;
 
 import android.app.Activity;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -22,7 +21,6 @@ import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
-import com.google.android.material.button.MaterialButton;
 import com.proxglobal.proxads.R;
 import com.proxglobal.proxads.adsv2.ads.NativeAds;
 
@@ -30,6 +28,7 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
     private int layoutAdId;
     private int styleBtnAds;
     private boolean isCustomStyle;
+    public static boolean isOpenAds = false;
 
     public GoogleNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId) {
         super(activity, container, adId);
@@ -71,6 +70,12 @@ public class GoogleNativeAds extends NativeAds<NativeAdView> {
         builder.withNativeAdOptions(adOptions);
 
         AdLoader adLoader = builder.withAdListener(new AdListener() {
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+                isOpenAds = true;
+            }
+
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);

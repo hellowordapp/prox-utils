@@ -18,7 +18,8 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.proxglobal.proxads.ads.ProxInterstitialAd;
+import com.proxglobal.proxads.adsv2.adgoogle.GoogleInterstitialAd;
+import com.proxglobal.proxads.adsv2.adgoogle.GoogleNativeAds;
 import com.proxglobal.proxads.adsv2.ads.ProxAds;
 import com.proxglobal.purchase.ProxPurchase;
 
@@ -185,7 +186,11 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     /** LifecycleObserver methods */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
-        if (ProxInterstitialAd.isShowing || ProxPurchase.getInstance().checkPurchased()) {
+        if (GoogleNativeAds.isOpenAds){
+            GoogleNativeAds.isOpenAds = false;
+            return;
+        }
+        if (GoogleInterstitialAd.isShowing || ProxPurchase.getInstance().checkPurchased() || !ProxAds.isNetworkAvailable(currentActivity)) {
             return;
         }
         showAdIfAvailable();
