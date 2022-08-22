@@ -106,6 +106,7 @@ class MaxNativeAds : NativeAds<MaxNativeAdView?> {
             }
 
             override fun onNativeAdClicked(ad: MaxAd) {
+                isOpenAds = true
                 if (mActivity.isDestroyed) {
                     nativeAdLoader.destroy()
                 } else {
@@ -190,5 +191,10 @@ class MaxNativeAds : NativeAds<MaxNativeAdView?> {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    companion object {
+        @JvmField
+        var isOpenAds = false
     }
 }

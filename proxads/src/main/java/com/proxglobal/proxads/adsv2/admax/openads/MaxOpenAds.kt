@@ -1,32 +1,31 @@
 package com.proxglobal.proxads.adsv2.admax.openads
 
 import android.annotation.SuppressLint
-import com.proxglobal.proxads.adsv2.ads.ProxAds.Companion.isNetworkAvailable
-import androidx.lifecycle.LifecycleObserver
-import android.app.Application.ActivityLifecycleCallbacks
-import com.applovin.mediation.ads.MaxInterstitialAd
 import android.app.Activity
 import android.app.Application
+import android.app.Application.ActivityLifecycleCallbacks
 import android.app.Dialog
 import android.content.Context
-import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
-import com.proxglobal.proxads.adsv2.admax.MaxInterstitialAds
-import com.proxglobal.purchase.ProxPurchase
-import android.os.Looper
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxAdListener
-import com.applovin.mediation.MaxError
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.applovin.mediation.MaxAd
+import com.applovin.mediation.MaxAdListener
+import com.applovin.mediation.MaxError
+import com.applovin.mediation.ads.MaxInterstitialAd
 import com.proxglobal.proxads.R
+import com.proxglobal.proxads.adsv2.admax.MaxInterstitialAds
+import com.proxglobal.proxads.adsv2.admax.MaxNativeAds
+import com.proxglobal.proxads.adsv2.ads.ProxAds.Companion.isNetworkAvailable
+import com.proxglobal.purchase.ProxPurchase
 import com.wang.avi.AVLoadingIndicatorView
-import java.util.ArrayList
-import kotlin.jvm.Volatile
 
 class MaxOpenAds private constructor() : LifecycleObserver, ActivityLifecycleCallbacks {
     private var ads: MaxInterstitialAd? = null
@@ -49,7 +48,11 @@ class MaxOpenAds private constructor() : LifecycleObserver, ActivityLifecycleCal
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-        Log.d(LOG_TAG, "onStart")
+        if (MaxNativeAds.isOpenAds) {
+            MaxNativeAds.isOpenAds = false
+            return
+        }
+
         if (MaxInterstitialAds.isShowing || ProxPurchase.getInstance()
                 .checkPurchased() || !isNetworkAvailable(
                 currentActivity!!
