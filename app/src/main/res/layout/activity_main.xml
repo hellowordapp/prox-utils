@@ -59,6 +59,14 @@
                 android:textColor="@color/white" />
 
             <Button
+                android:id="@+id/test_reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test Reward"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
                 android:id="@+id/btn_survey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

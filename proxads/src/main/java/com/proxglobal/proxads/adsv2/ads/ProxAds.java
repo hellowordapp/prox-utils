@@ -199,6 +199,16 @@ public final class ProxAds {
         }, 700);
     }
 
+    private void showRewardAdsWithKHub(Activity activity, GoogleRewardAds ads, AdsCallback callback, RewardCallback rewardCallback) {
+        KProgressHUD khub = createKHub(activity);
+
+        khub.show();
+        new Handler().postDelayed(() -> {
+            ads.show(activity, callback, rewardCallback);
+            khub.dismiss();
+        }, 700);
+    }
+
     public static KProgressHUD createKHub(Activity activity) {
         return KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -803,33 +813,22 @@ public final class ProxAds {
     }
     // ----------------------- Reward -------------------------
     /**
-     * show inter ads
+     * show reward ads
      * @param activity
      * @param googleAdsId
-     * @param colonyZoneId pass null if don't want to use this
      * @param tag tag name of ads
      */
-    public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId,
-                                 @Nullable String colonyZoneId, @NonNull String tag) {
+    public void initRewardAds(@NonNull Activity activity, @NonNull String googleAdsId, @NonNull String tag) {
         if(ProxPurchase.getInstance().checkPurchased()) return;
 
         RewardAds ads = new GoogleRewardAds(activity, googleAdsId);
+        adsStorage.put(tag, ads);
 
-        ads.setLoadCallback(new LoadCallback() {
-            @Override
-            public void onLoadSuccess() {
-                adsStorage.put(tag, ads);
-            }
-
-            @Override
-            public void onLoadFailed() {
-
-            }
-        }).load();
+        ads.load();
     }
 
     /**
-     * show showInterstitial with existed tag name
+     * show showRewardAds with existed tag name
      * @param activity
      * @param tag tag name of ads
      * @param callback
@@ -842,13 +841,16 @@ public final class ProxAds {
 
         GoogleRewardAds ads = (GoogleRewardAds) adsStorage.get(tag);
 
-        if(ads == null) return;
+        if(ads == null) {
+            callback.onError();
+            return;
+        }
         if(!ads.isAvailable()) {
             ads.show(activity, callback, rewardCallback);
             return;
         }
 
-        showAdsWithKHub(activity, ads, callback);
+        showRewardAdsWithKHub(activity, ads, callback, rewardCallback);
     }
 
     // ------------------- show sequence ads ---------------

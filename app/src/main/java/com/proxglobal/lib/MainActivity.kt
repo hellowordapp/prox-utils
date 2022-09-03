@@ -2,15 +2,18 @@ package com.proxglobal.lib
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.rewarded.RewardItem
 import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.openads.AppOpenManager
 import com.proxglobal.proxads.adsv2.callback.AdsCallback
 import com.proxglobal.proxads.adsv2.ads.ProxAds
+import com.proxglobal.proxads.adsv2.callback.RewardCallback
 import com.proxglobal.rate.ProxRateDialog
 import com.proxglobal.rate.ProxRateDialog.Config
 import com.proxglobal.rate.RatingDialogListener
@@ -132,6 +135,37 @@ class MainActivity : BaseActivity() {
                     }
                 }
             )
+        }
+
+        ProxAds.getInstance().initRewardAds(this, ProxUtils.TEST_REWARD_ID, "reward")
+        findViewById<Button>(R.id.test_reward).setOnClickListener {
+            ProxAds.getInstance().showRewardAds(
+                this,
+                "reward",
+                object : AdsCallback() {
+                    override fun onShow() {
+                        super.onShow()
+                        Toast.makeText(this@MainActivity, "Show", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onClosed() {
+                        super.onClosed()
+                        Toast.makeText(this@MainActivity, "Closed", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError() {
+                        super.onError()
+                        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }, object : RewardCallback() {
+                    override fun getReward(rewardItem: RewardItem) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Reward: ${rewardItem.amount} ${rewardItem.type}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
         }
 
         findViewById<Button>(R.id.btn_survey).setOnClickListener(View.OnClickListener {
