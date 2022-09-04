@@ -1,86 +1,72 @@
-package com.proxglobal.proxads.adsv2.adcolony;
+package com.proxglobal.proxads.adsv2.adcolony
 
-import android.app.Activity;
+import com.proxglobal.proxads.adsv2.ads.InterAds
+import com.adcolony.sdk.AdColonyInterstitial
+import com.adcolony.sdk.AdColonyInterstitialListener
+import android.app.Activity
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
+import com.adcolony.sdk.AdColony
+import androidx.annotation.CallSuper
+import com.adcolony.sdk.AdColonyZone
+import com.proxglobal.proxads.ads.openads.AppOpenManager
 
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyInterstitial;
-import com.adcolony.sdk.AdColonyInterstitialListener;
-import com.adcolony.sdk.AdColonyZone;
-import com.proxglobal.proxads.ads.openads.AppOpenManager;
-import com.proxglobal.proxads.adsv2.ads.InterAds;
-import com.proxglobal.proxads.adsv2.callback.AdsCallback;
-
-public class ColonyInterstitialAd extends InterAds<AdColonyInterstitial> {
-    private ColonyInterstitialCallback mListener;
-
-    private AdColonyInterstitialListener getMListener() {
-        if(mListener == null) {
-            mListener = new ColonyInterstitialCallback();
+class ColonyInterstitialAd(zoneId: String?) : InterAds<AdColonyInterstitial?>(null, zoneId) {
+    private var mListener: ColonyInterstitialCallback? = null
+        get() {
+            if (field == null) {
+                field = ColonyInterstitialCallback()
+            }
+            return field
         }
 
-        return mListener;
+    init {
+        adId = zoneId!!
     }
 
-    public ColonyInterstitialAd(String zoneId) {
-        super(null, zoneId);
-        this.adId = zoneId;
-    }
-
-    @Override
     /**
      * show ads if it's available and return result via the callback
      * @param callback
      */
-    public void show(Activity activity, @NonNull AdsCallback callback) {
-        setAdsCallback(callback);
-
-        show(activity);
+    override fun show(activity: Activity?, callback: AdsCallback?) {
+        setAdsCallback(callback)
+        show(activity)
     }
 
-    @Override
-    public void specificLoadAdsMethod() {
-        AdColony.requestInterstitial(adId, getMListener());
+    override fun specificLoadAdsMethod() {
+        AdColony.requestInterstitial(adId, mListener!!)
     }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
-        ads.show();
+    override fun specificShowAdsMethod(activity: Activity?) {
+        ads!!.show()
     }
 
     // base callback for adcolony
-    private class ColonyInterstitialCallback extends AdColonyInterstitialListener {
-        @Override
+    private inner class ColonyInterstitialCallback : AdColonyInterstitialListener() {
         @CallSuper
-        public void onRequestFilled(AdColonyInterstitial adColonyInterstitial) {
-            ColonyInterstitialAd.this.ads = adColonyInterstitial;
-            ColonyInterstitialAd.this.onLoadSuccess();
+        override fun onRequestFilled(adColonyInterstitial: AdColonyInterstitial) {
+            ads = adColonyInterstitial
+            onLoadSuccess()
         }
 
-        @Override
         @CallSuper
-        public void onRequestNotFilled(AdColonyZone zone) {
-            super.onRequestNotFilled(zone);
-            ColonyInterstitialAd.this.ads = null;
-            ColonyInterstitialAd.this.onLoadFailed();
+        override fun onRequestNotFilled(zone: AdColonyZone) {
+            super.onRequestNotFilled(zone)
+            ads = null
+            onLoadFailed()
         }
 
-        @Override
         @CallSuper
-        public void onClosed(AdColonyInterstitial ad) {
-            super.onClosed(ad);
-            ColonyInterstitialAd.this.onClosed();
-            AppOpenManager.getInstance().enableOpenAds();
+        override fun onClosed(ad: AdColonyInterstitial) {
+            super.onClosed(ad)
+            this@ColonyInterstitialAd.onClosed()
+            AppOpenManager.getInstance().enableOpenAds()
         }
 
-        @Override
         @CallSuper
-        public void onOpened(AdColonyInterstitial ad) {
-            super.onOpened(ad);
-            ColonyInterstitialAd.this.onShowSuccess();
-            AppOpenManager.getInstance().disableOpenAds();
+        override fun onOpened(ad: AdColonyInterstitial) {
+            super.onOpened(ad)
+            onShowSuccess()
+            AppOpenManager.getInstance().disableOpenAds()
         }
     }
 }

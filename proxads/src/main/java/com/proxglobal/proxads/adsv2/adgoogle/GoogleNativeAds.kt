@@ -1,241 +1,225 @@
-package com.proxglobal.proxads.adsv2.adgoogle;
+package com.proxglobal.proxads.adsv2.adgoogle
 
-import android.app.Activity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.annotation.SuppressLint
+import com.proxglobal.proxads.adsv2.ads.NativeAds
+import com.google.android.gms.ads.nativead.NativeAdView
+import android.app.Activity
+import android.view.View
+import android.widget.*
+import androidx.appcompat.view.ContextThemeWrapper
+import com.google.android.gms.ads.*
+import com.proxglobal.proxads.R
+import com.google.android.gms.ads.nativead.MediaView
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
+import java.lang.Exception
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ContextThemeWrapper;
+class GoogleNativeAds : NativeAds<NativeAdView?> {
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.VideoOptions;
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdOptions;
-import com.google.android.gms.ads.nativead.NativeAdView;
-import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.adsv2.ads.NativeAds;
-
-public class GoogleNativeAds extends NativeAds<NativeAdView> {
-    private int layoutAdId;
-    private int styleBtnAds;
-    private boolean isCustomStyle;
-    public static boolean isOpenAds = false;
-
-    public GoogleNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId) {
-        super(activity, container, adId);
-        this.layoutAdId = layoutAdId;
-        isCustomStyle = false;
+    companion object {
+        @JvmField
+        var isOpenAds = false
     }
 
-    public GoogleNativeAds(Activity activity, FrameLayout container, String adId, int layoutAdId, int styleBtnAds) {
-        super(activity, container, adId);
-        this.layoutAdId = layoutAdId;
-        this.styleBtnAds = styleBtnAds;
-        isCustomStyle = true;
+    private var layoutAdId: Int
+    private var styleBtnAds = 0
+    private var isCustomStyle: Boolean
+
+    constructor(
+        activity: Activity?,
+        container: FrameLayout?,
+        adId: String?,
+        layoutAdId: Int
+    ) : super(activity, container!!, adId) {
+        this.layoutAdId = layoutAdId
+        isCustomStyle = false
     }
 
-    @Override
-    public void specificLoadAdsMethod() {
-        ads = (NativeAdView) mActivity.getLayoutInflater().inflate(layoutAdId, null);
+    constructor(
+        activity: Activity?,
+        container: FrameLayout?,
+        adId: String?,
+        layoutAdId: Int,
+        styleBtnAds: Int
+    ) : super(activity, container!!, adId) {
+        this.layoutAdId = layoutAdId
+        this.styleBtnAds = styleBtnAds
+        isCustomStyle = true
+    }
 
-        AdLoader.Builder builder = new AdLoader.Builder(mActivity, adId).forNativeAd(nativeAd -> {
-            if (mActivity.isDestroyed()) {
+    override fun specificLoadAdsMethod() {
+        ads = mActivity.layoutInflater.inflate(layoutAdId, null) as NativeAdView
+        val builder = AdLoader.Builder(mActivity, adId).forNativeAd { nativeAd: NativeAd ->
+            if (mActivity.isDestroyed) {
                 if (ads != null) {
-                    ads.destroy();
+                    ads!!.destroy()
                 }
-                nativeAd.destroy();
+                nativeAd.destroy()
             } else {
-                onShowSuccess();
-
-                if (ads == null)
-                    ads = (NativeAdView) mActivity.getLayoutInflater().inflate(layoutAdId, null);
-                populateNativeAdView(nativeAd, ads);
-
-                mContainer.removeAllViews();
-                mContainer.addView(ads);
+                onShowSuccess()
+                if (ads == null) ads =
+                    mActivity.layoutInflater.inflate(layoutAdId, null) as NativeAdView
+                populateNativeAdView(nativeAd, ads!!)
+                mContainer.removeAllViews()
+                mContainer.addView(ads)
             }
-        });
-
-        VideoOptions videoOptions = new VideoOptions.Builder().setStartMuted(true).build();
-        NativeAdOptions adOptions = new NativeAdOptions.Builder().setVideoOptions(videoOptions).build();
-        builder.withNativeAdOptions(adOptions);
-
-        AdLoader adLoader = builder.withAdListener(new AdListener() {
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-                isOpenAds = true;
+        }
+        val videoOptions = VideoOptions.Builder().setStartMuted(true).build()
+        val adOptions = NativeAdOptions.Builder().setVideoOptions(videoOptions).build()
+        builder.withNativeAdOptions(adOptions)
+        val adLoader = builder.withAdListener(object : AdListener() {
+            override fun onAdOpened() {
+                super.onAdOpened()
+                isOpenAds = true
             }
 
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                onLoadFailed();
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+                onLoadFailed()
             }
 
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                onLoadSuccess();
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                onLoadSuccess()
             }
 
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                onClosed();
+            override fun onAdClosed() {
+                super.onAdClosed()
+                onClosed()
             }
 
-            @Override
-            public void onAdImpression() {
-                super.onAdImpression();
-                onShowSuccess();
+            override fun onAdImpression() {
+                super.onAdImpression()
+                onShowSuccess()
             }
-        }).build();
-
-        adLoader.loadAd(new AdRequest.Builder().build());
+        }).build()
+        adLoader.loadAd(AdRequest.Builder().build())
     }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
-
-    }
-
-    public void populateNativeAdView(NativeAd nativeAd, NativeAdView adView) {
-        MediaView mediaView = adView.findViewById(R.id.ad_media);
-        adView.setMediaView(mediaView);
+    override fun specificShowAdsMethod(activity: Activity?) {}
+    @SuppressLint("CutPasteId")
+    fun populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        val mediaView = adView.findViewById<MediaView>(R.id.ad_media)
+        adView.mediaView = mediaView
 
         // Set other ad assets.
-        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
-        adView.setBodyView(adView.findViewById(R.id.ad_body));
-        Button adCallToAction;
-
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        var adCallToAction: Button
         try {
             if (isCustomStyle) {
-                adView.findViewById(R.id.ad_call_to_action).setVisibility(View.GONE);
-                adCallToAction = new Button(new ContextThemeWrapper(mActivity, styleBtnAds), null, styleBtnAds);
-                adCallToAction.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                ((LinearLayout) adView.findViewById(R.id.linear)).addView(adCallToAction);
+                adView.findViewById<View>(R.id.ad_call_to_action).visibility = View.GONE
+                adCallToAction =
+                    Button(ContextThemeWrapper(mActivity, styleBtnAds), null, styleBtnAds)
+                adCallToAction.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                (adView.findViewById<View>(R.id.linear) as LinearLayout).addView(adCallToAction)
             } else {
-                adView.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
-                adCallToAction = adView.findViewById(R.id.ad_call_to_action);
+                adView.findViewById<View>(R.id.ad_call_to_action).visibility = View.VISIBLE
+                adCallToAction = adView.findViewById(R.id.ad_call_to_action)
             }
-        } catch (Exception e) {
-            adView.findViewById(R.id.ad_call_to_action).setVisibility(View.VISIBLE);
-            adCallToAction = adView.findViewById(R.id.ad_call_to_action);
+        } catch (e: Exception) {
+            adView.findViewById<View>(R.id.ad_call_to_action).visibility = View.VISIBLE
+            adCallToAction = adView.findViewById(R.id.ad_call_to_action)
         }
-        adView.setCallToActionView(adCallToAction);
-
-        adView.setIconView(adView.findViewById(R.id.ad_app_icon));
-        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
-        adView.setStoreView(adView.findViewById(R.id.ad_store));
+        adView.callToActionView = adCallToAction
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+        adView.starRatingView = adView.findViewById(R.id.ad_stars)
+        adView.storeView = adView.findViewById(R.id.ad_store)
 
         // The headline is guaranteed to be in every UnifiedNativeAd.
         try {
-            ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
-        } catch (Exception e) {
-            e.printStackTrace();
+            (adView.headlineView as TextView?)!!.text = nativeAd.headline
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
         // check before trying to display them.
         try {
-            if (nativeAd.getBody() == null) {
-                adView.getBodyView().setVisibility(View.INVISIBLE);
+            if (nativeAd.body == null) {
+                adView.bodyView!!.visibility = View.INVISIBLE
             } else {
-                adView.getBodyView().setVisibility(View.VISIBLE);
-                ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+                adView.bodyView!!.visibility = View.VISIBLE
+                (adView.bodyView as TextView?)!!.text = nativeAd.body
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getCallToAction() == null) {
-                adView.getCallToActionView().setVisibility(View.INVISIBLE);
+            if (nativeAd.callToAction == null) {
+                adView.callToActionView!!.visibility = View.INVISIBLE
             } else {
-                adView.getCallToActionView().setVisibility(View.VISIBLE);
-                adCallToAction.setText(nativeAd.getCallToAction());
+                adView.callToActionView!!.visibility = View.VISIBLE
+                adCallToAction.text = nativeAd.callToAction
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getIcon() == null) {
-                adView.getIconView().setVisibility(View.GONE);
+            if (nativeAd.icon == null) {
+                adView.iconView!!.visibility = View.GONE
             } else {
-                ((ImageView) adView.getIconView()).setImageDrawable(
-                        nativeAd.getIcon().getDrawable());
-                adView.getIconView().setVisibility(View.VISIBLE);
+                (adView.iconView as ImageView?)!!.setImageDrawable(
+                    nativeAd.icon!!.drawable
+                )
+                adView.iconView!!.visibility = View.VISIBLE
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getPrice() == null) {
-                adView.getPriceView().setVisibility(View.INVISIBLE);
+            if (nativeAd.price == null) {
+                adView.priceView!!.visibility = View.INVISIBLE
             } else {
-                adView.getPriceView().setVisibility(View.VISIBLE);
-                ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+                adView.priceView!!.visibility = View.VISIBLE
+                (adView.priceView as TextView?)!!.text = nativeAd.price
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getStore() == null) {
-                adView.getStoreView().setVisibility(View.INVISIBLE);
-                adView.findViewById(R.id.ic_store2).setVisibility(View.GONE);
+            if (nativeAd.store == null) {
+                adView.storeView!!.visibility = View.INVISIBLE
+                adView.findViewById<View>(R.id.ic_store2).visibility = View.GONE
             } else {
-                adView.getStoreView().setVisibility(View.VISIBLE);
-                ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
-                if (nativeAd.getStore().equalsIgnoreCase("Google Play")) {
-                    adView.findViewById(R.id.ic_store2).setVisibility(View.VISIBLE);
+                adView.storeView!!.visibility = View.VISIBLE
+                (adView.storeView as TextView?)!!.text = nativeAd.store
+                if (nativeAd.store.equals("Google Play", ignoreCase = true)) {
+                    adView.findViewById<View>(R.id.ic_store2).visibility = View.VISIBLE
                 } else {
-                    adView.findViewById(R.id.ic_store2).setVisibility(View.GONE);
+                    adView.findViewById<View>(R.id.ic_store2).visibility = View.GONE
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getStarRating() == null) {
-                adView.getStarRatingView().setVisibility(View.INVISIBLE);
+            if (nativeAd.starRating == null) {
+                adView.starRatingView!!.visibility = View.INVISIBLE
             } else {
-                ((RatingBar) adView.getStarRatingView())
-                        .setRating(nativeAd.getStarRating().floatValue());
-                adView.getStarRatingView().setVisibility(View.VISIBLE);
+                (adView.starRatingView as RatingBar?)?.rating = nativeAd.starRating!!.toFloat()
+                adView.starRatingView!!.visibility = View.VISIBLE
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         try {
-            if (nativeAd.getAdvertiser() == null) {
-                adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+            if (nativeAd.advertiser == null) {
+                adView.advertiserView!!.visibility = View.INVISIBLE
             } else {
-                ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
-                adView.getAdvertiserView().setVisibility(View.VISIBLE);
+                (adView.advertiserView as TextView?)!!.text = nativeAd.advertiser
+                adView.advertiserView!!.visibility = View.VISIBLE
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         // This method tells the Google Mobile Ads SDK that you have finished populating your
         // native ad view with this native ad. The SDK will populate the adView's MediaView
         // with the media content from this native ad.
-        adView.setNativeAd(nativeAd);
-
+        adView.setNativeAd(nativeAd)
     }
 }

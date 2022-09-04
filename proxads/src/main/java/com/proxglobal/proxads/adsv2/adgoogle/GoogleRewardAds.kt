@@ -1,89 +1,65 @@
-package com.proxglobal.proxads.adsv2.adgoogle;
+package com.proxglobal.proxads.adsv2.adgoogle
 
-import android.app.Activity;
+import android.app.Activity
+import com.google.android.gms.ads.*
+import com.proxglobal.proxads.adsv2.ads.RewardAds
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.proxglobal.proxads.adsv2.callback.RewardCallback
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardItem
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-import com.proxglobal.proxads.adsv2.ads.RewardAds;
-import com.proxglobal.proxads.adsv2.callback.AdsCallback;
-import com.proxglobal.proxads.adsv2.callback.RewardCallback;
-
-public class GoogleRewardAds extends RewardAds<RewardedAd> {
-    private RewardCallback rewardCallback;
-    private GoogleRewardCallback mListener;
-
-    private FullScreenContentCallback getMListener() {
-        if (mListener == null) {
-            mListener = new GoogleRewardCallback();
+class GoogleRewardAds(activity: Activity?, adId: String?) : RewardAds<RewardedAd?>(activity, adId) {
+    private var rewardCallback: RewardCallback? = null
+    private var mListener: GoogleRewardCallback? = null
+        get() {
+            if (field == null) {
+                field = GoogleRewardCallback()
+            }
+            return field
         }
 
-        return mListener;
+    fun show(activity: Activity?, adCallback: AdsCallback?, rewardCallback: RewardCallback?) {
+        setAdsCallback(adCallback)
+        this.rewardCallback = rewardCallback
+        show(activity)
     }
 
-    public GoogleRewardAds(Activity activity, String adId) {
-        super(activity, adId);
-    }
-
-    public void show(Activity activity, AdsCallback adCallback, RewardCallback rewardCallback) {
-        setAdsCallback(adCallback);
-        this.rewardCallback = rewardCallback;
-
-        show(activity);
-    }
-
-    @Override
-    public void specificLoadAdsMethod() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        RewardedAd.load(mActivity, adId, adRequest, new RewardedAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                rewardedAd.setFullScreenContentCallback(getMListener());
-
-                GoogleRewardAds.this.ads = rewardedAd;
-                GoogleRewardAds.this.onLoadSuccess();
+    override fun specificLoadAdsMethod() {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(mActivity, adId, adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdLoaded(rewardedAd: RewardedAd) {
+                rewardedAd.fullScreenContentCallback = mListener
+                ads = rewardedAd
+                onLoadSuccess()
             }
 
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                GoogleRewardAds.this.onLoadFailed();
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                onLoadFailed()
             }
-        });
+        })
     }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
-        ads.show(activity, rewardItem -> {
-            if (rewardCallback != null) rewardCallback.getReward(rewardItem);
-        });
+    override fun specificShowAdsMethod(activity: Activity?) {
+        ads!!.show(activity!!) { rewardItem: RewardItem? ->
+            if (rewardCallback != null) rewardCallback!!.getReward(
+                rewardItem!!
+            )
+        }
     }
 
-    private class GoogleRewardCallback extends FullScreenContentCallback {
-        @Override
-        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-            GoogleRewardAds.this.onShowError();
+    private inner class GoogleRewardCallback : FullScreenContentCallback() {
+        override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+            onShowError()
         }
 
-        @Override
-        public void onAdDismissedFullScreenContent() {
-            GoogleRewardAds.this.onClosed();
+        override fun onAdDismissedFullScreenContent() {
+            onClosed()
         }
 
-        @Override
-        public void onAdShowedFullScreenContent() {
-            super.onAdShowedFullScreenContent();
-            GoogleRewardAds.this.onShowSuccess();
-        }
-
-        @Override
-        public void onAdImpression() {
-            super.onAdImpression();
+        override fun onAdShowedFullScreenContent() {
+            super.onAdShowedFullScreenContent()
+            onShowSuccess()
         }
     }
 }

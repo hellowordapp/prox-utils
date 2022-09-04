@@ -1,83 +1,67 @@
-package com.proxglobal.proxads.adsv2.adgoogle;
+package com.proxglobal.proxads.adsv2.adgoogle
 
-import android.app.Activity;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.widget.FrameLayout;
+import android.app.Activity
+import android.widget.FrameLayout
+import com.proxglobal.proxads.adsv2.ads.NativeAds
+import android.util.DisplayMetrics
+import com.google.android.gms.ads.*
+import com.proxglobal.proxads.R
 
-import androidx.annotation.NonNull;
+class GoogleBannerAds(activity: Activity?, container: FrameLayout?, adId: String?) :
+    NativeAds<AdView?>(activity, container!!, adId) {
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.proxglobal.proxads.R;
-import com.proxglobal.proxads.adsv2.ads.NativeAds;
-
-public class GoogleBannerAds extends NativeAds<AdView> {
-    public GoogleBannerAds(Activity activity, FrameLayout container, String adId) {
-        super(activity, container, adId);
-        this.adId = adId;
-        this.mContainer = container;
-
-        enableShimmer(R.layout.shimmer_banner);
+    init {
+        this.adId = adId!!
+        mContainer = container!!
+        enableShimmer(R.layout.shimmer_banner)
     }
 
-    @Override
-    public void specificLoadAdsMethod() {
-        ads = new AdView(mActivity);
-        ads.setAdSize(getAdSize());
-        ads.setAdUnitId(adId);
-
-        mContainer.addView(ads);
+    override fun specificLoadAdsMethod() {
+        ads = AdView(mActivity)
+        ads!!.setAdSize(adSize)
+        ads!!.adUnitId = adId
+        mContainer.addView(ads)
     }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
-        ads.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                onLoadSuccess();
+    override fun specificShowAdsMethod(activity: Activity?) {
+        ads!!.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                onLoadSuccess()
             }
 
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                onClosed();
+            override fun onAdClosed() {
+                super.onAdClosed()
+                onClosed()
             }
 
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                onShowError();
-                onLoadFailed();
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+                onShowError()
+                onLoadFailed()
             }
 
-            @Override
-            public void onAdImpression() {
-                super.onAdImpression();
-                onShowSuccess();
+            override fun onAdImpression() {
+                super.onAdImpression()
+                onShowSuccess()
             }
-        });
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        ads.loadAd(adRequest);
+        }
+        val adRequest = AdRequest.Builder().build()
+        ads!!.loadAd(adRequest)
     }
 
-    private AdSize getAdSize() {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = mActivity.getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
+    // Determine the screen width (less decorations) to use for the ad width.
+    private val adSize: AdSize
+        get() {
+            // Determine the screen width (less decorations) to use for the ad width.
+            val display = mActivity.windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+            val widthPixels = outMetrics.widthPixels.toFloat()
+            val density = outMetrics.density
+            val adWidth = (widthPixels / density).toInt()
 
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-
-        int adWidth = (int) (widthPixels / density);
-
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
-        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(mActivity, adWidth);
-    }
+            // Get adaptive ad size and return for setting on the ad view.
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(mActivity, adWidth)
+        }
 }

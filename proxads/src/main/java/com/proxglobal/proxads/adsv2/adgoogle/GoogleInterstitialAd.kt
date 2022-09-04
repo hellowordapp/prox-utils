@@ -1,90 +1,75 @@
-package com.proxglobal.proxads.adsv2.adgoogle;
+package com.proxglobal.proxads.adsv2.adgoogle
 
-import android.app.Activity;
+import android.app.Activity
+import com.proxglobal.proxads.adsv2.ads.InterAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.proxglobal.proxads.adsv2.callback.AdsCallback
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
 
-import androidx.annotation.NonNull;
+class GoogleInterstitialAd(activity: Activity?, adId: String?) :
+    InterAds<InterstitialAd?>(activity, adId) {
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.proxglobal.proxads.adsv2.ads.InterAds;
-import com.proxglobal.proxads.adsv2.callback.AdsCallback;
-
-public class GoogleInterstitialAd extends InterAds<InterstitialAd> {
-    private GoogleInterstitialCallback mListener;
-    public static boolean isShowing = false;
-
-    private FullScreenContentCallback getMListener() {
-        if(mListener == null) {
-            mListener = new GoogleInterstitialCallback();
-        }
-
-        return mListener;
+    companion object {
+        @JvmField
+        var isShowing = false
     }
 
-    public GoogleInterstitialAd(Activity activity, String adId) {
-        super(activity, adId);
-    }
-
-    @Override
-    public void show(Activity activity,@NonNull AdsCallback adCallback) {
-        setAdsCallback(adCallback);
-
-        show(activity);
-    }
-
-    @Override
-    public void specificLoadAdsMethod() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        InterstitialAd.load(mActivity.getApplicationContext(), adId, adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                interstitialAd.setFullScreenContentCallback(getMListener());
-
-                GoogleInterstitialAd.this.ads = interstitialAd;
-                GoogleInterstitialAd.this.onLoadSuccess();
+    private var mListener: GoogleInterstitialCallback? = null
+        get() {
+            if (field == null) {
+                field = GoogleInterstitialCallback()
             }
+            return field
+        }
 
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                ads = null;
-                GoogleInterstitialAd.this.onLoadFailed();
-            }
-        });
+    override fun show(activity: Activity?, callback: AdsCallback?) {
+        setAdsCallback(callback)
+        show(activity)
     }
 
-    @Override
-    public void specificShowAdsMethod(Activity activity) {
-        ads.show(activity);
+    override fun specificLoadAdsMethod() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            mActivity.applicationContext,
+            adId,
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    interstitialAd.fullScreenContentCallback = mListener
+                    ads = interstitialAd
+                    onLoadSuccess()
+                }
+
+                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                    ads = null
+                    onLoadFailed()
+                }
+            })
     }
 
-    private class GoogleInterstitialCallback extends FullScreenContentCallback {
-        @Override
-        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-            GoogleInterstitialAd.this.onShowError();
-            isShowing = false;
+    override fun specificShowAdsMethod(activity: Activity?) {
+        ads!!.show(activity!!)
+    }
+
+    private inner class GoogleInterstitialCallback : FullScreenContentCallback() {
+        override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+            onShowError()
+            isShowing = false
         }
 
-        @Override
-        public void onAdDismissedFullScreenContent() {
-            GoogleInterstitialAd.this.onClosed();
-            isShowing = false;
+        override fun onAdDismissedFullScreenContent() {
+            onClosed()
+            isShowing = false
         }
 
-        @Override
-        public void onAdShowedFullScreenContent() {
-            super.onAdShowedFullScreenContent();
-            GoogleInterstitialAd.this.onShowSuccess();
-            isShowing = true;
-        }
-
-        @Override
-        public void onAdImpression() {
-            super.onAdImpression();
+        override fun onAdShowedFullScreenContent() {
+            super.onAdShowedFullScreenContent()
+            onShowSuccess()
+            isShowing = true
         }
     }
 }
