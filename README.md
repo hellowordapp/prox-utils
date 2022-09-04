@@ -12,6 +12,7 @@ Prox Utils
 * [Banner Ads](#Banner-Ads)
 * [Interstitial Ads](#Interstitial-Ads)
 * [Native Ads](#Native-Ads)
+* [Reward Ads](#Reward-Ads)
 
 Setup
 ======================
@@ -124,7 +125,6 @@ Initialize dialog rate
 val config = ProxRateDialog.Config()
 config.setListener(object : RatingDialogListener() {
 	override fun onRated() {
-		super.onRated()
                 `//TO-DO`
 	}
 
@@ -208,22 +208,16 @@ AppOpenManager.getInstance().disableOpenAds()/AppOpenManager.getInstance().enabl
 Banner Ads
 ======================
 ```
-ProxAds.getInstance().showBanner(Activity activity, FrameLayout adContainer, String adId, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
+ProxAds.instance.showBanner(activity: Activity, container: FrameLayout?, adId: String?, object : AdsCallback() {
+	override fun onShow() {
                 `//TO-DO`
 	}
 
-	@Override
-	public void onClosed() {
-                super.onClosed();
+	override fun onClosed() {
                 `//TO-DO`
 	}
 
-	@Override
-	public void onError() {
-                super.onError();
+	override fun onError() {
                 `//TO-DO`
 	}
 });
@@ -233,77 +227,59 @@ Interstitial Ads
 ======================
 Load interstitial ads
 ```
-ProxAds.getInstance().initInterstitial(Activity activity, String adId, String colonyZoneId, String tag);
+ProxAds.instance.initInterstitial(activity: Activity, adId: String, colonyZoneId: String, tag: String)
 ```
 
 Show interstitial ads
 ```
-ProxAds.getInstance().showInterstitial(Activity activity, String tag, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
-		`//TO-DO`
+ProxAds.instance.showInterstitial(activity: Activity, tag: String, object : AdsCallback() {
+	override fun onShow() {
+                `//TO-DO`
 	}
 
-	@Override
- 	public void onClosed() {
-		super.onClosed();
-		`//TO-DO`
+	override fun onClosed() {
+                `//TO-DO`
 	}
 
-	@Override
-  	public void onError() {
-		super.onError();
-		`//TO-DO`
+	override fun onError() {
+                `//TO-DO`
 	}
-});
+})
 ```
 
 Load and show Splash ads
 ```
-ProxAds.getInstance().showSplash(Activity activity, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
-		`//TO-DO`
+ProxAds.instance.showSplash(activity: Activity, object : AdsCallback() {
+	override fun onShow() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onClosed() {
-		super.onClosed();
-		`//TO-DO`
+	override fun onClosed() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onError() {
-		super.onError();
- 		`//TO-DO`
+	override fun onError() {
+                `//TO-DO`
 	}
-}, String adId, String colonyZoneId, int timeout);
+}, adId: String, colonyZoneId: String, timeout: Int)
 ```
 
 Native Ads
 ======================
 Load and show native small ads
 ```
-ProxAds.getInstance().showSmallNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
-		`//TO-DO`
+ProxAds.instance.showSmallNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+	override fun onShow() {
+                `//TO-DO`
 	}
 
-    	@Override
-    	public void onClosed() {
-        	super.onClosed();
-        	`//TO-DO`
-    	}
+	override fun onClosed() {
+                `//TO-DO`
+	}
 
-    	@Override
-    	public void onError() {
-         	super.onError();
-         	`//TO-DO`
-    	}
+	override fun onError() {
+                `//TO-DO`
+	}
 });
 ```
 
@@ -315,23 +291,17 @@ Native small 21 | <img src="https://github.com/ntduc-let/image_readme_github/blo
 
 Load and show native medium ads
 ```
-ProxAds.getInstance().showMediumNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
-		`//TO-DO`
+ProxAds.instance.showMediumNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+	override fun onShow() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onClosed() {
-		super.onClosed();
-		`//TO-DO`
+	override fun onClosed() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onError() {
-		super.onError();
-		`//TO-DO`
+	override fun onError() {
+                `//TO-DO`
 	}
 });
 ```
@@ -343,23 +313,17 @@ Native medium 19 | <img src="https://github.com/ntduc-let/image_readme_github/bl
 
 Load and show native big ads
 ```
-ProxAds.getInstance().showBigNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, new AdsCallback() {
-	@Override
-	public void onShow() {
-		super.onShow();
-		`//TO-DO`
+ProxAds.instance.showBigNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+	override fun onShow() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onClosed() {
-		super.onClosed();
-		`//TO-DO`
+	override fun onClosed() {
+                `//TO-DO`
 	}
 
-	@Override
-	public void onError() {
-		super.onError();
- 		`//TO-DO`
+	override fun onError() {
+                `//TO-DO`
 	}
 });
 ```
@@ -391,7 +355,39 @@ Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/
 
 ### Each native ad separately
 ```
-ProxAds.getInstance().showSmallNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback);
-ProxAds.getInstance().showMediumNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback);
-ProxAds.getInstance().showBigNativeWithShimmerStyle<select_style>(Activity activity, String adId, FrameLayout adContainer, int styleButtonAds, AdsCallback callback);
+ProxAds.instance.showSmallNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
+ProxAds.instance.showMediumNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
+ProxAds.instance.showBigNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
+```
+
+Reward Ads
+======================
+Load reward ads
+```
+ProxAds.instance.initRewardAds(activity: Activity, googleAdsId: String, tag: String)
+```
+
+Show reward ads
+```
+ProxAds.instance.showRewardAds(
+	activity: Activity,
+	tag: String,
+	object : AdsCallback() {
+        	override fun onShow() {
+                	`//TO-DO`
+             	}
+
+          	override fun onClosed() {
+                        `//TO-DO`
+           	}
+
+         	override fun onError() {
+                        `//TO-DO`
+     		}
+    	}, object : RewardCallback() {
+         	override fun getReward(rewardItem: RewardItem) {
+                        `//TO-DO`
+              	}
+    	}
+)
 ```
