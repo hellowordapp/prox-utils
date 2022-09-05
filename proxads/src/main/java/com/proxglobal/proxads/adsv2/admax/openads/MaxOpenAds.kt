@@ -75,7 +75,7 @@ class MaxOpenAds private constructor() : LifecycleObserver, ActivityLifecycleCal
             }
             openAdsDialog!!.show()
             Handler(Looper.getMainLooper()).postDelayed({
-                if (!currentActivity!!.isFinishing) {
+                if (currentActivity?.isFinishing == false) {
                     ads!!.showAd()
                 } else {
                     openAdsDialog!!.dismiss()
