@@ -30,7 +30,7 @@ allprojects {
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:1.3.4'
+	implementation 'com.github.hellowordapp:prox-utils:1.3.5'
 }
 ```
 
@@ -385,7 +385,7 @@ ProxAds.instance.showRewardAds(
                         `//TO-DO`
      		}
     	}, object : RewardCallback() {
-         	override fun getReward(rewardItem: RewardItem) {
+         	override fun getReward(amount: Int, type: String) {
                         `//TO-DO`
               	}
     	}
