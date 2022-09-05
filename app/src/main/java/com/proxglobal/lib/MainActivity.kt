@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.rewarded.RewardItem
 import com.proxglobal.lib.databinding.ActivityMainBinding
 import com.proxglobal.proxads.ProxUtils
 import com.proxglobal.proxads.ads.openads.AppOpenManager
@@ -162,10 +161,10 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }, object : RewardCallback() {
-                    override fun getReward(rewardItem: RewardItem) {
+                    override fun getReward(amount: Int, type: String) {
                         Toast.makeText(
                             this@MainActivity,
-                            "Reward: ${rewardItem.amount} ${rewardItem.type}",
+                            "Reward: $amount $type",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

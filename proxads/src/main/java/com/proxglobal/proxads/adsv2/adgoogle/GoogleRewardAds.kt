@@ -41,9 +41,9 @@ class GoogleRewardAds(activity: Activity?, adId: String?) : RewardAds<RewardedAd
     }
 
     override fun specificShowAdsMethod(activity: Activity?) {
-        ads!!.show(activity!!) { rewardItem: RewardItem? ->
-            if (rewardCallback != null) rewardCallback!!.getReward(
-                rewardItem!!
+        ads!!.show(activity!!) { rewardItem: RewardItem ->
+            rewardCallback?.getReward(
+                rewardItem.amount, rewardItem.type
             )
         }
     }
