@@ -130,6 +130,7 @@ class ProxRateDialog : DialogFragment {
             layoutLater.visibility = View.GONE
             btnSubmit.visibility = View.GONE
 
+            if (sp == null) sp = requireContext().getSharedPreferences("prox", Context.MODE_PRIVATE)
             sp!!.edit().putBoolean("isRated", true).apply()
             linkToStore()
             Handler(Looper.getMainLooper()).postDelayed({ dismiss() }, 1000)
@@ -147,6 +148,7 @@ class ProxRateDialog : DialogFragment {
             layoutLater.visibility = View.GONE
             btnSubmit.visibility = View.GONE
 
+            if (sp == null) sp = requireContext().getSharedPreferences("prox", Context.MODE_PRIVATE)
             sp!!.edit().putBoolean("isRated", true).apply()
             linkToStore()
             Handler(Looper.getMainLooper()).postDelayed({ dismiss() }, 1000)
@@ -165,6 +167,7 @@ class ProxRateDialog : DialogFragment {
                 ) { dialog, _ -> dialog.dismiss() }
                 alertDialog.show()
             } else {
+                if (sp == null) sp = requireContext().getSharedPreferences("prox", Context.MODE_PRIVATE)
                 sp!!.edit().putBoolean("isRated", true).apply()
                 val alertDialog = AlertDialog.Builder(requireActivity()).create()
                 alertDialog.setTitle(getString(R.string._thanks))
