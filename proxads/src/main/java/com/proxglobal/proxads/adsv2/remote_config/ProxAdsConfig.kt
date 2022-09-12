@@ -38,6 +38,8 @@ class ProxAdsConfig {
     }
 
     private fun setupAds(config: Ads) {
+        clearStorage()
+
         //Open Ads
         if (!config.status_open_ads) AppOpenManager.getInstance().disableOpenAds()
 
@@ -308,7 +310,12 @@ class ProxAdsConfig {
     }
 
     // ------------------------------------------------------------
-    val locationStorage: HashMap<Array<String>, Int?> = HashMap()
+    private val locationStorage: HashMap<Array<String>, Int?> = HashMap()
+
+    private fun clearStorage() {
+        locationStorage.clear()
+        numberClick.clear()
+    }
 
     companion object {
         private var INSTANCE: ProxAdsConfig? = null
