@@ -19,6 +19,14 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/test_remote_config_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#D50000"
+                android:text="Test remote config ads"
+                android:textColor="@color/white" />
+
+            <Button
                 android:id="@+id/test_interstitial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

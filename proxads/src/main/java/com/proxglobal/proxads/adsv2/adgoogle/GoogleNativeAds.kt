@@ -26,22 +26,22 @@ class GoogleNativeAds : NativeAds<NativeAdView?> {
     private var isCustomStyle: Boolean
 
     constructor(
-        activity: Activity?,
-        container: FrameLayout?,
-        adId: String?,
+        activity: Activity,
+        container: FrameLayout,
+        adId: String,
         layoutAdId: Int
-    ) : super(activity, container!!, adId) {
+    ) : super(activity, container, adId) {
         this.layoutAdId = layoutAdId
         isCustomStyle = false
     }
 
     constructor(
-        activity: Activity?,
-        container: FrameLayout?,
-        adId: String?,
+        activity: Activity,
+        container: FrameLayout,
+        adId: String,
         layoutAdId: Int,
         styleBtnAds: Int
-    ) : super(activity, container!!, adId) {
+    ) : super(activity, container, adId) {
         this.layoutAdId = layoutAdId
         this.styleBtnAds = styleBtnAds
         isCustomStyle = true

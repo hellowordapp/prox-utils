@@ -136,60 +136,41 @@ class ProxAds private constructor() {
     // ----------------------- Banner -----------------------
     fun showBanner(
         activity: Activity,
-        container: FrameLayout?,
-        adId: String?,
+        container: FrameLayout,
+        adId: String,
         callback: AdsCallback
     ) {
         if (ProxPurchase.getInstance().checkPurchased()) {
             callback.onError()
-            if (container != null) {
-                container.visibility = View.GONE
-            }
+            container.visibility = View.GONE
             return
         }
         if (!isNetworkAvailable(activity)) {
             callback.onError()
-            if (container != null) {
-                container.visibility = View.GONE
-            }
+            container.visibility = View.GONE
         }
-        GoogleBannerAds(activity, container, adId).load()!!.show(activity, callback)
+        GoogleBannerAds(activity, container, adId).load().show(activity, callback)
     }
 
     // ---------------------- Native -------------------------
     fun showSmallNativeWithShimmerStyle15(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_15)
-        nativeAds.enableShimmer(R.layout.shimmer_native_small_15)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showSmallNativeWithShimmerStyle15(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_small_15
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -197,42 +178,27 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_small_15)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showSmallNativeWithShimmerStyle16(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_16)
-        nativeAds.enableShimmer(R.layout.shimmer_native_small_16)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showSmallNativeWithShimmerStyle16(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_small_16
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -240,42 +206,27 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_small_16)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showSmallNativeWithShimmerStyle21(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_21)
-        nativeAds.enableShimmer(R.layout.shimmer_native_small_21)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showSmallNativeWithShimmerStyle21(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_small_21
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -283,42 +234,27 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_small_21)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showSmallNativeWithShimmerStyle22(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_small_22)
-        nativeAds.enableShimmer(R.layout.shimmer_native_small_22)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showSmallNativeWithShimmerStyle22(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_small_22
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -326,42 +262,27 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_small_22)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showMediumNativeWithShimmerStyle19(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_medium_19)
-        nativeAds.enableShimmer(R.layout.shimmer_native_medium_19)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showMediumNativeWithShimmerStyle19(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_medium_19
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -369,42 +290,27 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_medium_19)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showMediumNativeWithShimmerStyle20(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_medium_20)
-        nativeAds.enableShimmer(R.layout.shimmer_native_medium_20)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showMediumNativeWithShimmerStyle20(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds = GoogleNativeAds(
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_medium_20
+        ) else GoogleNativeAds(
             activity,
             adContainer,
             adId,
@@ -412,501 +318,371 @@ class ProxAds private constructor() {
             styleButtonAds
         )
         nativeAds.enableShimmer(R.layout.shimmer_native_medium_20)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle1(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_1)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_1
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_1,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_1)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle1(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_1, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_1)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle2(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_2)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_2
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_2,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_2)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle2(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_2, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_2)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle3(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_3)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_3
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_3,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_3)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle3(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_3, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_3)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle4(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_4)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_4
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_4,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_4)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle4(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_4, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_4)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle5(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_5)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_5
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_5,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_5)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle5(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_5, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_5)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle6(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_6)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_6
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_6,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_6)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle6(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_6, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_6)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle7(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_7)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_7
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_7,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_7)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle7(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_7, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_7)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle9(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_9)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_9
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_9,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_9)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle9(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_9, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_9)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle10(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_10)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_10
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_10,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_10)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle10(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_10, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_10)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle11(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_11)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_11
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_11,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_11)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle11(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_11, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_11)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle12(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_12)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_12
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_12,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_12)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle12(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_12, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_12)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle13(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
+            adContainer.visibility = View.GONE
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_13)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_13
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_13,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_13)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle13(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_13, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_13)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     fun showBigNativeWithShimmerStyle14(
         activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        callback: AdsCallback
+        adId: String,
+        adContainer: FrameLayout,
+        callback: AdsCallback,
+        styleButtonAds: Int = NATIVE_DEFAULT
     ) {
         if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
             callback.onError()
-            if (adContainer != null) {
                 adContainer.visibility = View.GONE
-            }
             return
         }
-        val nativeAds = GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_14)
+        val nativeAds = if (styleButtonAds == NATIVE_DEFAULT) GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_14
+        ) else GoogleNativeAds(
+            activity,
+            adContainer,
+            adId,
+            R.layout.ads_native_big_14,
+            styleButtonAds
+        )
         nativeAds.enableShimmer(R.layout.shimmer_native_big_14)
-        nativeAds.load()!!.show(activity, callback)
-    }
-
-    fun showBigNativeWithShimmerStyle14(
-        activity: Activity,
-        adId: String?,
-        adContainer: FrameLayout?,
-        styleButtonAds: Int,
-        callback: AdsCallback
-    ) {
-        if (ProxPurchase.getInstance().checkPurchased() || !isNetworkAvailable(activity)) {
-            callback.onError()
-            if (adContainer != null) {
-                adContainer.visibility = View.GONE
-            }
-            return
-        }
-        val nativeAds =
-            GoogleNativeAds(activity, adContainer, adId, R.layout.ads_native_big_14, styleButtonAds)
-        nativeAds.enableShimmer(R.layout.shimmer_native_big_14)
-        nativeAds.load()!!.show(activity, callback)
+        nativeAds.load().show(activity, callback)
     }
 
     // ----------------------- Reward -------------------------
@@ -960,8 +736,8 @@ class ProxAds private constructor() {
      * @param appId
      * @param zoneIds
      */
-    fun configure(activity: Activity?, appId: String?, vararg zoneIds: String?) {
-        AdColony.configure(activity, appId!!, *zoneIds)
+    fun configure(activity: Activity?, appId: String, vararg zoneIds: String) {
+        AdColony.configure(activity, appId, *zoneIds)
     }
 
     /**
@@ -970,8 +746,8 @@ class ProxAds private constructor() {
      * @param appId
      * @param zoneIds
      */
-    fun configure(application: Application?, appId: String?, vararg zoneIds: String?) {
-        AdColony.configure(application, appId!!, *zoneIds)
+    fun configure(application: Application?, appId: String, vararg zoneIds: String) {
+        AdColony.configure(application, appId, *zoneIds)
     }
 
     /**
@@ -983,10 +759,10 @@ class ProxAds private constructor() {
     fun configure(
         activity: Activity?,
         options: AdColonyAppOptions?,
-        appId: String?,
-        vararg zoneIds: String?
+        appId: String,
+        vararg zoneIds: String
     ) {
-        AdColony.configure(activity, options, appId!!, *zoneIds)
+        AdColony.configure(activity, options, appId, *zoneIds)
     }
 
     /**
@@ -998,10 +774,10 @@ class ProxAds private constructor() {
     fun configure(
         application: Application?,
         options: AdColonyAppOptions?,
-        appId: String?,
-        vararg zoneIds: String?
+        appId: String,
+        vararg zoneIds: String
     ) {
-        AdColony.configure(application, options, appId!!, *zoneIds)
+        AdColony.configure(application, options, appId, *zoneIds)
     }
 
     // ------------------- show sequence ads ---------------
@@ -1029,12 +805,11 @@ class ProxAds private constructor() {
     }
 
     class Factory {
-        fun getInterAds(activity: Activity, adId: String?, type: AdsType?): InterAds<*>? {
-            when (type) {
-                AdsType.GOOGLE -> return GoogleInterstitialAd(activity, adId)
-                AdsType.COLONY -> return ColonyInterstitialAd(adId)
+        fun getInterAds(activity: Activity, adId: String, type: AdsType): InterAds<*>? {
+            return when (type) {
+                AdsType.GOOGLE -> GoogleInterstitialAd(activity, adId)
+                AdsType.COLONY -> ColonyInterstitialAd(adId)
             }
-            return null
         }
     }
 
@@ -1043,6 +818,8 @@ class ProxAds private constructor() {
     }
 
     companion object {
+        const val NATIVE_DEFAULT = -1
+
         private var INSTANCE: ProxAds? = null
 
         val instance: ProxAds

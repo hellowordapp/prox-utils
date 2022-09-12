@@ -4,15 +4,17 @@ import android.app.Activity
 import android.widget.FrameLayout
 import com.proxglobal.proxads.adsv2.ads.NativeAds
 import android.util.DisplayMetrics
+import android.view.View
 import com.google.android.gms.ads.*
 import com.proxglobal.proxads.R
+import com.proxglobal.proxads.adsv2.ads.ProxAds
 
-class GoogleBannerAds(activity: Activity?, container: FrameLayout?, adId: String?) :
-    NativeAds<AdView?>(activity, container!!, adId) {
+class GoogleBannerAds(activity: Activity, container: FrameLayout, adId: String) :
+    NativeAds<AdView?>(activity, container, adId) {
 
     init {
-        this.adId = adId!!
-        mContainer = container!!
+        this.adId = adId
+        mContainer = container
         enableShimmer(R.layout.shimmer_banner)
     }
 
@@ -28,6 +30,9 @@ class GoogleBannerAds(activity: Activity?, container: FrameLayout?, adId: String
             override fun onAdLoaded() {
                 super.onAdLoaded()
                 onLoadSuccess()
+                if (ProxAds.isNetworkAvailable(mActivity)) {
+                    mContainer.visibility = View.VISIBLE
+                }
             }
 
             override fun onAdClosed() {

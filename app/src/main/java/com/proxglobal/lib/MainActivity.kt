@@ -219,5 +219,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnTestIap.setOnClickListener {
             startActivity(Intent(this@MainActivity, MainActivity3::class.java))
         }
+
+        binding.testRemoteConfigAds.setOnClickListener {
+            startActivity(Intent(this@MainActivity, MainActivity5::class.java))
+        }
     }
 }

@@ -10,7 +10,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 
-class GoogleInterstitialAd(activity: Activity?, adId: String?) :
+class GoogleInterstitialAd(activity: Activity, adId: String) :
     InterAds<InterstitialAd?>(activity, adId) {
 
     companion object {

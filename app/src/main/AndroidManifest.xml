@@ -13,6 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProxLib">
         <activity
+            android:name=".Click3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Click2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Click1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ClickSplashActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity5"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity4"
             android:exported="true" />
         <activity

@@ -6,11 +6,11 @@ import android.widget.FrameLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 
 abstract class NativeAds<T> protected constructor(
-    activity: Activity?,
+    activity: Activity,
     protected var mContainer: FrameLayout,
-    adId: String?
+    adId: String
 ) : BaseAds<T>(
-    activity!!, adId!!
+    activity, adId
 ) {
 
     init {

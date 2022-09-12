@@ -9,7 +9,7 @@ import com.proxglobal.proxads.adsv2.callback.AdsCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardItem
 
-class GoogleRewardAds(activity: Activity?, adId: String?) : RewardAds<RewardedAd?>(activity, adId) {
+class GoogleRewardAds(activity: Activity, adId: String) : RewardAds<RewardedAd?>(activity, adId) {
     private var rewardCallback: RewardCallback? = null
     private var mListener: GoogleRewardCallback? = null
         get() {

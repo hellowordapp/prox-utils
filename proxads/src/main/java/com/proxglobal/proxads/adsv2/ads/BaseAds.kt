@@ -19,7 +19,7 @@ abstract class BaseAds<T> protected constructor(
     private var inLoading = false
     private var autoReload = true
     private var isShowing = false
-    override fun load(): BaseAds<T>? {
+    override fun load(): BaseAds<T> {
         if (isAvailable || inLoading) return this
         inLoading = true
         Log.i(TAG, "load: ")
