@@ -13,6 +13,7 @@ Prox Utils
 * [Interstitial Ads](#Interstitial-Ads)
 * [Native Ads](#Native-Ads)
 * [Reward Ads](#Reward-Ads)
+* [Remote Config Ads](#Remote-Config-Ads)
 
 Setup
 ======================
@@ -227,7 +228,7 @@ Interstitial Ads
 ======================
 Load interstitial ads
 ```
-ProxAds.instance.initInterstitial(activity: Activity, adId: String, colonyZoneId: String, tag: String)
+ProxAds.instance.initInterstitial(activity: Activity, adId: String, colonyZoneId: String?, tag: String)
 ```
 
 Show interstitial ads
@@ -353,13 +354,6 @@ Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/
 <dimen name="ads_btn_padding_bottom">4dp</dimen>
 ```
 
-### Each native ad separately
-```
-ProxAds.instance.showSmallNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
-ProxAds.instance.showMediumNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
-ProxAds.instance.showBigNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
-```
-
 Reward Ads
 ======================
 Load reward ads
@@ -390,4 +384,105 @@ ProxAds.instance.showRewardAds(
               	}
     	}
 )
+```
+
+Remote Config Ads
+======================
+Setting on Remote Config
+```
+Parameter name (key): config_ads
+Data type: String
+Default value:
+	{
+  		"status": true,
+  		"status_open_ads": true,
+  		"splash": {
+    			"status": true,
+    			"time": 10000
+  		},
+  		"banners": [
+    			{
+      				"status": true,
+      				"locations": [
+      					"banner_splash",
+      					"banner_click_1"
+      				]
+    			},
+    			{
+      				"status": false,
+      				"locations": [
+      					"banner_click_2",
+        				"banner_click_3"
+      				]
+    			}
+  		],
+  		"interstitials": [
+    			{
+      				"status": true,
+      				"locations": [
+        				"inter_click_1",
+        				"inter_click_3"
+      				],
+      				"time": 2
+    			},
+    			{
+      				"status": true,
+      				"locations": [
+        				"inter_click_2"
+      				],
+      				"time": 5
+    			}
+  		],
+  		"natives": [
+    			{
+      				"status": true,
+      				"locations": [
+        				"native_splash",
+        				"native_click_1"
+      				],
+      				"style": 1
+    			},
+    			{
+      				"status": true,
+      				"locations": [
+        				"native_click_2"
+      				],
+      				"style": 15
+    			},
+    			{
+      				"status": true,
+      				"locations": [
+        				"native_click_3"
+      				],
+      				"style": 19
+    			}
+  		]
+	}
+```
+
+Need to add this line to your first Activity to set up ads:
+```
+ProxAdsConfig.instance.init(activity: AppCompatActivity)
+//ProxAds.instance.initInterstitial(activity: Activity, adId: String, colonyZoneId: String?, tag: String)
+//...
+```
+
+Show Splash Ads
+```
+ProxAdsConfig.instance.showSplashIfNecessary(activity: Activity, googleAdsId: String, callback: AdsCallback)
+```
+
+Show Banner Ads
+```
+ProxAdsConfig.instance.showBannerIfNecessary(activity: Activity, container: FrameLayout, location: String, adId: String, callback: AdsCallback)
+```
+
+Show Interstitial Ads
+```
+ProxAdsConfig.instance.showInterstitialIfNecessary(activity: Activity, location: String, tag: String, callback: AdsCallback)
+```
+
+Show Native Ads
+```
+ProxAdsConfig.instance.showNativeIfNecessary(activity: Activity, container: FrameLayout, location: String, adId: String, callback: AdsCallback)
 ```
