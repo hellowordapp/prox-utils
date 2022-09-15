@@ -10,7 +10,7 @@ class Ads {
     var status_open_ads = false
 
     @SerializedName("splash")
-    var splash: Interstitial? = null
+    var splash: SplashInterstitial? = null
 
     @SerializedName("banners")
     var banners: Array<Banner>? = null

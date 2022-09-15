@@ -45,25 +45,28 @@ class ProxAdsConfig {
 
         //Splash ads
         statusSplash = config.splash?.status ?: false
-        timeoutSplash = config.splash?.time ?: 0
+        timeoutSplash = config.splash?.timeout ?: 0
 
         //Banner ads
         config.banners?.forEach {
-            if (it.locations == null) return@forEach
-            locationStorage[it.locations!!] = if (it.status) -1 else null
+            if (it.id_show_ads != null) {
+                locationStorage[it.id_show_ads!!] = if (it.status) -1 else null
+            }
         }
 
         //Interstitial ads
         config.interstitials?.forEach {
-            if (it.locations == null) return@forEach
-            locationStorage[it.locations!!] = if (it.status) it.time else null
-            numberClick[it.locations!!] = 0
+            if (it.id_show_ads != null) {
+                locationStorage[it.id_show_ads!!] = if (it.status) it.count_click else null
+                numberClick[it.id_show_ads!!] = 0
+            }
         }
 
         //Native ads
         config.natives?.forEach {
-            if (it.locations == null) return@forEach
-            locationStorage[it.locations!!] = if (it.status) it.style else null
+            if (it.id_show_ads != null){
+                locationStorage[it.id_show_ads!!] = if (it.status) it.style else null
+            }
         }
     }
 
@@ -82,25 +85,25 @@ class ProxAdsConfig {
     fun showBannerIfNecessary(
         activity: Activity,
         container: FrameLayout,
-        location: String,
+        id_show_ads: String,
         adId: String,
         callback: AdsCallback
     ) {
-        var locations: Array<String>? = null
+        var id: Array<String>? = null
 
         locationStorage.keys.forEach {
-            if (it.contains(location)) {
-                locations = it
+            if (it.contains(id_show_ads)) {
+                id = it
                 return@forEach
             }
         }
-        if (locations == null || locationStorage[locations] == null) {
+        if (id == null || locationStorage[id] == null) {
             container.visibility = View.GONE
             callback.onError()
             return
         }
 
-        if (locationStorage[locations]!! == -1) {
+        if (locationStorage[id]!! == -1) {
             ProxAds.instance.showBanner(activity, container, adId, callback)
         } else {
             container.visibility = View.GONE
@@ -113,29 +116,29 @@ class ProxAdsConfig {
 
     fun showInterstitialIfNecessary(
         activity: Activity,
-        location: String,
+        id_show_ads: String,
         tag: String,
         callback: AdsCallback
     ) {
-        var locations: Array<String>? = null
+        var id: Array<String>? = null
 
         locationStorage.keys.forEach {
-            if (it.contains(location)) {
-                locations = it
+            if (it.contains(id_show_ads)) {
+                id = it
                 return@forEach
             }
         }
-        if (locations == null
-            || numberClick[locations] == null
-            || locationStorage[locations] == null
-            || locationStorage[locations]!! <= 0
+        if (id == null
+            || numberClick[id] == null
+            || locationStorage[id] == null
+            || locationStorage[id]!! <= 0
         ) {
             callback.onError()
             return
         }
-        numberClick[locations!!] = numberClick[locations!!]!! + 1
+        numberClick[id!!] = numberClick[id!!]!! + 1
 
-        if (numberClick[locations]!! % locationStorage[locations]!! == 0) {
+        if (numberClick[id]!! % locationStorage[id]!! == 0) {
             ProxAds.instance.showInterstitial(activity, tag, callback)
         } else {
             callback.onError()
@@ -146,29 +149,29 @@ class ProxAdsConfig {
     fun showNativeIfNecessary(
         activity: Activity,
         container: FrameLayout,
-        location: String,
+        id_show_ads: String,
         adId: String,
         callback: AdsCallback,
         styleButtonAds: Int = ProxAds.NATIVE_DEFAULT
     ) {
-        var locations: Array<String>? = null
+        var id: Array<String>? = null
 
         locationStorage.keys.forEach {
-            if (it.contains(location)) {
-                locations = it
+            if (it.contains(id_show_ads)) {
+                id = it
                 return@forEach
             }
         }
-        if (locations == null
-            || locationStorage[locations] == null
-            || locationStorage[locations]!! <= 0
+        if (id == null
+            || locationStorage[id] == null
+            || locationStorage[id]!! <= 0
         ) {
             container.visibility = View.GONE
             callback.onError()
             return
         }
 
-        when (locationStorage[locations]!!) {
+        when (locationStorage[id]!!) {
             1 -> ProxAds.instance.showBigNativeWithShimmerStyle1(
                 activity,
                 adId,
