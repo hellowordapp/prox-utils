@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import com.proxglobal.proxads.R
 
 class ProxRateDialog : DialogFragment {
@@ -54,8 +55,11 @@ class ProxRateDialog : DialogFragment {
 
     @SuppressLint("CutPasteId")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        mConfig = mDialog!!.mConfig
-        layoutId = mDialog!!.layoutId
+        if (mDialog != null) {
+            mConfig = mDialog!!.mConfig
+            layoutId = mDialog!!.layoutId
+        }
+
         val builder = AlertDialog.Builder(requireActivity())
         val inflater = requireActivity().layoutInflater
         mView = inflater.inflate(layoutId, null)
@@ -167,7 +171,8 @@ class ProxRateDialog : DialogFragment {
                 ) { dialog, _ -> dialog.dismiss() }
                 alertDialog.show()
             } else {
-                if (sp == null) sp = requireContext().getSharedPreferences("prox", Context.MODE_PRIVATE)
+                if (sp == null) sp =
+                    requireContext().getSharedPreferences("prox", Context.MODE_PRIVATE)
                 sp!!.edit().putBoolean("isRated", true).apply()
                 val alertDialog = AlertDialog.Builder(requireActivity()).create()
                 alertDialog.setTitle(getString(R.string._thanks))
@@ -177,18 +182,18 @@ class ProxRateDialog : DialogFragment {
                     getString(R.string._ok)
                 ) { dialog, _ ->
                     dialog.dismiss()
-                    mConfig.getListener()!!.onDone()
+                    mConfig.getListener()?.onDone()
                 }
                 dismiss()
                 alertDialog.show()
-                mConfig.getListener()!!.onSubmitButtonClicked(
+                mConfig.getListener()?.onSubmitButtonClicked(
                     starRate,
                     mView.findViewById<EditText>(R.id.comment).text.toString()
                 )
             }
         }
         layoutLater.setOnClickListener {
-            mConfig.getListener()!!.onLaterButtonClicked()
+            mConfig.getListener()?.onLaterButtonClicked()
             dismiss()
         }
 
@@ -208,7 +213,7 @@ class ProxRateDialog : DialogFragment {
 
     private fun hideKeyboard(mView: View) {
         val inputMethodManager =
-            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(mView.windowToken, 0)
     }
 
@@ -319,7 +324,7 @@ class ProxRateDialog : DialogFragment {
          */
         fun showAlways(context: Context, fm: FragmentManager) {
             if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE)
-            mDialog!!.show(fm, "prox")
+            mDialog?.show(fm, "prox")
         }
 
         /**
@@ -330,9 +335,9 @@ class ProxRateDialog : DialogFragment {
         fun showIfNeed(context: Context, fm: FragmentManager) {
             if (sp == null) sp = context.getSharedPreferences("prox", Context.MODE_PRIVATE)
             if (!isRated(context)) {
-                mDialog!!.show(fm, "prox")
+                mDialog?.show(fm, "prox")
             } else {
-                mDialog!!.mConfig.getListener()!!.onRated()
+                mDialog?.mConfig?.getListener()?.onRated()
             }
         }
     }
