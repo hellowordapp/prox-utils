@@ -23,14 +23,28 @@ allprojects {
 		jcenter()
 		maven { url 'https://jitpack.io' }
 		maven { url "https://android-sdk.is.com" }
+		maven{
+			url "${artifactory_contextUrl}"
+			credentials{
+				username = "${artifactory_user}"
+				password = "${artifactory_password}"
+			}
+		}
 	}
 }
+```
+
+Add the following to your project's gradle.properties file
+```
+artifactory_user=<user>
+artifactory_password=<password>
+artifactory_contextUrl=<contextUrl>
 ```
 
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:2.2.1-max'
+	implementation "prox-lib:prox-utils-max:2.2.3"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -343,7 +357,7 @@ Native small 21 | <img src="https://github.com/ntduc-let/image_readme_github/blo
 
 Load and show native medium ads
 ```
-ProxAds.instance.showMediumNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+ProxAds.instance.showMediumNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
 	override fun onShow() {
 		super.onShow()
                 `//TO-DO`
@@ -368,7 +382,7 @@ Native medium 19 | <img src="https://github.com/ntduc-let/image_readme_github/bl
 
 Load and show native big ads
 ```
-ProxAds.instance.showBigNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+ProxAds.instance.showBigNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
 	override fun onShow() {
 		super.onShow()
                 `//TO-DO`
@@ -395,9 +409,7 @@ Native big 7 | <img src="https://github.com/ntduc-let/image_readme_github/blob/m
 Native big 11 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2011.png"> | Native big 12 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2012.png"> | Native big 13 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2013.png">
 Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2014.png"> |
 
-## Customize native ads
-
-### All native ads
+## Customize all native ads
 ```
 <color name="ads_text_color">@color/black</color>
 <color name="ads_border_color">#C4CDE0</color>
@@ -411,9 +423,110 @@ Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/
 <dimen name="ads_btn_padding_bottom">4dp</dimen>
 ```
 
-### Each native ad separately
+Remote Config Ads
+======================
+Setting on Remote Config
 ```
-ProxAds.getInstance().showSmallNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
-ProxAds.getInstance().showMediumNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
-ProxAds.getInstance().showBigNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, styleButtonAds: Int, callback: AdsCallback)
+Parameter name (key): config_ads
+Data type: String
+Default value:
+	{
+  		"status": true,
+  		"status_open_ads": true,
+  		"splash": {
+    			"status": true,
+    			"timeout": 10000
+  		},
+  		"banners": [
+    			{
+      				"description": "Banner màn Test Splash và màn Test Interstitial Click 1",
+      				"id_show_ads": [
+      					"banner_splash",
+      					"banner_click_"
+      				],
+      				"status": true
+    			},
+    			{
+      				"description": "Banner màn Test Interstitial Click 2 và 3",
+      				"id_show_ads": [
+      					"banner_click_2",
+        				"banner_click_3"
+      				],
+      				"status": false
+    			}
+  		],
+  		"interstitials": [
+    			{
+      				"description": "Interstitial khi click vào Test Interstitial Click 1 và 3",
+      				"id_show_ads": [
+        				"inter_click_1"
+      				],
+      				"count_click": 3,
+      				"status": true
+    			},
+    			{
+      				"description": "Interstitial khi click vào Test Interstitial Click 2",
+      				"id_show_ads": [
+        				"inter_click_2",
+        				"inter_click_3"
+      				],
+      				"count_click": 5,
+      				"status": true
+    			}
+  		],
+  		"natives": [
+    			{
+      				"description": "Native màn Test Splash và màn Test Interstitial Click 1",
+      				"id_show_ads": [
+        				"native_splash",
+        				"native_click_1"
+      				],
+      				"style": 1,
+      				"status": true
+    			},
+    			{
+      				"description": "Native màn Test Interstitial Click 2",
+      				"id_show_ads": [
+        				"native_click_2"
+      				],
+      				"style": 15,
+      				"status": true
+    			},
+    			{
+      				"description": "Native màn Test Interstitial Click 3",
+      				"id_show_ads": [
+        				"native_click_3"
+      				],
+      				"style": 19,
+      				"status": true
+    			}
+  		]
+	}
+```
+
+Need to add this line to your first Activity to set up ads:
+```
+ProxAdsConfig.instance.init()
+//ProxAds.instance.initInterstitialMax(activity: Activity, adId: String, tag: String)
+//...
+```
+
+Show Splash Ads
+```
+ProxAdsConfig.instance.showSplashIfNecessary(activity: Activity, adId: String, callback: AdsCallback)
+```
+
+Show Banner Ads
+```
+ProxAdsConfig.instance.showBannerIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
+```
+
+Show Interstitial Ads
+```
+ProxAdsConfig.instance.showInterstitialIfNecessary(activity: Activity, id_show_ads: String, tag: String, callback: AdsCallback)
+```
+
+Show Native Ads
+```
+ProxAdsConfig.instance.showNativeIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
 ```
