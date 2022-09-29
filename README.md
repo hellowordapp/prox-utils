@@ -353,9 +353,7 @@ Native big 7 | <img src="https://github.com/ntduc-let/image_readme_github/blob/m
 Native big 11 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2011.png"> | Native big 12 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2012.png"> | Native big 13 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2013.png">
 Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2014.png"> |
 
-## Customize native ads
-
-### All native ads
+## Customize all native ads
 ```
 <color name="ads_text_color">@color/black</color>
 <color name="ads_border_color">#C4CDE0</color>
