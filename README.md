@@ -224,7 +224,7 @@ AppOpenManager.getInstance().disableOpenAds()/AppOpenManager.getInstance().enabl
 Banner Ads
 ======================
 ```
-ProxAds.instance.showBanner(activity: Activity, container: FrameLayout?, adId: String?, object : AdsCallback() {
+ProxAds.instance.showBanner(activity: Activity, container: FrameLayout, adId: String, object : AdsCallback() {
 	override fun onShow() {
                 `//TO-DO`
 	}
