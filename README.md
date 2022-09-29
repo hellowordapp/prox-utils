@@ -12,6 +12,7 @@ Prox Utils
 * [Banner Ads](#Banner-Ads)
 * [Interstitial Ads](#Interstitial-Ads)
 * [Native Ads](#Native-Ads)
+* [Remote Config Ads](#Remote-Config-Ads)
 
 Setup
 ======================
