@@ -41,7 +41,6 @@ Add the following to your project's gradle.properties file
 artifactory_user=<user>
 artifactory_password=<password>
 artifactory_contextUrl=<contextUrl>
-
 ```
 
 Add the following to your project's build.gradle file
