@@ -24,14 +24,30 @@ allprojects {
 		...
 		jcenter()
 		maven { url 'https://jitpack.io' }
+		maven{
+			url "${artifactory_contextUrl}"
+			credentials{
+				username = "${artifactory_user}"
+				password = "${artifactory_password}"
+			}
+		}
+
 	}
 }
+```
+
+Add the following to your project's gradle.properties file
+```
+artifactory_user=<user>
+artifactory_password=<password>
+artifactory_contextUrl=<contextUrl>
+
 ```
 
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation 'com.github.hellowordapp:prox-utils:1.3.5'
+	implementation "prox-lib:prox-utils-admob:1.3.9"
 }
 ```
 
@@ -269,7 +285,7 @@ Native Ads
 ======================
 Load and show native small ads
 ```
-ProxAds.instance.showSmallNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+ProxAds.instance.showSmallNativeWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
 	override fun onShow() {
                 `//TO-DO`
 	}
@@ -292,7 +308,7 @@ Native small 21 | <img src="https://github.com/ntduc-let/image_readme_github/blo
 
 Load and show native medium ads
 ```
-ProxAds.instance.showMediumNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+ProxAds.instance.showMediumNativeWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
 	override fun onShow() {
                 `//TO-DO`
 	}
@@ -314,7 +330,7 @@ Native medium 19 | <img src="https://github.com/ntduc-let/image_readme_github/bl
 
 Load and show native big ads
 ```
-ProxAds.instance.showBigNativeWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
+ProxAds.instance.showBigNativeWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
 	override fun onShow() {
                 `//TO-DO`
 	}
@@ -398,63 +414,70 @@ Default value:
   		"status_open_ads": true,
   		"splash": {
     			"status": true,
-    			"time": 10000
+    			"timeout": 10000
   		},
   		"banners": [
     			{
-      				"status": true,
-      				"locations": [
+      				"description": "Banner màn Test Splash và màn Test Interstitial Click 1",
+      				"id_show_ads": [
       					"banner_splash",
-      					"banner_click_1"
-      				]
+      					"banner_click_"
+      				],
+      				"status": true
     			},
     			{
-      				"status": false,
-      				"locations": [
+      				"description": "Banner màn Test Interstitial Click 2 và 3",
+      				"id_show_ads": [
       					"banner_click_2",
         				"banner_click_3"
-      				]
+      				],
+      				"status": false
     			}
   		],
   		"interstitials": [
     			{
-      				"status": true,
-      				"locations": [
-        				"inter_click_1",
-        				"inter_click_3"
+      				"description": "Interstitial khi click vào Test Interstitial Click 1 và 3",
+      				"id_show_ads": [
+        				"inter_click_1"
       				],
-      				"time": 2
+      				"count_click": 3,
+      				"status": true
     			},
     			{
-      				"status": true,
-      				"locations": [
-        				"inter_click_2"
+      				"description": "Interstitial khi click vào Test Interstitial Click 2",
+      				"id_show_ads": [
+        				"inter_click_2",
+        				"inter_click_3"
       				],
-      				"time": 5
+      				"count_click": 5,
+      				"status": true
     			}
   		],
   		"natives": [
     			{
-      				"status": true,
-      				"locations": [
+      				"description": "Native màn Test Splash và màn Test Interstitial Click 1",
+      				"id_show_ads": [
         				"native_splash",
         				"native_click_1"
       				],
-      				"style": 1
+      				"style": 1,
+      				"status": true
     			},
     			{
-      				"status": true,
-      				"locations": [
+      				"description": "Native màn Test Interstitial Click 2",
+      				"id_show_ads": [
         				"native_click_2"
       				],
-      				"style": 15
+      				"style": 15,
+      				"status": true
     			},
     			{
-      				"status": true,
-      				"locations": [
+      				"description": "Native màn Test Interstitial Click 3",
+      				"id_show_ads": [
         				"native_click_3"
       				],
-      				"style": 19
+      				"style": 19,
+      				"status": true
     			}
   		]
 	}
@@ -462,7 +485,7 @@ Default value:
 
 Need to add this line to your first Activity to set up ads:
 ```
-ProxAdsConfig.instance.init(activity: AppCompatActivity)
+ProxAdsConfig.instance.init()
 //ProxAds.instance.initInterstitial(activity: Activity, adId: String, colonyZoneId: String?, tag: String)
 //...
 ```
