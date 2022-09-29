@@ -496,15 +496,15 @@ ProxAdsConfig.instance.showSplashIfNecessary(activity: Activity, googleAdsId: St
 
 Show Banner Ads
 ```
-ProxAdsConfig.instance.showBannerIfNecessary(activity: Activity, container: FrameLayout, location: String, adId: String, callback: AdsCallback)
+ProxAdsConfig.instance.showBannerIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
 ```
 
 Show Interstitial Ads
 ```
-ProxAdsConfig.instance.showInterstitialIfNecessary(activity: Activity, location: String, tag: String, callback: AdsCallback)
+ProxAdsConfig.instance.showInterstitialIfNecessary(activity: Activity, id_show_ads: String, tag: String, callback: AdsCallback)
 ```
 
 Show Native Ads
 ```
-ProxAdsConfig.instance.showNativeIfNecessary(activity: Activity, container: FrameLayout, location: String, adId: String, callback: AdsCallback)
+ProxAdsConfig.instance.showNativeIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
 ```
