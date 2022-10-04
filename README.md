@@ -12,6 +12,7 @@ Prox Utils
 * [Banner Ads](#Banner-Ads)
 * [Interstitial Ads](#Interstitial-Ads)
 * [Native Ads](#Native-Ads)
+* [Reward Ads](#Reward-Ads)
 * [Remote Config Ads](#Remote-Config-Ads)
 
 Setup
@@ -422,6 +423,38 @@ Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/
 <dimen name="ads_btn_padding_right">16dp</dimen>
 <dimen name="ads_btn_padding_top">4dp</dimen>
 <dimen name="ads_btn_padding_bottom">4dp</dimen>
+```
+
+Reward Ads
+======================
+Load reward ads
+```
+ProxAds.instance.initRewardMax(activity: Activity, adsId: String, tag: String)
+```
+
+Show reward ads
+```
+ProxAds.instance.showRewardMax(
+	activity: Activity,
+	tag: String,
+	object : AdsCallback() {
+        	override fun onShow() {
+                	`//TO-DO`
+             	}
+
+          	override fun onClosed() {
+                        `//TO-DO`
+           	}
+
+         	override fun onError() {
+                        `//TO-DO`
+     		}
+    	}, object : RewardCallback() {
+         	override fun getReward(amount: Int, type: String) {
+                        `//TO-DO`
+              	}
+    	}
+)
 ```
 
 Remote Config Ads
