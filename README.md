@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.2.3"
+	implementation "prox-lib:prox-utils-max:2.2.4"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
