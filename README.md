@@ -159,7 +159,7 @@ config.listener = object : RatingDialogListener() {
 	override fun onDone() {
                 `//TO-DO`
 	}
-})
+}
 ProxRateDialog.init(config)
 ```
 
