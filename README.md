@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.3.2"
+	implementation "prox-lib:prox-utils-max:2.3.3"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -94,6 +94,25 @@ If you use the mediation with Admob, add APPLICATION_ID of Admob to AndroidManif
 <meta-data
     android:name="com.google.android.gms.ads.APPLICATION_ID"
     android:value="YOUR_APP_ID_HERE" />
+```
+
+If you use Ad Review, add the following to your build.gradle files:
+```
+//Additions to Root-Level build.gradle File
+buildscript {
+    repositories {
+        maven { url 'https://artifacts.applovin.com/android' }
+    }
+    dependencies {
+        classpath "com.applovin.quality:AppLovinQualityServiceGradlePlugin:+"
+    }
+}
+
+//Additions to App-Level build.gradle File
+apply plugin: 'applovin-quality-service'
+applovin {
+       apiKey "YOUR_AD_REVIEW_KEY_HERE"
+}
 ```
 
 Initialize the SDK inside your application
