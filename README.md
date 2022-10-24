@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.2.8"
+	implementation "prox-lib:prox-utils-max:2.3.2"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -199,7 +199,8 @@ config.listener = object : RatingDialogListener() {
                 `//TO-DO`
 	}
 }
-ProxRateDialog.init(config)
+ProxRateDialog.init()
+ProxRateDialog.setConfig(config)
 ```
 
 Show dialog rate
