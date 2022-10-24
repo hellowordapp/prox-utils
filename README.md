@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-admob:1.4.2"
+	implementation "prox-lib:prox-utils-admob:1.4.4"
 }
 ```
 
@@ -160,7 +160,8 @@ config.listener = object : RatingDialogListener() {
                 `//TO-DO`
 	}
 }
-ProxRateDialog.init(config)
+ProxRateDialog.init()
+ProxRateDialog.setConfig(config)
 ```
 
 Show dialog rate
