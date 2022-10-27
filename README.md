@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.3.3"
+	implementation "prox-lib:prox-utils-max:2.3.6"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -277,7 +277,7 @@ disableOpenAdsAt(MainActivity::class.java)
 ```
 Disable/Enable open ads
 ```
-MaxOpenAds.instance.disableOpenAds()/MaxOpenAds.instance.enableOpenAds()
+AppOpenManager.instance.disableOpenAds()/AppOpenManager.instance.enableOpenAds()
 ```
 
 Banner Ads
