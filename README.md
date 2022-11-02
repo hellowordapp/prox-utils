@@ -46,7 +46,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-admob:1.4.4"
+	implementation "prox-lib:prox-utils-admob:1.4.5"
 }
 ```
 
