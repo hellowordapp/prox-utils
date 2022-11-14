@@ -45,7 +45,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.4.3.1"
+	implementation "prox-lib:prox-utils-max:2.4.4"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -377,11 +377,20 @@ ProxAds.instance.showCustomNative(
 
 Load native ads but not showing immediately
 ```
-//Load
+//Load Native
 ProxAds.instance.initNativeAds(
-	activity: Activity,
-	@LayoutRes layoutAdId: Int,
-	adId: String
+        activity: Activity,
+        adsId: String,
+        @NativeStyle style: Int,
+        preloads: Int = 1
+)
+
+//Load Custom Native
+ProxAds.instance.initCustomNativeAds(
+        activity: Activity,
+        @LayoutRes layoutAdId: Int,
+        adsId: String,
+        preloads: Int = 1
 )
 
 //Show
@@ -391,8 +400,9 @@ ProxAds.instance.showNativeAds(
 	callback: AdsCallback
 )
 
+//Remove
+ProxAds.instance.removeNativeAds(adId: String)
 ```
-
 
 Reward Ads
 ======================
@@ -411,11 +421,7 @@ ProxAds.instance.showRewardAds(
 	activity: Activity,
 	adsId: String,
 	callback: AdsCallback,
-	object : RewardCallback() {
-         	override fun getReward(amount: Int, type: String) {
-                        `//TO-DO`
-              	}
-    	}
+	orewardCallback: RewardCallback
 )
 ```
 
@@ -555,7 +561,7 @@ ProxAdsConfig.instance.init()
 
 Show Splash Ads
 ```
-ProxAdsConfig.instance.showSplashIfNecessary(
+ProxAdsConfig.instance.showSplashAds(
 	activity: Activity,
 	adId: String,
 	callback: AdsCallback
@@ -564,7 +570,7 @@ ProxAdsConfig.instance.showSplashIfNecessary(
 
 Show Banner Ads
 ```
-ProxAdsConfig.instance.showBannerIfNecessary(
+ProxAdsConfig.instance.showBannerAds(
 	activity: Activity,
 	container: FrameLayout,
 	id_show_ads: String,
@@ -575,7 +581,7 @@ ProxAdsConfig.instance.showBannerIfNecessary(
 
 Show Interstitial Ads
 ```
-ProxAdsConfig.instance.showInterstitialIfNecessary(
+ProxAdsConfig.instance.showInterstitialAds(
 	activity: Activity,
 	id_show_ads: String,
 	adsId: String,
@@ -585,7 +591,7 @@ ProxAdsConfig.instance.showInterstitialIfNecessary(
 
 Show Native Ads
 ```
-ProxAdsConfig.instance.showNativeIfNecessary(
+ProxAdsConfig.instance.showNativeAds(
 	activity: Activity,
 	container: FrameLayout,
 	id_show_ads: String,
@@ -598,7 +604,7 @@ ProxAdsConfig.instance.showNativeIfNecessary(
 
 Show Reward Ads
 ```
-ProxAdsConfig.instance.showRewardIfNecessary(
+ProxAdsConfig.instance.showRewardAds(
 	activity: Activity,
 	id_show_ads: String,
 	adsId: String,
