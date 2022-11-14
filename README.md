@@ -22,7 +22,6 @@ Add the following to your project's root build.gradle file
 allprojects {
 	repositories {
 		...
-		jcenter()
 		maven { url 'https://jitpack.io' }
 		maven { url "https://android-sdk.is.com" }
 		maven{
@@ -46,7 +45,7 @@ artifactory_contextUrl=<contextUrl>
 Add the following to your project's build.gradle file
 ```
 dependencies {
-	implementation "prox-lib:prox-utils-max:2.3.9"
+	implementation "prox-lib:prox-utils-max:2.4.3.1"
 }
 ```
 Add the configuration to your application attribute in your application manifest AndroidManifest.xml
@@ -143,7 +142,13 @@ Default value:
 
 Need to add this line to your MainActivity to push users to update your app:
 ```
-ProxUtils.INSTANCE.initFirebaseRemoteConfig(AppCompatActivity activity, int appVersionCode, boolean isDebug, int iconAppId, String appName)
+ProxUtils.INSTANCE.initFirebaseRemoteConfig(
+	activity = this,
+	appVersionCode = BuildConfig.VERSION_CODE,
+	isDebug = BuildConfig.DEBUG,
+	iconAppId = R.drawable.ic_app,
+	appName = getString(R.string.app_name)
+)
 ```
 
 Survey
@@ -176,7 +181,10 @@ Default value:
 
 Add this line to your Activity to ask users to survey your app:
 ```
-ProxSurveyConfig().showSurveyIfNecessary(activity: AppCompatActivity, isDebug: Boolean)
+ProxSurveyConfig().showSurveyIfNecessary(
+	activity = this,
+	isDebug = BuildConfig.DEBUG
+)
 ```
 
 Style Survey
@@ -283,192 +291,127 @@ AppOpenManager.instance.disableOpenAds()/AppOpenManager.instance.enableOpenAds()
 Banner Ads
 ======================
 ```
-ProxAds.instance.showBannerMax(activity: Activity, container: FrameLayout?, adId: String?, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-})
+ProxAds.instance.showBannerAds(
+	activity: Activity,
+	container: FrameLayout,
+	adId: String,
+	callback: AdsCallback
+)
 ```
 
 Interstitial Ads
 ======================
 Load interstitial ads
 ```
-ProxAds.instance.initInterstitialMax(activity: Activity, adId: String, tag: String)
+ProxAds.instance.initInterstitialAds(
+	activity: Activity,
+	adId: String,
+	numberReload: Int = 1
+)
 ```
 
 Show interstitial ads
 ```
-ProxAds.instance.showInterstitialMax(activity: Activity, tag: String, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-})
+ProxAds.instance.showInterstitialAds(
+	activity: Activity,
+	adsId: String,
+	callback: AdsCallback
+)
 ```
 
 Load and show Splash ads
 ```
-ProxAds.instance.showSplashMax(activity: Activity, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-}, adId: String, timeout: Int)
+ProxAds.instance.showSplashAds(
+	activity: Activity,
+	adsId: String,
+	timeout: Int,
+	callback: AdsCallback
+)
 ```
 
 Native Ads
 ======================
-Load and show native small ads
+Load and show native ads
 ```
-ProxAds.instance.showSmallNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String?, adContainer: FrameLayout?, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-})
+ProxAds.instance.showNativeAds(
+	activity: Activity,
+	container: FrameLayout,
+	adId: String,
+	@NativeStyle style: Int,
+	callback: AdsCallback, 
+	numberReload: Int = 1
+)
 ```
 
 Style native small
 Style | Demo | Style | Demo
 --- | --- | --- | ---
-Native small 15 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2015.png"> | Native small 16 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2016.png">
-Native small 21 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2021.png"> | Native small 22 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2022.png">
-
-Load and show native medium ads
-```
-ProxAds.instance.showMediumNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-})
-```
+SMALL_15 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2015.png"> | SMALL_16 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2016.png">
+SMALL_21 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2021.png"> | SMALL_22 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Small%20Ad%20Style%2022.png">
 
 Style native medium
 Style | Demo | Style | Demo
 --- | --- | --- | ---
-Native medium 19 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Medium%20Ad%20Style%2019.png"> | Native medium 20 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Medium%20Ad%20Style%2020.png">
-
-Load and show native big ads
-```
-ProxAds.instance.showBigNativeMaxWithShimmerStyle<select_style>(activity: Activity, adId: String, adContainer: FrameLayout, object : AdsCallback() {
-	override fun onShow() {
-		super.onShow()
-                `//TO-DO`
-	}
-
-	override fun onClosed() {
-                super.onClosed()
-                `//TO-DO`
-	}
-
-	override fun onError() {
-                super.onError()
-                `//TO-DO`
-	}
-})
-```
+MEDIUM_19 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Medium%20Ad%20Style%2019.png"> | MEDIUM_20 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Medium%20Ad%20Style%2020.png">
 
 Style native big
 Style | Demo | Style | Demo | Style | Demo
 --- | --- | --- | --- | --- | ---
-Native big 1 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%201.png"> | Native big 2 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%202.png"> | Native big 3 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%203.png">
-Native big 4 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%204.png"> | Native big 5 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%205.png"> | Native big 6 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%206.png">
-Native big 7 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%207.png"> | Native big 9 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%209.png"> | Native big 10 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2010.png">
-Native big 11 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2011.png"> | Native big 12 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2012.png"> | Native big 13 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2013.png">
-Native big 14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2014.png"> |
+BIG_1 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%201.png"> | BIG_2 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%202.png"> | BIG_3 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%203.png">
+BIG_4 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%204.png"> | BIG_5 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%205.png"> | BIG_6 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%206.png">
+BIG_7 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%207.png"> | BIG_9 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%209.png"> | BIG_10 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2010.png">
+BIG_11 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2011.png"> | BIG_12 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2012.png"> | BIG_13 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2013.png">
+BIG_14 | <img src="https://github.com/ntduc-let/image_readme_github/blob/master/Native%20Big%20Ad%20Style%2014.png"> |
 
-## Customize all native ads
+Load and show custom native ads
 ```
-<color name="ads_text_color">@color/black</color>
-<color name="ads_border_color">#C4CDE0</color>
-<color name="ads_btn_background_tint">#2471ff</color>
-<color name="ads_btn_text_color">#ffffffff</color>
-<color name="ads_btn_ripple_color">#ffffffff</color>
-<dimen name="ads_btn_radius">0dp</dimen>
-<dimen name="ads_btn_padding_left">16dp</dimen>
-<dimen name="ads_btn_padding_right">16dp</dimen>
-<dimen name="ads_btn_padding_top">4dp</dimen>
-<dimen name="ads_btn_padding_bottom">4dp</dimen>
+ProxAds.instance.showCustomNative(
+	activity: Activity,
+	container: FrameLayout,
+	@LayoutRes layoutAdId: Int,
+	adId: String,
+	callback: AdsCallback, 
+	numberReload: Int = 1
+)
 ```
+
+Load native ads but not showing immediately
+```
+//Load
+ProxAds.instance.initNativeAds(
+	activity: Activity,
+	@LayoutRes layoutAdId: Int,
+	adId: String
+)
+
+//Show
+ProxAds.instance.showNativeAds(
+	activity: Activity,
+	container: FrameLayout,
+	callback: AdsCallback
+)
+
+```
+
 
 Reward Ads
 ======================
 Load reward ads
 ```
-ProxAds.instance.initRewardMax(activity: Activity, adsId: String, tag: String)
+ProxAds.instance.initRewardAds(
+	activity: Activity,
+	adsId: String,
+	numberReload: Int = 1
+)
 ```
 
 Show reward ads
 ```
-ProxAds.instance.showRewardMax(
+ProxAds.instance.showRewardAds(
 	activity: Activity,
-	tag: String,
-	object : AdsCallback() {
-        	override fun onShow() {
-                	`//TO-DO`
-             	}
-
-          	override fun onClosed() {
-                        `//TO-DO`
-           	}
-
-         	override fun onError() {
-                        `//TO-DO`
-     		}
-    	}, object : RewardCallback() {
+	adsId: String,
+	callback: AdsCallback,
+	object : RewardCallback() {
          	override fun getReward(amount: Int, type: String) {
                         `//TO-DO`
               	}
@@ -483,103 +426,183 @@ Setting on Remote Config
 Parameter name (key): config_ads
 Data type: String
 Default value:
-	{
-  		"status": true,
-  		"status_open_ads": true,
-  		"splash": {
-    			"status": true,
-    			"timeout": 10000
-  		},
-  		"banners": [
-    			{
-      				"description": "Banner màn Test Splash và màn Test Interstitial Click 1",
-      				"id_show_ads": [
-      					"banner_splash",
-      					"banner_click_"
-      				],
-      				"status": true
-    			},
-    			{
-      				"description": "Banner màn Test Interstitial Click 2 và 3",
-      				"id_show_ads": [
-      					"banner_click_2",
-        				"banner_click_3"
-      				],
-      				"status": false
-    			}
-  		],
-  		"interstitials": [
-    			{
-      				"description": "Interstitial khi click vào Test Interstitial Click 1 và 3",
-      				"id_show_ads": [
-        				"inter_click_1"
-      				],
-      				"count_click": 3,
-      				"status": true
-    			},
-    			{
-      				"description": "Interstitial khi click vào Test Interstitial Click 2",
-      				"id_show_ads": [
-        				"inter_click_2",
-        				"inter_click_3"
-      				],
-      				"count_click": 5,
-      				"status": true
-    			}
-  		],
-  		"natives": [
-    			{
-      				"description": "Native màn Test Splash và màn Test Interstitial Click 1",
-      				"id_show_ads": [
-        				"native_splash",
-        				"native_click_1"
-      				],
-      				"style": 1,
-      				"status": true
-    			},
-    			{
-      				"description": "Native màn Test Interstitial Click 2",
-      				"id_show_ads": [
-        				"native_click_2"
-      				],
-      				"style": 15,
-      				"status": true
-    			},
-    			{
-      				"description": "Native màn Test Interstitial Click 3",
-      				"id_show_ads": [
-        				"native_click_3"
-      				],
-      				"style": 19,
-      				"status": true
-    			}
-  		]
-	}
+{
+  "status": true,
+  "status_open_ads": false,
+  "splash": {
+    "status": false,
+    "timeout": 10000
+  },
+  "banners": [
+    {
+      "description": "Banner Screen 1",
+      "id_show_ads": [
+      	"id_banner_screen_1"
+      ],
+      "status": true
+    },
+    {
+      "description": "Banner Screen 2, 3",
+      "id_show_ads": [
+      	"id_banner_screen_2",
+        "id_banner_screen_3"
+      ],
+      "status": true
+    },
+    {
+      "description": "Banner Screen 4",
+      "id_show_ads": [
+      	"id_banner_screen_4"
+      ],
+      "status": false
+    },
+    {
+      "description": "Banner Screen 5, 6",
+      "id_show_ads": [
+      	"id_banner_screen_5",
+        "id_banner_screen_6"
+      ],
+      "status": false
+    }
+  ],
+  "interstitials": [
+    {
+      "description": "Interstitial Screen 1",
+      "id_show_ads": [
+        "id_inter_screen_1"
+      ],
+      "count_click": 3,
+      "first_show": false,
+      "status": true
+    },
+    {
+      "description": "Interstitial Screen 2, 3",
+      "id_show_ads": [
+        "id_inter_screen_2",
+        "id_inter_screen_3"
+      ],
+      "count_click": 5,
+      "first_show": true,
+      "status": true
+    }
+  ],
+  "natives": [
+    {
+      "description": "Native Screen 1",
+      "id_show_ads": [
+        "id_native_screen_1"
+      ],
+      "style": 1,
+      "status": true
+    },
+    {
+      "description": "Native Screen 2, 3",
+      "id_show_ads": [
+        "id_native_screen_2",
+        "id_native_screen_3"
+      ],
+      "style": 15,
+      "status": true
+    },
+    {
+      "description": "Native Screen 4",
+      "id_show_ads": [
+        "id_native_screen_4"
+      ],
+      "style": 19,
+      "status": false
+    },
+    {
+      "description": "Native Screen 5, 6",
+      "id_show_ads": [
+        "id_native_screen_5",
+        "id_native_screen_6"
+      ],
+      "style": 19,
+      "status": true
+    }
+  ],
+  "rewards": [
+    {
+      "description": "Reward Screen 4",
+      "id_show_ads": [
+        "id_reward_screen_4"
+      ],
+      "count_click": 3,
+      "first_show": false,
+      "status": true
+    },
+    {
+      "description": "Reward Screen 5, 6",
+      "id_show_ads": [
+        "id_reward_screen_5",
+        "id_reward_screen_6"
+      ],
+      "count_click": 5,
+      "first_show": true,
+      "status": true
+    }
+  ]
+}
 ```
 
 Need to add this line to your first Activity to set up ads:
 ```
 ProxAdsConfig.instance.init()
-//ProxAds.instance.initInterstitialMax(activity: Activity, adId: String, tag: String)
+//ProxAds.instance.initInterstitialAds(activity: Activity, adId: String)
 //...
 ```
 
 Show Splash Ads
 ```
-ProxAdsConfig.instance.showSplashIfNecessary(activity: Activity, adId: String, callback: AdsCallback)
+ProxAdsConfig.instance.showSplashIfNecessary(
+	activity: Activity,
+	adId: String,
+	callback: AdsCallback
+)
 ```
 
 Show Banner Ads
 ```
-ProxAdsConfig.instance.showBannerIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
+ProxAdsConfig.instance.showBannerIfNecessary(
+	activity: Activity,
+	container: FrameLayout,
+	id_show_ads: String,
+	adId: String,
+	callback: AdsCallback
+)
 ```
 
 Show Interstitial Ads
 ```
-ProxAdsConfig.instance.showInterstitialIfNecessary(activity: Activity, id_show_ads: String, tag: String, callback: AdsCallback)
+ProxAdsConfig.instance.showInterstitialIfNecessary(
+	activity: Activity,
+	id_show_ads: String,
+	adsId: String,
+	callback: AdsCallback
+)
 ```
 
 Show Native Ads
 ```
-ProxAdsConfig.instance.showNativeIfNecessary(activity: Activity, container: FrameLayout, id_show_ads: String, adId: String, callback: AdsCallback)
+ProxAdsConfig.instance.showNativeIfNecessary(
+	activity: Activity,
+	container: FrameLayout,
+	id_show_ads: String,
+	adId: String,
+	callback: AdsCallback,
+	numberReload: Int = 1,
+	@LayoutRes layoutCustomAdId: Int? = null
+)
+```
+
+Show Reward Ads
+```
+ProxAdsConfig.instance.showRewardIfNecessary(
+	activity: Activity,
+	id_show_ads: String,
+	adsId: String,
+	callback: AdsCallback,
+	rewardCallback: RewardCallback
+)
 ```
